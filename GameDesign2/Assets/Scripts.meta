@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 350c207b134d1c648b6d6d73027df172
+=======
+guid: 0b0aeca625ca6ed48a2ad1a4ea5ac215
+>>>>>>> Implemented melee weapon physics
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
