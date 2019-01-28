@@ -6,31 +6,55 @@ using UnityEngine;
 public class PlayerCombatController : MonoBehaviour, IDamageable
 {
     float HP = 100;
-    MonoBehaviour weapon;
-    MonoBehaviour weaponMonoBehaviour
+    [System.Serializable]
+    struct Weapon
+    {
+        public IWeapon weaponInterface;
+        public Item component;
+    }
+    [SerializeField]
+    Weapon weapon;
+
+    private void Awake()
+    {
+        if(weapon.component is IWeapon)
+        {
+            weapon.weaponInterface = (IWeapon) weapon.component;
+        }
+        else
+        {
+            Debug.LogError("Error: "+weapon.component+" does not implement IWeapon!");
+        }
+    }
+
+    public Item weaponGameObject
     {
         get
         {
-            return weapon;
+            return weapon.component;
         }
         set
         {
-            MonoBehaviour[] MBs = value.GetComponents<MonoBehaviour>();
-            foreach(MonoBehaviour mb in MBs)
+            Item[] MBs = value.GetComponents<Item>();
+            bool errorDetected = true;
+            foreach(Item mb in MBs)
             {
                 if(mb is IWeapon)
                 {
-                    weapon = value;
+                    weapon.weaponInterface = (IWeapon) mb;
+                    weapon.component = mb;
+                    errorDetected = false;
                 }
-                else
-                {
-                    Debug.LogWarning("Error: " + value + " does not implement IWeapon!");
-                }
+            }
+            if(errorDetected==true)
+            {
+                Debug.LogError("Error: " + value + " does not implement IWeapon!");
             }
 
             return;
         }
     }
+
     Vector2 attackDirection;
     Rigidbody2D rigidbody2d;
 
@@ -52,7 +76,6 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
             attackDirection = rigidbody2d.velocity;
 
         if (Input.GetButtonDown("Fire1"))
-            ((IWeapon) weapon).Attack(transform, attackDirection);
-
+            weapon.weaponInterface.Attack(transform, attackDirection);
     }
 }
