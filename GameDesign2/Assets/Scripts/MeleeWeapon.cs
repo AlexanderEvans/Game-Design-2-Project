@@ -27,6 +27,10 @@ class MeleeWeapon : Item, IWeapon
     {
         List<GameObject> objectsHit = new List<GameObject>();
         float endTime = Time.time + weaponProperties.hitDuration;
+        attackDirection.Normalize();
+        float angle = Vector2.SignedAngle(Vector2.right, attackDirection);
+
+
         while (Time.time < endTime)
         {
             RaycastHit2D[] hits;

@@ -11,14 +11,12 @@ class WeaponProperties
     public float weaponCooldown=1;
     [HideInInspector]
     public float currentCooldown=0;
-
 }
 
 interface IWeapon
 {
     void Attack(Transform parentTransform, Vector2 attackDirection);
 }
-
 
 interface IDamageable
 {
