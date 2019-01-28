@@ -9,7 +9,6 @@ class WeaponProperties
     public float hitDuration=1;
     public float damage=1;
     public float weaponCooldown=1;
-    [HideInInspector]
     public float currentCooldown=0;
 }
 
