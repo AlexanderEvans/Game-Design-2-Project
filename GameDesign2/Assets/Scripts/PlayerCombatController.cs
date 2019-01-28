@@ -3,11 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerCombatController : MonoBehaviour
+public class PlayerCombatController : MonoBehaviour, IDamageable
 {
-    IWeapon weapon = null;
+    float HP = 100;
+    MonoBehaviour weapon;
+    MonoBehaviour weaponMonoBehaviour
+    {
+        get
+        {
+            return weapon;
+        }
+        set
+        {
+            MonoBehaviour[] MBs = value.GetComponents<MonoBehaviour>();
+            foreach(MonoBehaviour mb in MBs)
+            {
+                if(mb is IWeapon)
+                {
+                    weapon = value;
+                }
+                else
+                {
+                    Debug.LogWarning("Error: " + value + " does not implement IWeapon!");
+                }
+            }
+
+            return;
+        }
+    }
     Vector2 attackDirection;
     Rigidbody2D rigidbody2d;
+
+    public void TakeDamage(float damage)
+    {
+        Mathf.Max(0, HP - damage);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +52,7 @@ public class PlayerCombatController : MonoBehaviour
             attackDirection = rigidbody2d.velocity;
 
         if (Input.GetButtonDown("Fire1"))
-            weapon.Attack(transform, attackDirection);
+            ((IWeapon) weapon).Attack(transform, attackDirection);
+
     }
 }
