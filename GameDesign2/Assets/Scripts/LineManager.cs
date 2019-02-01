@@ -10,27 +10,30 @@ class LineManager : MonoBehaviour
 
     List<LineRenderer> pool = new List<LineRenderer>();
 
-    public void removeLineStruct(LineRenderer temp)
+    public void removeLine(LineRenderer temp)
     {
-        lineRenderers.Remove(temp);
         pool.Add(temp);
+        lineRenderers.Remove(temp);
         temp.enabled = false;
     }
 
-    public LineRenderer getLineStruct()
+    public LineRenderer getLine()
     {
         LineRenderer temp;
         if (pool.Count==0)
         {
-            temp = gameObject.AddComponent<LineRenderer>();
+            GameObject tempObject = new GameObject();
+            tempObject.transform.parent = gameObject.transform;
+
+            temp = tempObject.AddComponent<LineRenderer>();
             lineRenderers.Add(temp);
         }
         else
         {
             temp = pool[0];
             pool.Remove(pool[0]);
-            temp.enabled = true;
             lineRenderers.Add(temp);
+            temp.enabled = true;
         }
         return temp;
     }

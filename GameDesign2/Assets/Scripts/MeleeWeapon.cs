@@ -7,12 +7,16 @@ class MeleeWeapon : Item, IWeapon
     public WeaponProperties weaponProperties = new WeaponProperties();
     [SerializeField]
     Material weaponFlashMaterial;
-    static GameObject lineContainer = new GameObject("Line Container");
+    static GameObject lineContainer;
+    static LineManager lineManager;
 
     private void Awake()
     {
-        if (lineContainer.GetComponent<LineManager>() == null)
-            lineContainer.AddComponent<LineManager>();
+        if (lineContainer == null)
+        {
+            lineContainer = new GameObject("Line Container");
+            lineManager = lineContainer.AddComponent<LineManager>();
+        }
     }
 
     void Update()
@@ -24,21 +28,8 @@ class MeleeWeapon : Item, IWeapon
     {
         if(weaponProperties.currentCooldown<=0)
         {
-            bool needIndex = true;
-            int newIndex = 0;
-            while(needIndex)
-            {
-                if (linerendererIndex.Contains(newIndex))
-                    newIndex++;
-                else
-                {
-                    if (newIndex >= lineRenderers.Count)
-                        lineRenderers.Add(new LineRenderer());
-                    linerendererIndex.Add(newIndex);
-                }
-            }
 
-            StartCoroutine(MeleeAttack(parentTransform, attackDirection, newIndex));
+            StartCoroutine(MeleeAttack(attackDirection));
             weaponProperties.currentCooldown = weaponProperties.weaponCooldown;
         }
 
@@ -46,38 +37,40 @@ class MeleeWeapon : Item, IWeapon
         return;
     }
 
-    IEnumerator MeleeAttack(Transform parentTransform, Vector2 attackDirection, int lineRendererIndex)
+    IEnumerator MeleeAttack(Vector2 attackDirection)
     {
         List<GameObject> objectsHit = new List<GameObject>();
         float endTime = Time.time + weaponProperties.hitDuration;
         attackDirection.Normalize();
         float angle = Vector2.SignedAngle(Vector2.right, attackDirection);
 
-        lineRenderers[lineRendererIndex].enabled = true;
-        lineRenderers[lineRendererIndex].endColor = Color.white;
-        lineRenderers[lineRendererIndex].startColor = Color.white;
-        lineRenderers[lineRendererIndex].startWidth = 1f;
-        lineRenderers[lineRendererIndex].endWidth = 1f;
+        LineRenderer lineRenderer = lineManager.getLine();
 
-        lineRenderers[lineRendererIndex].material = weaponFlashMaterial;
+        lineRenderer.enabled = true;
+        lineRenderer.endColor = Color.white;
+        lineRenderer.startColor = Color.white;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+                  
+        lineRenderer.material = weaponFlashMaterial;
 
         Vector3 target;
-        Vector3[] linePoints = { Vector3.zero, Vector3.zero};
+        Vector3[] linePoints = {Vector3.zero, Vector3.zero};
         while (Time.time < endTime)
         {
             RaycastHit2D[] hits;
 
-            float castDistance = Mathf.Lerp(0, weaponProperties.attackDistance, endTime - Time.time);
+            float castDistance = Mathf.Lerp(0, weaponProperties.weaponReach, 1-(endTime - Time.time));
 
-            hits = Physics2D.RaycastAll(parentTransform.position, attackDirection, castDistance);
+            hits = Physics2D.RaycastAll(transform.position, attackDirection, castDistance);
             target.x = (attackDirection * castDistance).x;
             target.y = (attackDirection * castDistance).y;
             target.z = 0;
 
-            linePoints[0] = parentTransform.position;
-            linePoints[1] = parentTransform.position + target;
+            linePoints[0] = transform.position;
+            linePoints[1] = transform.position + target;
 
-            lineRenderers[lineRendererIndex].SetPositions(linePoints);
+            lineRenderer.SetPositions(linePoints);
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -99,7 +92,6 @@ class MeleeWeapon : Item, IWeapon
             yield return null;
         }
         objectsHit.Clear();
-        lineRenderers[lineRendererIndex].enabled = false;
-        linerendererIndex.Remove(lineRendererIndex);
+        lineManager.removeLine(lineRenderer);
     }
 }

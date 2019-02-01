@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 class WeaponProperties
 {
-    public float attackDistance=1;
+    public float weaponReach=1;
     public float hitDuration=1;
     public float damage=1;
     public float weaponCooldown=1;
