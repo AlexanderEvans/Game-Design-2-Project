@@ -544,6 +544,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5742894347735194175, guid: ad2287c5174e84d4aba76a596e5b6bd7,
+        type: 3}
+      propertyPath: weaponProperties.weaponReach
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742894347735194175, guid: ad2287c5174e84d4aba76a596e5b6bd7,
+        type: 3}
+      propertyPath: weaponProperties.weaponCooldown
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742894347735194175, guid: ad2287c5174e84d4aba76a596e5b6bd7,
+        type: 3}
+      propertyPath: weaponProperties.hitDuration
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad2287c5174e84d4aba76a596e5b6bd7, type: 3}
 --- !u!114 &1936172847 stripped
