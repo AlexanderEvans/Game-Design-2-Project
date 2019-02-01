@@ -7,8 +7,13 @@ class MeleeWeapon : Item, IWeapon
     public WeaponProperties weaponProperties = new WeaponProperties();
     [SerializeField]
     Material weaponFlashMaterial;
-    List<LineRenderer> lineRenderers = new List<LineRenderer>();
-    List<int> linerendererIndex = new List<int>();
+    static GameObject lineContainer = new GameObject("Line Container");
+
+    private void Awake()
+    {
+        if (lineContainer.GetComponent<LineManager>() == null)
+            lineContainer.AddComponent<LineManager>();
+    }
 
     void Update()
     {
