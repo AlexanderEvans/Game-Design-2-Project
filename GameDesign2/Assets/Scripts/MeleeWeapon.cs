@@ -60,7 +60,7 @@ class MeleeWeapon : Item, IWeapon
         {
             RaycastHit2D[] hits;
 
-            float castDistance = Mathf.Lerp(0, weaponProperties.weaponReach, 1-(endTime - Time.time));
+            float castDistance = Mathf.Lerp(0, weaponProperties.weaponReach, 1-((endTime - Time.time)/weaponProperties.hitDuration));
 
             hits = Physics2D.RaycastAll(transform.position, attackDirection, castDistance);
             target.x = (attackDirection * castDistance).x;
