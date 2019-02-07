@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedX: 10
+  speedY: 10
 --- !u!95 &7523275055676408249
 Animator:
   serializedVersion: 3
@@ -279,7 +280,7 @@ PrefabInstance:
     - target: {fileID: 5742894347735194175, guid: ad2287c5174e84d4aba76a596e5b6bd7,
         type: 3}
       propertyPath: weaponProperties.weaponReach
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5742894347735194175, guid: ad2287c5174e84d4aba76a596e5b6bd7,
         type: 3}
@@ -289,7 +290,7 @@ PrefabInstance:
     - target: {fileID: 5742894347735194175, guid: ad2287c5174e84d4aba76a596e5b6bd7,
         type: 3}
       propertyPath: weaponProperties.hitDuration
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad2287c5174e84d4aba76a596e5b6bd7, type: 3}
