@@ -57,7 +57,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         }
     }
 
-    Vector2 attackDirection;
+    Vector2 attackDirection = Vector2.down;
     Rigidbody2D rigidbody2d;
 
     public void TakeDamage(float damage)
@@ -76,6 +76,8 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     {
         if (rigidbody2d.velocity != Vector2.zero)
             attackDirection = rigidbody2d.velocity;
+        else
+            attackDirection = Vector2.down;
 
         if (Input.GetButtonDown("Fire1"))
             weapon.weaponInterface.Attack(transform, attackDirection);
