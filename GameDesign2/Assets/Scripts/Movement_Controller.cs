@@ -6,6 +6,7 @@ public class Movement_Controller : MonoBehaviour
 {
     [SerializeField]
     float speedX = 10.0f;
+    [SerializeField]
     float speedY = 10.0f;
 
     Rigidbody2D myRigidody2D;
@@ -24,18 +25,17 @@ public class Movement_Controller : MonoBehaviour
         run();   
     }
 
+    Vector2 runVelocity = Vector2.zero;
     void run()
     {
         float directionX = Input.GetAxisRaw("Horizontal");
         float directionY = Input.GetAxisRaw("Vertical");
-        Vector2 runVelocity = new Vector2(directionX * speedX, directionY * speedY);
+        runVelocity.x = directionX * speedX;
+        runVelocity.y = directionY * speedY;
         myRigidody2D.velocity = runVelocity;
 
         
-        
-
-
-
+       
         bool movingRight  =myRigidody2D.velocity.x > Mathf.Epsilon;
         bool movingLeft = myRigidody2D.velocity.x < -Mathf.Epsilon;
         bool movingUp = myRigidody2D.velocity.y > Mathf.Epsilon;
