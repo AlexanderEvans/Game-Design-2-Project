@@ -2,17 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCombatController : MonoBehaviour
+public class EnemyCombatController : MonoBehaviour, IDamageable
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    float HP = 10;
+    public float hitPoints
     {
-        
+        get
+        {
+            return HP;
+        }
+        set
+        {
+            if(HP!=value)
+            {
+                HP = Mathf.Max(0, HP - value);
+                if(HP==0)
+                {
+                    Debug.Log(this + " has passed away");
+                }
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(float amount)
     {
-        
+        Debug.Log(this + " says: \"ouch!\"");
+        HP = HP - amount;
     }
 }
