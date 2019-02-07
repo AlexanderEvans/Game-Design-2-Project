@@ -10,6 +10,7 @@ class WeaponProperties
     public float damage=1;
     public float weaponCooldown=1;
     public float currentCooldown=0;
+    [HideInInspector]
     public int targetLayer = 9;
 }
 
