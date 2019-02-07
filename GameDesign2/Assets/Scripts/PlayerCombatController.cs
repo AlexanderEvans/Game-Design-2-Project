@@ -20,6 +20,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         if(weapon.component is IWeapon)
         {
             weapon.weaponInterface = (IWeapon) weapon.component;
+            weapon.weaponInterface.SetTargetLayer(9);//Targets Enemies
         }
         else
         {
@@ -42,6 +43,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
                 if(mb is IWeapon)
                 {
                     weapon.weaponInterface = (IWeapon) mb;
+                    weapon.weaponInterface.SetTargetLayer(9);//Targets Enemies
                     weapon.component = mb;
                     errorDetected = false;
                 }

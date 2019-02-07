@@ -35,10 +35,7 @@ public class Movement_Controller : MonoBehaviour
         myRigidody2D.velocity = runVelocity;
 
         
-        
-
-
-
+       
         bool movingRight  =myRigidody2D.velocity.x > Mathf.Epsilon;
         bool movingLeft = myRigidody2D.velocity.x < -Mathf.Epsilon;
         bool movingUp = myRigidody2D.velocity.y > Mathf.Epsilon;

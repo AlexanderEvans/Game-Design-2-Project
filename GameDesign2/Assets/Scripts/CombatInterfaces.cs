@@ -10,10 +10,12 @@ class WeaponProperties
     public float damage=1;
     public float weaponCooldown=1;
     public float currentCooldown=0;
+    public int targetLayer = 9;
 }
 
 interface IWeapon
 {
+    void SetTargetLayer(int targetLayer);
     void Attack(Transform parentTransform, Vector2 attackDirection);
 }
 

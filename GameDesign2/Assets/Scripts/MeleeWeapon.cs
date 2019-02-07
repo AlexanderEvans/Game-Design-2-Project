@@ -5,6 +5,12 @@ using UnityEngine;
 class MeleeWeapon : Item, IWeapon
 {
     public WeaponProperties weaponProperties = new WeaponProperties();
+    
+    public void SetTargetLayer(int targetLayer)
+    {
+        weaponProperties.targetLayer = targetLayer;
+    }
+
     [SerializeField]
     Material weaponFlashMaterial;
     static GameObject lineContainer;
@@ -76,7 +82,7 @@ class MeleeWeapon : Item, IWeapon
             {
                 //fallback code
                 //if (hit.collider.gameObject.layer = LayerMask.NameToLayer("Enemy"))
-                if(hit.collider.gameObject.layer==9)
+                if(hit.collider.gameObject.layer==weaponProperties.targetLayer)
                 {
                     MonoBehaviour[] list = hit.collider.gameObject.GetComponents<MonoBehaviour>();
                     foreach (MonoBehaviour mb in list)
