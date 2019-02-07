@@ -6,6 +6,7 @@ public class Movement_Controller : MonoBehaviour
 {
     [SerializeField]
     float speedX = 10.0f;
+    [SerializeField]
     float speedY = 10.0f;
 
     Rigidbody2D myRigidody2D;
