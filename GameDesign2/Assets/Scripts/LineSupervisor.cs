@@ -3,9 +3,8 @@ using Unity;
 using UnityEngine;
 using System.Collections.Generic;
 
-class LineManager : MonoBehaviour
+class LineSupervisor : MonoBehaviour
 {
-
     List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
     List<LineRenderer> pool = new List<LineRenderer>();
@@ -22,7 +21,7 @@ class LineManager : MonoBehaviour
         LineRenderer temp;
         if (pool.Count==0)
         {
-            GameObject tempObject = new GameObject();
+            GameObject tempObject = new GameObject("Line "+(lineRenderers.Count+1));
             tempObject.transform.parent = gameObject.transform;
 
             temp = tempObject.AddComponent<LineRenderer>();
