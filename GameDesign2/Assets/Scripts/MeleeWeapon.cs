@@ -74,20 +74,21 @@ class MeleeWeapon : Item, IWeapon
 
             foreach (RaycastHit2D hit in hits)
             {
-                Debug.Log("hit: " + hit);
-                MonoBehaviour[] list = hit.collider.gameObject.GetComponents<MonoBehaviour>();
-                foreach (MonoBehaviour mb in list)
+                //fallback code
+                //if (hit.collider.gameObject.layer = LayerMask.NameToLayer("Enemy"))
+                if(hit.collider.gameObject.layer==9)
                 {
-
-                    Debug.Log("Checking Monobehaviour: "+mb);
-                    if (mb is IDamageable)
+                    MonoBehaviour[] list = hit.collider.gameObject.GetComponents<MonoBehaviour>();
+                    foreach (MonoBehaviour mb in list)
                     {
-                        Debug.Log("Checking IDamageable: " + mb);
-                        IDamageable damageable = (IDamageable)mb;
-                        if (objectsHit.Contains(hit.collider.gameObject) != true)
+                        if (mb is IDamageable)
                         {
-                            damageable.TakeDamage(weaponProperties.damage);
-                            objectsHit.Add(hit.collider.gameObject);
+                            IDamageable damageable = (IDamageable)mb;
+                            if (objectsHit.Contains(hit.collider.gameObject) != true)
+                            {
+                                damageable.TakeDamage(weaponProperties.damage);
+                                objectsHit.Add(hit.collider.gameObject);
+                            }
                         }
                     }
                 }

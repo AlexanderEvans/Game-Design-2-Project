@@ -14,12 +14,17 @@ public class EnemyCombatController : MonoBehaviour, IDamageable
         }
         set
         {
-            if(HP!=value)
+            if(HP!=value && value>=0)
             {
-                HP = Mathf.Max(0, HP - value);
+                HP = Mathf.Max(0, value);
                 if(HP==0)
                 {
                     Debug.Log(this + " has passed away");
+                    Destroy(gameObject);
+                }
+                else if(HP<0)
+                {
+                    Debug.LogError(" "+this+" has a negative HP value!");
                 }
             }
         }
@@ -28,6 +33,6 @@ public class EnemyCombatController : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         Debug.Log(this + " says: \"ouch!\"");
-        HP = HP - amount;
+        hitPoints = hitPoints - amount;
     }
 }
