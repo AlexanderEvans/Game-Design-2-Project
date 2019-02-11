@@ -31,8 +31,11 @@ public class Movement_Controller : MonoBehaviour
         float directionX = Input.GetAxisRaw("Horizontal");
         float directionY = Input.GetAxisRaw("Vertical");
         runVelocity.x = directionX * speedX;
+        float RunX = runVelocity.x;
         runVelocity.y = directionY * speedY;
+        float RunY = runVelocity.y;
         myRigidody2D.velocity = runVelocity;
+        
 
         
        
