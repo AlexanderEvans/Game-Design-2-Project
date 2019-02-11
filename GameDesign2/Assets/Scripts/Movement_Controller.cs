@@ -41,16 +41,7 @@ public class Movement_Controller : MonoBehaviour
         bool movingUp = myRigidody2D.velocity.y > Mathf.Epsilon;
         bool movingDown = myRigidody2D.velocity.y < -Mathf.Epsilon;
 
-<<<<<<< HEAD
-        if (movingLeft)
-        {
-            if (movingDown)
-            {
-                myAnimator.SetBool("PlayerRunDownLeft", (movingLeft && movingRight));
-            }
-        }
-=======
->>>>>>> master
+
 
         myAnimator.SetBool("PlayerRunLeft", movingLeft);
         myAnimator.SetBool("PlayerRunRight", movingRight);
