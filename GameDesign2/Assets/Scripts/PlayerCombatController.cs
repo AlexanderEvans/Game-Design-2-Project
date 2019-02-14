@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerCombatController : CombatController, IDamageable
 {
     float HP = 100;
+
+    #region weapon
     [System.Serializable]
     struct Weapon
     {
@@ -14,23 +16,38 @@ public class PlayerCombatController : CombatController, IDamageable
     }
     [SerializeField]
     Weapon weapon;
+    /// <summary>
+    /// use a "dirty hack" to dynamically link the interface on object load
+    /// </summary>
+    void initializeWeapon()
+    {
+        //use a "dirty hack" to dynamically link the interface on object load
+        Item[] items = GetComponents<Item>();
+        foreach (Item item in items)
+        {
+            bool errorFlag = true;
+            if (weapon.component is IWeapon)
+            {
+                weapon.weaponInterface = (IWeapon)weapon.component;//cast to an interface
+                weapon.weaponInterface.SetTargetLayer(1 << 9);//Targets Enemies on layer 9
+                errorFlag = false;
+            }
+
+            if (errorFlag == true)
+            {
+                //This component should always be of a weapon type
+                Debug.LogError("Error: " + weapon.component + " does not implement IWeapon!");
+            }
+        }
+    }
+    #endregion
 
     private void Awake()
     {
         //grab the reference to the physics component
         rigidbody2d = GetComponent<Rigidbody2D>();
 
-        //use a "dirty hack" to dynamically link the interface on object load
-        if (weapon.component is IWeapon)
-        {
-            weapon.weaponInterface = (IWeapon) weapon.component;//cast to an interface
-            weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
-        }
-        else
-        {
-            //This component should always be of a weapon type
-            Debug.LogError("Error: "+weapon.component+" does not implement IWeapon!");
-        }
+        initializeWeapon();
     }
 
     /// <summary>

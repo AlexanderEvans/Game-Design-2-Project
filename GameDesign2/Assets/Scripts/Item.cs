@@ -10,6 +10,15 @@ public class Item : MonoBehaviour
     int GUID;
     static int GUIDCount;
 
+    private void Reset()
+    {
+        if (gameObject.scene.name == null)
+        {
+            GUID = GUIDCount;
+            GUIDCount++;
+        }
+    }
+
     [MenuItem("Custom Actions/Prefab Management/Optimize GUIDS")]
     static void OptimizeGUIDS()
     {
@@ -27,6 +36,7 @@ public class Item : MonoBehaviour
 
         foreach(Item prefab in prefabs)
         {
+
             prefab.GUID = GUIDCount;
             GUIDCount++;
         }
@@ -43,11 +53,12 @@ public class Item : MonoBehaviour
 
     private void OnValidate()
     {
-        SerializedObject serializedObject = new SerializedObject(this);
-
-        SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("GUID");
-
-        PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
+        if (this.gameObject.scene.name != null)
+        {
+            SerializedObject serializedObject = new SerializedObject(this);
+            SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("GUID");
+            PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
+        }
     }
 
     // Start is called before the first frame update
