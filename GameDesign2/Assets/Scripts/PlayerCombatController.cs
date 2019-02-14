@@ -10,7 +10,7 @@ public class PlayerCombatController : CombatController, IDamageable
     struct Weapon
     {
         public IWeapon weaponInterface;
-        public Item scriptableObject;
+        public Item component;
     }
     [SerializeField]
     Weapon weapon;
@@ -21,15 +21,15 @@ public class PlayerCombatController : CombatController, IDamageable
         rigidbody2d = GetComponent<Rigidbody2D>();
 
         //use a "dirty hack" to dynamically link the interface on object load
-        if (weapon.scriptableObject is IWeapon)
+        if (weapon.component is IWeapon)
         {
-            weapon.weaponInterface = (IWeapon) weapon.scriptableObject;//cast to an interface
+            weapon.weaponInterface = (IWeapon) weapon.component;//cast to an interface
             weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
         }
         else
         {
             //This component should always be of a weapon type
-            Debug.LogError("Error: "+weapon.scriptableObject+" does not implement IWeapon!");
+            Debug.LogError("Error: "+weapon.component+" does not implement IWeapon!");
         }
     }
 
@@ -41,7 +41,7 @@ public class PlayerCombatController : CombatController, IDamageable
         get
         {
             //get the weapon MonoBehaviour
-            return weapon.scriptableObject;
+            return weapon.component;
         }
         set
         {
@@ -49,7 +49,7 @@ public class PlayerCombatController : CombatController, IDamageable
             {
                 weapon.weaponInterface = (IWeapon) value;//assign the interface
                 weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
-                weapon.scriptableObject = value;
+                weapon.component = value;
             }
             else//If the Item didn't impliment IWeapon, the flag never gets cleared
             {
@@ -82,7 +82,7 @@ public class PlayerCombatController : CombatController, IDamageable
             attackDirection = rigidbody2d.velocity;
 
         //trigger an attack with the held weapon
-        if (Input.GetButtonDown("Fire1") && weapon.scriptableObject != null)
+        if (Input.GetButtonDown("Fire1") && weapon.component != null)
         {
             weapon.weaponInterface.Attack(this, attackDirection);
         }

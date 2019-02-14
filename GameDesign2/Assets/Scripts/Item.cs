@@ -16,10 +16,28 @@ public class Item : MonoBehaviour
         GUIDCount = 0;
         List<Item> items = AssetManagement.FindAssetsByType<Item>();
         List<Item> prefabs = new List<Item>();
-        foreach(Item item in items)
+        List<Item> instances = new List<Item>();
+        foreach (Item item in items)
         {
             if (item.gameObject.scene.name == null)
                 prefabs.Add(item);
+            else
+                instances.Add(item);
+        }
+
+        foreach(Item prefab in prefabs)
+        {
+            prefab.GUID = GUIDCount;
+            GUIDCount++;
+        }
+
+        foreach(Item instance in instances)
+        {
+            SerializedObject serializedObject = new SerializedObject(instance);
+
+            SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("GUID");
+
+            PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
         }
     }
 
