@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 
+[System.Serializable]
 public class Item : MonoBehaviour
 {
     Sprite icon;
 
+    [SerializeField]
+    [HideInInspector]
     int GUID;
     static int GUIDCount;
-    static List<Item> prefabs;
+    static List<Item> prefabs = new List<Item>();
 
     static Item getPrefab(Item instance)
     {
@@ -29,6 +32,15 @@ public class Item : MonoBehaviour
         }
     }
 
+    static public void updatePrefabsList(List<Item> items)
+    {
+        prefabs.Clear();
+        foreach (Item item in items.Where((item) => item.gameObject.scene.name == null))
+        {
+            prefabs.Add(item);
+        }
+    }
+
 
     private void Reset()
     {
@@ -36,6 +48,7 @@ public class Item : MonoBehaviour
         {
             GUID = GUIDCount;
             GUIDCount++;
+            prefabs.Add(this);
         }
         Item[] items = FindObjectsOfType<Item>();
         foreach (Item item in items.Where((item) => item.gameObject.scene.name != null))
@@ -69,15 +82,20 @@ public class Item : MonoBehaviour
 
             PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
         }
+
+        updatePrefabsList(prefabs);
     }
 
     private void OnValidate()
     {
-        if (this.gameObject.scene.name != null)
+        if (gameObject.scene.name != null)
         {
             SerializedObject serializedObject = new SerializedObject(this);
+            Debug.Log("s1 "+ serializedObject);
             SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("GUID");
+            Debug.Log("s2 "+ serializedPropertyGUID.intValue);
             PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
+            Debug.Log("s3");
         }
     }
 

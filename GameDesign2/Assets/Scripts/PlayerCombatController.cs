@@ -21,23 +21,15 @@ public class PlayerCombatController : CombatController, IDamageable
     /// </summary>
     void initializeWeapon()
     {
-        //use a "dirty hack" to dynamically link the interface on object load
-        Item[] items = GetComponents<Item>();
-        foreach (Item item in items)
+        if (weapon.component is IWeapon)
         {
-            bool errorFlag = true;
-            if (weapon.component is IWeapon)
-            {
-                weapon.weaponInterface = (IWeapon)weapon.component;//cast to an interface
-                weapon.weaponInterface.SetTargetLayer(1 << 9);//Targets Enemies on layer 9
-                errorFlag = false;
-            }
-
-            if (errorFlag == true)
-            {
-                //This component should always be of a weapon type
-                Debug.LogError("Error: " + weapon.component + " does not implement IWeapon!");
-            }
+            weapon.weaponInterface = (IWeapon)weapon.component;//cast to an interface
+            weapon.weaponInterface.SetTargetLayer(1 << 9);//Targets Enemies on layer 9
+        }
+        else
+        {
+            //This component should always be of a weapon type
+            Debug.LogError("Error: " + weapon.component + " does not implement IWeapon!");
         }
     }
     #endregion

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 class MeleeWeapon : Item, IWeapon
 {
@@ -20,10 +19,10 @@ class MeleeWeapon : Item, IWeapon
 
 
     [SerializeField]
-    Material weaponFlashMaterial;
+    Material weaponFlashMaterial = null;
 
     //these are used to generate a pool of line renderers
-    public LinePoolSingleton temporaryLinePoolSingleton;//This component is responsible for spawning and pooling game objects with line renderers attatched
+    public LinePoolSingleton temporaryLinePoolSingleton = null;//This component is responsible for spawning and pooling game objects with line renderers attatched
 
     float lastAttackTime;
     private void Awake()
