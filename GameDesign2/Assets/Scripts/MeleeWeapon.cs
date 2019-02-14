@@ -30,10 +30,6 @@ class MeleeWeapon : Item, IWeapon
     {
         lastAttackTime = -weaponProperties.weaponCooldown;
     }
-    private void OnEnable()
-    {
-        lastAttackTime = -weaponProperties.weaponCooldown;
-    }
 
     /// <summary>
     /// Make an attack in the direction of attackDirection from an origin point of parentTransform
