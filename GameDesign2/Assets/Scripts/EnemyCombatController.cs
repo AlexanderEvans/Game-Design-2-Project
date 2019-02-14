@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCombatController : MonoBehaviour, IDamageable
+public class EnemyCombatController : CombatController, IDamageable
 {
     [SerializeField]
     float HP = 10;
