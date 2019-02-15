@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IInput
-{
-    bool TakeInput(Item item);
-}
-
 interface IOutput
 {
-    Item[] GiveOutput();
+    bool TakeOutput(int itemGUID, int amount);
+    bool CheckOutput(int itemGUID, int amount);
+    int TakePartialOutput(int itemGUID, int amount);
+    int CheckPartialOutput(int itemGUID, int amount);
 }

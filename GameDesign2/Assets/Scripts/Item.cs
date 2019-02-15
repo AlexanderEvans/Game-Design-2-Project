@@ -7,6 +7,14 @@ using System.Linq;
 [System.Serializable]
 public class Item : MonoBehaviour
 {
+
+    [System.Serializable]
+    public class ItemsSlot
+    {
+        public int count=0;
+        public int itemGUID=-1;
+        //public string itemProperties;
+    }
     Sprite icon;
 
     [SerializeField]
@@ -15,6 +23,11 @@ public class Item : MonoBehaviour
     static int GUIDCount;
     static List<Item> prefabs = new List<Item>();
 
+    public int getItemGUID()
+    {
+        return GUID;
+    }
+
     static Item getPrefab(Item instance)
     {
         foreach (Item prefab in prefabs.Where((prefab) => prefab.GUID == instance.GUID))
@@ -22,10 +35,18 @@ public class Item : MonoBehaviour
         return null;
     }
 
+    static Item getPrefab(int itemGUID)
+    {
+        foreach (Item prefab in prefabs.Where((prefab) => prefab.GUID == itemGUID))
+            return prefab;
+        return null;
+    }
+
     static public void updatePrefabsList()
     {
         prefabs.Clear();
-        List<Item> items = AssetManagement.FindAssetsByType<Item>();
+        List<Item> items = AssetManagement.FindAssetsByComponent<Item>();
+
         foreach (Item item in items.Where((item) => item.gameObject.scene.name == null))
         {
             prefabs.Add(item);
@@ -65,7 +86,7 @@ public class Item : MonoBehaviour
     static void OptimizeGUIDS()
     {
         GUIDCount = 0;
-        List<Item> prefabs = AssetManagement.FindAssetsByType<Item>();
+        List<Item> prefabs = AssetManagement.FindAssetsByComponent<Item>();
         Item[] instances = FindObjectsOfType<Item>();
         foreach (Item prefab in prefabs.Where( (prefab) => prefab.gameObject.scene.name == null))
         {
@@ -91,11 +112,8 @@ public class Item : MonoBehaviour
         if (gameObject.scene.name != null)
         {
             SerializedObject serializedObject = new SerializedObject(this);
-            Debug.Log("s1 "+ serializedObject);
             SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("GUID");
-            Debug.Log("s2 "+ serializedPropertyGUID.intValue);
             PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
-            Debug.Log("s3");
         }
     }
 
@@ -110,4 +128,5 @@ public class Item : MonoBehaviour
     {
         
     }
+
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResourceHub : MonoBehaviour
 {
     List<Item> inputs;
+
     List<Item> outputs;
 
     // Start is called before the first frame update

@@ -21,6 +21,21 @@ public class AssetManagement : MonoBehaviour
         return assets;
     }
 
+    public static List<T> FindAssetsByComponent<T>() where T : UnityEngine.Object
+    {
+        List<T> componentList = new List<T>();
+        List<GameObject> gameObjects = FindAssetsByType<GameObject>();
+        foreach(GameObject gameObject in gameObjects)
+        {
+            T[] components = gameObject.GetComponents<T>();
+            foreach(T component in components)
+            {
+                componentList.Add(component);
+            }
+        }
+        return componentList;
+    }
+
     public static T FindAssetByType<T>() where T : UnityEngine.Object
     {
         List<T> assets = new List<T>();
@@ -34,6 +49,20 @@ public class AssetManagement : MonoBehaviour
                 return asset;
             }
         }
+        return null;
+    }
+
+    public static T FindAssetByComponent<T>() where T : UnityEngine.Object
+    {
+        List<T> component = new List<T>();
+        List<GameObject> gameObjects = FindAssetsByType<GameObject>();
+        foreach(GameObject gameObject in gameObjects)
+        {
+            T rtnVal = gameObject.GetComponent<T>();
+            if (rtnVal != null)
+                return rtnVal;
+        }
+
         return null;
     }
 }

@@ -2,8 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class MeleeWeapon : Item, IWeapon
+class MeleeWeapon : Item, IWeapon, IPoolableObject
 {
+    void Activate()
+    {
+        gameObject.SetActive(false);
+    }
+    void Deactivate()
+    {
+        gameObject.SetActive(true);
+    }
+
+    Item GetValue()
+    {
+        return this;
+    }
+    Item CreateInstance()
+    {
+        GameObject newObj = GameObject.Instantiate()
+    }
 
     //holds the weapon stat block
     public WeaponProperties weaponProperties = new WeaponProperties();
@@ -37,18 +54,19 @@ class MeleeWeapon : Item, IWeapon
     /// <param name="attackDirection"></param>
     public void Attack(CombatController combatController, Vector2 attackDirection)
     {
-        //do error checking
-        Debug.Assert(temporaryLinePoolSingleton.linePoolable != null, "Error: " + this + " needs acess to a temporary line pool, but found: " + temporaryLinePoolSingleton.linePoolable);
-        
-
-        if(Time.time-lastAttackTime>weaponProperties.weaponCooldown)//make sure the cooldown has expired
+        if(gameObject.activeInHierarchy==true)
         {
-            lastAttackTime = Time.time;
-            Transform parentTransform = combatController.transform;
-            combatController.StartCoroutine(MeleeAttack(parentTransform, attackDirection, temporaryLinePoolSingleton.linePoolable));//start a new attatck coroutine(time sharing parraleleism)
+            //do error checking
+            Debug.Assert(temporaryLinePoolSingleton.linePoolable != null, "Error: " + this + " needs acess to a temporary line pool, but found: " + temporaryLinePoolSingleton.linePoolable);
+
+            if (Time.time - lastAttackTime > weaponProperties.weaponCooldown)//make sure the cooldown has expired
+            {
+                lastAttackTime = Time.time;
+                Transform parentTransform = combatController.transform;
+                combatController.StartCoroutine(MeleeAttack(parentTransform, attackDirection, temporaryLinePoolSingleton.linePoolable));//start a new attatck coroutine(time sharing parraleleism)
+            }
+
         }
-        
-        return;
     }
 
     /// <summary>
