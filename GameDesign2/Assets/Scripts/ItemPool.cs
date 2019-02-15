@@ -8,7 +8,6 @@ interface IPoolableObject
     void Activate();
     void Deactivate();
     System.Type GetType();
-    Item GetValue();
     IPoolableObject CreateInstance();
 }
 
@@ -18,49 +17,48 @@ public static class ItemPool
 
     static void pushObject<T>(T objectToPool) where T : IPoolableObject
     {
-        IPoolableObject poolableObject = objectToPool;
         objectToPool.Deactivate();
 
         System.Type type = objectToPool.GetType();
-        List<IPoolableObject> items;
-        if (pools.TryGetValue(type, out items))
+        List<IPoolableObject> poolableObjects;
+        if (pools.TryGetValue(type, out poolableObjects))
         {
-            items.Add((IPoolableObject) objectToPool.GetValue());
+            poolableObjects.Add(objectToPool);
         }
         else
         {
-            items = new List<IPoolableObject>();
-            items.Add( (IPoolableObject) objectToPool.GetValue());
-            pools.Add(type, items);
+            poolableObjects = new List<IPoolableObject>();
+            poolableObjects.Add(objectToPool);
+            pools.Add(type, poolableObjects);
         }
     }
 
-    static T popObject<T>(T obj) where T : class, IPoolableObject
+    static T popObject<T>(T prefab) where T : class, IPoolableObject
     {
         T rtnVal = null;
-        System.Type type = obj.GetType();
+        System.Type type = prefab.GetType();
 
-        List<IPoolableObject> objects;
-        if (pools.TryGetValue(type, out objects))
+        List<IPoolableObject> poolableObjects;
+        if (pools.TryGetValue(type, out poolableObjects))
         {
-            if(objects.Count==0)
+            if(poolableObjects.Count==0)
             {
-                IPoolableObject poolableObjects = obj;
-                rtnVal = (T) poolableObjects.CreateInstance();
+                IPoolableObject poolableObj = prefab;
+                rtnVal = (T) poolableObj.CreateInstance();
             }
             else
             {
-                IPoolableObject poolableObj = objects[objects.Count];
+                IPoolableObject poolableObj = poolableObjects[poolableObjects.Count];
                 T tempObj = (T)poolableObj;
-                objects.Remove(tempObj);
+                poolableObjects.Remove(tempObj);
                 poolableObj.Activate();
                 rtnVal = tempObj;
             }
         }
         else
         {
-            IPoolableObject poolableItem = obj;
-            rtnVal = (T) poolableItem.CreateInstance();
+            IPoolableObject poolableObj = prefab;
+            rtnVal = (T) poolableObj.CreateInstance();
         }
         return rtnVal;
     }

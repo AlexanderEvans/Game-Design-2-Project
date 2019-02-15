@@ -10,17 +10,19 @@ public class DebugTesting : MonoBehaviour
     void Start()
     {
         Item item = meleeWeapon;
-        GenericFunction(gameObject);
-        GenericFunction(item);
-        GenericFunction(meleeWeapon);
+        IPoolableObject poolableObject = meleeWeapon;
+        GenericFunction(gameObject, "gameObject");
+        GenericFunction(item, "Item");
+        GenericFunction(meleeWeapon, "MeleeWeapon");
+        GenericFunction(poolableObject, "PoolableObject");
 
-        GenericFunction(4);
-        GenericFunction(84.48);
+        GenericFunction(4, "int");
+        GenericFunction(84.48, "double");
     }
 
-    void GenericFunction<T>(T obj)
+    void GenericFunction<T>(T obj, string msg)
     {
-        Debug.Log(obj + " ; " + obj.GetType());
+        Debug.Log(msg + " ; " + obj + " ; " + obj.GetType());
     }
 
     // Update is called once per frame

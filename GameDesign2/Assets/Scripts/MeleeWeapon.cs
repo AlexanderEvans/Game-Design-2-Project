@@ -4,22 +4,21 @@ using UnityEngine;
 
 class MeleeWeapon : Item, IWeapon, IPoolableObject
 {
-    void Activate()
+    public void Activate()
+    {
+        lastAttackTime = -weaponProperties.weaponCooldown;
+        gameObject.SetActive(true);
+    }
+    public void Deactivate()
     {
         gameObject.SetActive(false);
     }
-    void Deactivate()
+    
+    public IPoolableObject CreateInstance()
     {
-        gameObject.SetActive(true);
-    }
-
-    Item GetValue()
-    {
-        return this;
-    }
-    Item CreateInstance()
-    {
-        GameObject newObj = GameObject.Instantiate()
+        Debug.Assert(gameObject.scene.name == null, "Error, not a prefab");
+        GameObject refGO = Instantiate(gameObject);
+        return refGO.GetComponent<MeleeWeapon>();
     }
 
     //holds the weapon stat block
