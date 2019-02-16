@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Line Pool Singleton", menuName = "Custom Actions/Create ScriptableObject/Line Pool Singleton")]
+[CreateAssetMenu(fileName = "New Line Pool Singleton", menuName = "Scriptable Object/Line Pool Singleton")]
 public class LinePoolSingleton : ScriptableObject
 {
     public LinePoolable linePoolable;

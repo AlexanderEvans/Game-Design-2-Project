@@ -4,9 +4,14 @@ using UnityEngine;
 
 class MeleeWeapon : Item, IWeapon, IPoolableObject
 {
+
+    public object GetValue()
+    {
+        return this;
+    }
     public void Activate()
     {
-        lastAttackTime = -weaponProperties.weaponCooldown;
+        lastAttackTime = 0 - weaponProperties.weaponCooldown;
         gameObject.SetActive(true);
     }
     public void Deactivate()
@@ -40,10 +45,12 @@ class MeleeWeapon : Item, IWeapon, IPoolableObject
     //these are used to generate a pool of line renderers
     public LinePoolSingleton temporaryLinePoolSingleton = null;//This component is responsible for spawning and pooling game objects with line renderers attatched
 
+    ObjectPool objectPool = null;
     float lastAttackTime;
     private void Awake()
     {
         lastAttackTime = -weaponProperties.weaponCooldown;
+        Debug.Assert(objectPool != null, "Error: objectPool is null in "+this);
     }
 
     /// <summary>
@@ -64,7 +71,6 @@ class MeleeWeapon : Item, IWeapon, IPoolableObject
                 Transform parentTransform = combatController.transform;
                 combatController.StartCoroutine(MeleeAttack(parentTransform, attackDirection, temporaryLinePoolSingleton.linePoolable));//start a new attatck coroutine(time sharing parraleleism)
             }
-
         }
     }
 

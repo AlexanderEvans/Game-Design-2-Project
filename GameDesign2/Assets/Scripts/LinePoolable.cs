@@ -8,29 +8,8 @@ public class LinePoolable : MonoBehaviour
     List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
     List<LineRenderer> pool = new List<LineRenderer>();
-
-    [SerializeField]
-    LinePoolSingleton linePoolSingleton;
-
-    private void Reset()
-    {
-        linePoolSingleton = AssetManagement.FindAssetByType<LinePoolSingleton>();
-    }
-
-    private void OnEnable()
-    {
-        if(linePoolSingleton.linePoolable!=this)
-        {
-            linePoolSingleton.linePoolable = this;
-        }
-    }
-    private void OnDisable()
-    {
-        if (linePoolSingleton.linePoolable == this)
-        {
-            linePoolSingleton.linePoolable = null;
-        }
-    }
+    
+    
 
     public void removeLine(LineRenderer temp)
     {

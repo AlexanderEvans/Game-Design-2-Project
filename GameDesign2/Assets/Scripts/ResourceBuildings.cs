@@ -15,6 +15,7 @@ public class ResourceBuildings : MonoBehaviour, IOutput
         private Item prefab;
         public void InitializeGUID()
         {
+            Debug.Assert(prefab != null, "Error: prefab is null in " + this);
             itemGUID = prefab.getItemGUID();
         }
         
