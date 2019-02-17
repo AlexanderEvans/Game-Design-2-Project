@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2308179194234767437}
   - component: {fileID: 6677754764605289865}
   m_Layer: 8
-  m_Name: Weapon
+  m_Name: Melee Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15f370e74523c946a5944388e9f724e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GUID: 0
   weaponProperties:
     constantReach: 0
     weaponReach: 1.5
@@ -51,5 +52,6 @@ MonoBehaviour:
     weaponCooldown: 0.25
     targetLayer: 512
   weaponFlashMaterial: {fileID: 2100000, guid: ad157c70fe06bdf4fb020f51cb42f23d, type: 2}
-  temporaryLinePoolSingleton: {fileID: 11400000, guid: 94502c3db9b5b88459dd978e097f6b0c,
-    type: 2}
+  objectPool: {fileID: 11400000, guid: 7d8c431a700c91040a4a48f4d74a4c10, type: 2}
+  lineRendererPooler: {fileID: 368596326384002832, guid: 494df826706e17a4e9f5fbe75e87f788,
+    type: 3}

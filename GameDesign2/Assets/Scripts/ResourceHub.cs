@@ -2,21 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceHub : MonoBehaviour
+public class ResourceRepeater : MonoBehaviour
 {
-    List<Item> inputs;
-
-    List<Item> outputs;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<ResourceConnection> connections;
 }

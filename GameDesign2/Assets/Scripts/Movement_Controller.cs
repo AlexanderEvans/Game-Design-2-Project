@@ -12,13 +12,13 @@ public class Movement_Controller : MonoBehaviour
     Rigidbody2D myRigidody2D;
     Animator myAnimator;
 
-    // Start is called before the first frame update
-    void Start()
+    //setup references prior to compile time
+    private void Reset()
     {
         myRigidody2D = GetComponent<Rigidbody2D>();
         myAnimator = GetComponentInChildren<Animator>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {

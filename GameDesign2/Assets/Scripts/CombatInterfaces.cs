@@ -7,8 +7,8 @@ class WeaponProperties
 {
     public bool constantReach = false;
     public float weaponReach=1;
-    public float hitDuration=1;
     public float damage=1;
+    public float hitDuration=1;
     public float weaponCooldown=1;
     [HideInInspector]
     public int targetLayer = 1<<9;

@@ -16,30 +16,59 @@ public class PlayerCombatController : CombatController, IDamageable
     }
     [SerializeField]
     Weapon weapon;
+
+
     /// <summary>
     /// use a "dirty hack" to dynamically link the interface on object load
     /// </summary>
     void initializeWeapon()
     {
-        if (weapon.component is IWeapon)
+        if (weapon.component is IWeapon != true)
+        {
+            Debug.LogWarning("Error: " + weapon.component + " does not implement IWeapon!");
+            weapon.component = null;
+        }
+        else
         {
             weapon.weaponInterface = (IWeapon)weapon.component;//cast to an interface
             weapon.weaponInterface.SetTargetLayer(1 << 9);//Targets Enemies on layer 9
         }
-        else
-        {
-            //This component should always be of a weapon type
-            Debug.LogError("Error: " + weapon.component + " does not implement IWeapon!");
-        }
     }
     #endregion
 
-    private void Awake()
+    private void OnValidate()
+    {
+        
+        if(weapon.component !=null)
+            initializeWeapon();
+
+
+        if(rigidbody2d==null)
+        {
+            //grab the reference to the physics component
+            rigidbody2d = GetComponent<Rigidbody2D>();
+        }
+    }
+
+    private void Reset()
     {
         //grab the reference to the physics component
         rigidbody2d = GetComponent<Rigidbody2D>();
+    }
 
-        initializeWeapon();
+    private void Awake()
+    {
+        //attempt lazy load
+        if(rigidbody2d==null)
+        {
+            Debug.LogWarning("Warning: " + this + " does not allow 'rigidbody2d' to be null! Attempting correction...");
+            rigidbody2d = GetComponent<Rigidbody2D>();
+        }
+    }
+
+    private void Start()
+    {
+        Debug.Assert(rigidbody2d != null, "Error: "+this+ " does not allow 'rigidbody2d' to be null!  Corection failed!");
     }
 
     /// <summary>
@@ -54,16 +83,11 @@ public class PlayerCombatController : CombatController, IDamageable
         }
         set
         {
-            if(value is IWeapon)//if the MonoBehaviour implements the Iweapon interface
-            {
-                weapon.weaponInterface = (IWeapon) value;//assign the interface
-                weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
-                weapon.component = value;
-            }
-            else//If the Item didn't impliment IWeapon, the flag never gets cleared
-            {
-                Debug.LogError("Error: " + value + " does not implement IWeapon!");
-            }
+            Debug.Assert(value is IWeapon, "Error: " + value + " does not implement IWeapon!");
+
+            weapon.weaponInterface = (IWeapon) value;//assign the interface
+            weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
+            weapon.component = value;
 
             return;
         }

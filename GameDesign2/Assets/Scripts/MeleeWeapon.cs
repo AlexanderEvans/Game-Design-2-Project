@@ -1,34 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-class MeleeWeapon : Item, IWeapon, IPoolableObject
+[RequireComponent(typeof(MeleeWeaponPooler))]
+class MeleeWeapon : Item, IWeapon
 {
-
-    public object GetValue()
-    {
-        return this;
-    }
-    public void Activate()
+    private void OnEnable()
     {
         lastAttackTime = 0 - weaponProperties.weaponCooldown;
-        gameObject.SetActive(true);
-    }
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
-    }
-    
-    public IPoolableObject CreateInstance()
-    {
-        Debug.Assert(gameObject.scene.name == null, "Error, not a prefab");
-        GameObject refGO = Instantiate(gameObject);
-        return refGO.GetComponent<MeleeWeapon>();
     }
 
     //holds the weapon stat block
     public WeaponProperties weaponProperties = new WeaponProperties();
+
+    [SerializeField]
+    private Material weaponFlashMaterial = null;
+    [SerializeField]
+    private ObjectPool objectPool = null;
+    [SerializeField]
+    private LineRendererPooler lineRendererPooler = null;
+    [SerializeField]
+    private Transform lineRendererRoot = null;
+
+    private void Start()
+    {
+        Debug.Assert(objectPool != null, "Error: objectPool is null in " + this);
+        Debug.Assert(lineRendererPooler != null, "Error: lineRendererPooler is null in " + this);
+        Debug.Assert(weaponFlashMaterial != null, "Error: weaponFlashMaterial is null in " + this);
+        Debug.Assert(lineRendererRoot != null, "Error: lineRendererRoot is null in " + this);
+    }
+
     
+    float lastAttackTime;
+
     /// <summary>
     /// Set the target physics layer to make attacks at.
     /// </summary>
@@ -36,21 +41,6 @@ class MeleeWeapon : Item, IWeapon, IPoolableObject
     public void SetTargetLayer(int targetLayer)
     {
         weaponProperties.targetLayer = targetLayer;
-    }
-
-
-    [SerializeField]
-    Material weaponFlashMaterial = null;
-
-    //these are used to generate a pool of line renderers
-    public LinePoolSingleton temporaryLinePoolSingleton = null;//This component is responsible for spawning and pooling game objects with line renderers attatched
-
-    ObjectPool objectPool = null;
-    float lastAttackTime;
-    private void Awake()
-    {
-        lastAttackTime = -weaponProperties.weaponCooldown;
-        Debug.Assert(objectPool != null, "Error: objectPool is null in "+this);
     }
 
     /// <summary>
@@ -63,13 +53,13 @@ class MeleeWeapon : Item, IWeapon, IPoolableObject
         if(gameObject.activeInHierarchy==true)
         {
             //do error checking
-            Debug.Assert(temporaryLinePoolSingleton.linePoolable != null, "Error: " + this + " needs acess to a temporary line pool, but found: " + temporaryLinePoolSingleton.linePoolable);
+            Debug.Assert(objectPool != null, "Error: " + this + " needs acess to an objectPool Scriptable Object, but is null");
 
             if (Time.time - lastAttackTime > weaponProperties.weaponCooldown)//make sure the cooldown has expired
             {
                 lastAttackTime = Time.time;
                 Transform parentTransform = combatController.transform;
-                combatController.StartCoroutine(MeleeAttack(parentTransform, attackDirection, temporaryLinePoolSingleton.linePoolable));//start a new attatck coroutine(time sharing parraleleism)
+                combatController.StartCoroutine(MeleeAttack(parentTransform, attackDirection));//start a new attatck coroutine(time sharing parraleleism)
             }
         }
     }
@@ -79,7 +69,7 @@ class MeleeWeapon : Item, IWeapon, IPoolableObject
     /// </summary>
     /// <param name="attackDirection"></param>
     /// <returns></returns>
-    IEnumerator MeleeAttack(Transform origin, Vector2 attackDirection, LinePoolable temporaryLinePool)
+    IEnumerator MeleeAttack(Transform origin, Vector2 attackDirection)
     {
         //store a list of objects we already hit with this attack to prevent multi-attacking with a single swing
         List<GameObject> objectsHit = new List<GameObject>();
@@ -89,9 +79,10 @@ class MeleeWeapon : Item, IWeapon, IPoolableObject
         attackDirection.Normalize();
         //determine the angle we are swinging at.
         float angle = Vector2.SignedAngle(Vector2.right, attackDirection);
-        
+
         //grab a lineRenderer from the pool
-        LineRenderer lineRenderer = temporaryLinePool.getLine();
+        LineRendererPooler lineRendererPooler = (LineRendererPooler) objectPool.PopObject(this.lineRendererPooler);
+        LineRenderer lineRenderer = lineRendererPooler.GetComponent<LineRenderer>();
 
         //set the lines default values
         lineRenderer.enabled = true;
@@ -171,7 +162,8 @@ class MeleeWeapon : Item, IWeapon, IPoolableObject
         }
         #endregion
 
-        temporaryLinePool.removeLine(lineRenderer);//release line renderer back to the pool
+        objectPool.PushObject(lineRendererPooler);//release line renderer back to the pool
         objectsHit.Clear();//release the memory of objects hit
     }
 }
+

@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class ResourceBuildings : MonoBehaviour, IOutput
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+public class ResourceBuildings : MonoBehaviour, IOutputResource
 {
     [System.Serializable]
-    struct ItemsRequired
+    struct ItemsTemplate
     {
-        public int count;
         [HideInInspector]
         public int itemGUID;
+#pragma warning disable 0649
+        public int count;
         [SerializeField]
         private Item prefab;
+#pragma warning restore 0649
         public void InitializeGUID()
         {
             Debug.Assert(prefab != null, "Error: prefab is null in " + this);
@@ -20,26 +24,11 @@ public class ResourceBuildings : MonoBehaviour, IOutput
         }
         
     }
-    [System.Serializable]
-    struct ItemsProduced
-    {
-        public int count;
-        [HideInInspector]
-        public int itemGUID;
-        [SerializeField]
-        private Item prefab;
-        public void InitializeGUID()
-        {
-            itemGUID = prefab.getItemGUID();
-        }
-    }
+
+
     private void Awake()
     {
-        foreach (ItemsRequired item in itemsRequireds)
-        {
-            item.InitializeGUID();
-        }
-        foreach (ItemsProduced item in outputProducts)
+        foreach (ItemsTemplate item in itemsRequireds)
         {
             item.InitializeGUID();
         }
@@ -117,9 +106,9 @@ public class ResourceBuildings : MonoBehaviour, IOutput
 
     //set in inspector
     [SerializeField]
-    List<ItemsRequired> itemsRequireds = new List<ItemsRequired>();
+    List<ItemsTemplate> itemsRequireds = new List<ItemsTemplate>();
     [SerializeField]
-    List<ItemsProduced> outputProducts = new List<ItemsProduced>();
+    List<ItemsTemplate> outputProducts = new List<ItemsTemplate>();
 
     //set in code
     List<ResourceConnection> inputConnections = new List<ResourceConnection>();
@@ -133,12 +122,12 @@ public class ResourceBuildings : MonoBehaviour, IOutput
     {
         bool failed = false;
         //grabbed inputs
-        foreach (ItemsRequired itemsSlot in itemsRequireds.TakeWhile(itemSlot =>failed==false))
+        foreach (ItemsTemplate itemsSlot in itemsRequireds.TakeWhile(itemSlot =>failed==false))
         {
             int amount = itemsSlot.count;
             foreach (ResourceConnection resourceConnection in inputConnections.TakeWhile(resourceConnection => amount>0))
             {
-                IOutput iOutput = resourceConnection.input;
+                IOutputResource iOutput = resourceConnection.input;
                 amount -= iOutput.CheckPartialOutput(itemsSlot.itemGUID, amount);
             }
             if (amount > 0)
@@ -159,10 +148,10 @@ public class ResourceBuildings : MonoBehaviour, IOutput
                 {
                     outputItems[i].count += outputProducts[i].count;
                 }
-                else if(outputItems[i].itemGUID== -1)
+                else if(outputItems[i].itemGUID == -1)
                 {
-                    outputItems[i].count += outputProducts[i].count;
-                    outputItems[i].itemGUID += outputProducts[i].itemGUID;
+                    outputItems[i].count = outputProducts[i].count;
+                    outputItems[i].itemGUID = outputProducts[i].itemGUID;
                 }
                 else
                 {
@@ -172,12 +161,12 @@ public class ResourceBuildings : MonoBehaviour, IOutput
             }
             if(failed!=true)
             {
-                foreach (ItemsRequired itemsSlot in itemsRequireds.TakeWhile(itemSlot => failed == false))
+                foreach (ItemsTemplate itemsSlot in itemsRequireds.TakeWhile(itemSlot => failed == false))
                 {
                     int amount = itemsSlot.count;
                     foreach (ResourceConnection resourceConnection in inputConnections.TakeWhile(resourceConnection => amount > 0))
                     {
-                        IOutput iOutput = resourceConnection.input;
+                        IOutputResource iOutput = resourceConnection.input;
                         amount -= iOutput.TakePartialOutput(itemsSlot.itemGUID, amount);
                     }
                 }
@@ -186,15 +175,4 @@ public class ResourceBuildings : MonoBehaviour, IOutput
 
     }
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

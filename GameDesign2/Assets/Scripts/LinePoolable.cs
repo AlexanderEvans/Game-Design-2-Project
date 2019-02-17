@@ -6,11 +6,9 @@ using UnityEditor;
 public class LinePoolable : MonoBehaviour
 {
     List<LineRenderer> lineRenderers = new List<LineRenderer>();
-
     List<LineRenderer> pool = new List<LineRenderer>();
     
     
-
     public void removeLine(LineRenderer temp)
     {
         pool.Add(temp);

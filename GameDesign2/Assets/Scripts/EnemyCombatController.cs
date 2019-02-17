@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,15 +20,37 @@ public class EnemyCombatController : CombatController, IDamageable
                 HP = Mathf.Max(0, value);
                 if(HP==0)
                 {
-                    Debug.Log(this + " has passed away");
-                    Destroy(gameObject);
+                    commitSuicide();
                 }
                 else if(HP<0)
                 {
-                    Debug.LogError(" "+this+" has a negative HP value!");
+
+                    Debug.LogError(this+" has a negative HP value!");
                 }
             }
         }
+    }
+
+    private void commitSuicide()
+    {
+        int randNum = UnityEngine.Random.Range(0, int.MaxValue);
+        List<string> strings = new List<string>();
+
+        strings.Add(this + " has passed away");
+        strings.Add(this + " longed for death");
+        strings.Add(this + " has cast off their physical form");
+        strings.Add(this + " left this world behind");
+        strings.Add(this + " committed sepuku");
+        strings.Add(this + " was game-ended");
+        strings.Add(this + " uninstalled life");
+        strings.Add(this + " removed themselves from existence");
+        strings.Add(this + " committed unlife");
+        strings.Add(this + " Alt+F4-ed life");
+        strings.Add(this + " escaped from their mortal body");
+        strings.Add(this + " is visiting the afterlife... forever");
+
+        Debug.Log(strings[randNum % strings.Count]);
+        Destroy(gameObject);
     }
 
     public void TakeDamage(float amount)

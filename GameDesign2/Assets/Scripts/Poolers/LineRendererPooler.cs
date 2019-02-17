@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatController : MonoBehaviour
+[RequireComponent(typeof(LineRenderer))]
+public class LineRendererPooler : PrefabPooler
 {
 
 }

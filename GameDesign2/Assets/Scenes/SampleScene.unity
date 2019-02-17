@@ -427,7 +427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a6037426502334b8e2ff227017cc6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePoolSingleton: {fileID: 11400000, guid: 94502c3db9b5b88459dd978e097f6b0c, type: 2}
 --- !u!4 &1175376630
 Transform:
   m_ObjectHideFlags: 0
@@ -2818,6 +2817,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: weaponProperties.hitDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: weaponProperties.weaponCooldown
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2308179194234767437, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}

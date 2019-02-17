@@ -28,21 +28,21 @@ public class Item : MonoBehaviour
         return GUID;
     }
 
-    static Item getPrefab(Item instance)
+    static Item GetPrefab(Item instance)
     {
         foreach (Item prefab in prefabs.Where((prefab) => prefab.GUID == instance.GUID))
             return prefab;
         return null;
     }
 
-    static Item getPrefab(int itemGUID)
+    static Item GetPrefab(int itemGUID)
     {
         foreach (Item prefab in prefabs.Where((prefab) => prefab.GUID == itemGUID))
             return prefab;
         return null;
     }
 
-    static public void updatePrefabsList()
+    static public void UpdatePrefabsList()
     {
         prefabs.Clear();
         List<Item> items = AssetManagement.FindAssetsByComponent<Item>();
@@ -116,17 +116,6 @@ public class Item : MonoBehaviour
             PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
         }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
 }
