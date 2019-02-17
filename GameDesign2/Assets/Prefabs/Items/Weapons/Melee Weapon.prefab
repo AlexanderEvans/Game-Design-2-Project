@@ -47,11 +47,12 @@ MonoBehaviour:
   weaponProperties:
     constantReach: 0
     weaponReach: 1.5
-    hitDuration: 0.25
     damage: 1
-    weaponCooldown: 0.25
+    hitDuration: 0.5
+    weaponCooldown: 0.1
     targetLayer: 512
   weaponFlashMaterial: {fileID: 2100000, guid: ad157c70fe06bdf4fb020f51cb42f23d, type: 2}
   objectPool: {fileID: 11400000, guid: 7d8c431a700c91040a4a48f4d74a4c10, type: 2}
   lineRendererPooler: {fileID: 368596326384002832, guid: 494df826706e17a4e9f5fbe75e87f788,
     type: 3}
+  lineRendererRoot: {fileID: 0}
