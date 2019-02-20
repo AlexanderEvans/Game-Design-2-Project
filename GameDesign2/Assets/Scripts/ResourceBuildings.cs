@@ -7,30 +7,23 @@ using System.Linq;
 [RequireComponent(typeof(SpriteRenderer))]
 public class ResourceBuildings : MonoBehaviour, IOutputResource
 {
-    [System.Serializable]
-    struct ItemsTemplate
-    {
-        [HideInInspector]
-        public int itemGUID;
-#pragma warning disable 0649
-        public int count;
-        [SerializeField]
-        private Item prefab;
-#pragma warning restore 0649
-        public void InitializeGUID()
-        {
-            Debug.Assert(prefab != null, "Error: prefab is null in " + this);
-            itemGUID = prefab.getItemGUID();
-        }
-        
-    }
+    [SerializeField]
+    public RecipeTemplate[] recipeTemplates { get; private set; }
+    RecipeTemplate activeRecipeTemplate;
 
+    void SetActiveRecipeTemplate(int index)
+    {
+        Debug.Assert(index < recipeTemplates.Count() && index>=0, "Error: "+this+" Recieved an invalid recipeTemplateIndex!");
+        activeRecipeTemplate = recipeTemplates[index];
+    }
 
     private void Awake()
     {
-        foreach (ItemsTemplate item in itemsRequireds)
+        //initialization workaround
+        if(activeRecipeTemplate.initialized == false)
         {
-            item.InitializeGUID();
+            activeRecipeTemplate.InitializeGUIDS();
+            activeRecipeTemplate.initialized = true;
         }
     }
 
@@ -104,11 +97,6 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
         return 0;
     }
 
-    //set in inspector
-    [SerializeField]
-    List<ItemsTemplate> itemsRequireds = new List<ItemsTemplate>();
-    [SerializeField]
-    List<ItemsTemplate> outputProducts = new List<ItemsTemplate>();
 
     //set in code
     List<ResourceConnection> inputConnections = new List<ResourceConnection>();
@@ -122,7 +110,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
     {
         bool failed = false;
         //grabbed inputs
-        foreach (ItemsTemplate itemsSlot in itemsRequireds.TakeWhile(itemSlot =>failed==false))
+        foreach (RecipeTemplate.ItemsTemplate itemsSlot in activeRecipeTemplate.ItemsRequired.TakeWhile(itemSlot =>failed==false))
         {
             int amount = itemsSlot.count;
             foreach (ResourceConnection resourceConnection in inputConnections.TakeWhile(resourceConnection => amount>0))
@@ -137,21 +125,21 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
         //generate outputs
         if(failed!=true)
         {
-            while(outputItems.Count < outputProducts.Count)
+            while(outputItems.Count < activeRecipeTemplate.OutputProducts.Count)
             {
                 Item.ItemsSlot itemsSlot = new Item.ItemsSlot();
                 outputItems.Add(itemsSlot);
             }
-            for(int i = 0; i< outputProducts.Count; i++)
+            for(int i = 0; i< activeRecipeTemplate.OutputProducts.Count; i++)
             {
-                if (outputItems[i].itemGUID == outputProducts[i].itemGUID)
+                if (outputItems[i].itemGUID == activeRecipeTemplate.OutputProducts[i].itemGUID)
                 {
-                    outputItems[i].count += outputProducts[i].count;
+                    outputItems[i].count += activeRecipeTemplate.OutputProducts[i].count;
                 }
                 else if(outputItems[i].itemGUID == -1)
                 {
-                    outputItems[i].count = outputProducts[i].count;
-                    outputItems[i].itemGUID = outputProducts[i].itemGUID;
+                    outputItems[i].count = activeRecipeTemplate.OutputProducts[i].count;
+                    outputItems[i].itemGUID = activeRecipeTemplate.OutputProducts[i].itemGUID;
                 }
                 else
                 {
@@ -161,7 +149,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
             }
             if(failed!=true)
             {
-                foreach (ItemsTemplate itemsSlot in itemsRequireds.TakeWhile(itemSlot => failed == false))
+                foreach (RecipeTemplate.ItemsTemplate itemsSlot in activeRecipeTemplate.ItemsRequired.TakeWhile(itemSlot => failed == false))
                 {
                     int amount = itemsSlot.count;
                     foreach (ResourceConnection resourceConnection in inputConnections.TakeWhile(resourceConnection => amount > 0))

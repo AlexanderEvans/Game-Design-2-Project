@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System;
 
 [System.Serializable]
 public class Item : MonoBehaviour
 {
-
     [System.Serializable]
     public class ItemsSlot
     {
@@ -18,15 +18,10 @@ public class Item : MonoBehaviour
     Sprite icon;
 
     [SerializeField]
-    [HideInInspector]
-    int GUID;
+    public int GUID { get; private set; }
     static int GUIDCount;
     static List<Item> prefabs = new List<Item>();
-
-    public int getItemGUID()
-    {
-        return GUID;
-    }
+    
 
     static Item GetPrefab(Item instance)
     {
@@ -87,7 +82,7 @@ public class Item : MonoBehaviour
     {
         GUIDCount = 0;
         List<Item> prefabs = AssetManagement.FindAssetsByComponent<Item>();
-        Item[] instances = FindObjectsOfType<Item>();
+        Item[] instances = (Item[]) Resources.FindObjectsOfTypeAll(typeof(Item));
         foreach (Item prefab in prefabs.Where( (prefab) => prefab.gameObject.scene.name == null))
         {
             prefab.GUID = GUIDCount;
@@ -116,6 +111,4 @@ public class Item : MonoBehaviour
             PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
         }
     }
-    
-
 }
