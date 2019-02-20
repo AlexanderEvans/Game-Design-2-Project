@@ -8,19 +8,19 @@ using System.Linq;
 public class ResourceBuildings : MonoBehaviour, IOutputResource
 {
     [SerializeField]
-    public RecipeTemplate[] recipeTemplates { get; private set; }
+    public RecipeTemplate[] RecipeTemplates { get; private set; }
     RecipeTemplate activeRecipeTemplate;
 
     void SetActiveRecipeTemplate(int index)
     {
-        Debug.Assert(index < recipeTemplates.Count() && index>=0, "Error: "+this+" Recieved an invalid recipeTemplateIndex!");
-        activeRecipeTemplate = recipeTemplates[index];
+        Debug.Assert(index < RecipeTemplates.Count() && index>=0, "Error: "+this+" Recieved an invalid recipeTemplateIndex!");
+        activeRecipeTemplate = RecipeTemplates[index];
     }
 
     private void Awake()
     {
         //initialization workaround
-        if(activeRecipeTemplate.initialized == false)
+        if(activeRecipeTemplate!=null&&activeRecipeTemplate.initialized == false)
         {
             activeRecipeTemplate.InitializeGUIDS();
             activeRecipeTemplate.initialized = true;
@@ -106,7 +106,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
     //max item stack size
     //do stuff
 
-    void craftRecipe()
+    public void CraftRecipe()
     {
         bool failed = false;
         //grabbed inputs
@@ -116,7 +116,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
             foreach (ResourceConnection resourceConnection in inputConnections.TakeWhile(resourceConnection => amount>0))
             {
                 IOutputResource iOutput = resourceConnection.input;
-                amount -= iOutput.CheckPartialOutput(itemsSlot.itemGUID, amount);
+                amount -= iOutput.CheckPartialOutput(itemsSlot.ItemGUID, amount);
             }
             if (amount > 0)
                 failed = true;
@@ -132,14 +132,14 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
             }
             for(int i = 0; i< activeRecipeTemplate.OutputProducts.Count; i++)
             {
-                if (outputItems[i].itemGUID == activeRecipeTemplate.OutputProducts[i].itemGUID)
+                if (outputItems[i].itemGUID == activeRecipeTemplate.OutputProducts[i].ItemGUID)
                 {
                     outputItems[i].count += activeRecipeTemplate.OutputProducts[i].count;
                 }
                 else if(outputItems[i].itemGUID == -1)
                 {
                     outputItems[i].count = activeRecipeTemplate.OutputProducts[i].count;
-                    outputItems[i].itemGUID = activeRecipeTemplate.OutputProducts[i].itemGUID;
+                    outputItems[i].itemGUID = activeRecipeTemplate.OutputProducts[i].ItemGUID;
                 }
                 else
                 {
@@ -155,7 +155,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
                     foreach (ResourceConnection resourceConnection in inputConnections.TakeWhile(resourceConnection => amount > 0))
                     {
                         IOutputResource iOutput = resourceConnection.input;
-                        amount -= iOutput.TakePartialOutput(itemsSlot.itemGUID, amount);
+                        amount -= iOutput.TakePartialOutput(itemsSlot.ItemGUID, amount);
                     }
                 }
             }

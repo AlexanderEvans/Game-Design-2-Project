@@ -43,13 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15f370e74523c946a5944388e9f724e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: 0
+  icon: {fileID: 21300000, guid: 1cde9f0e9e4a7fa41bd084de663de0c5, type: 3}
+  isPrefab: 0
+  guid: 0
   weaponProperties:
     constantReach: 0
-    weaponReach: 1.5
+    weaponReach: 1
     damage: 1
-    hitDuration: 0.5
-    weaponCooldown: 0.1
+    hitDuration: 1
+    weaponCooldown: 1
     targetLayer: 512
   weaponFlashMaterial: {fileID: 2100000, guid: ad157c70fe06bdf4fb020f51cb42f23d, type: 2}
   objectPool: {fileID: 11400000, guid: 7d8c431a700c91040a4a48f4d74a4c10, type: 2}

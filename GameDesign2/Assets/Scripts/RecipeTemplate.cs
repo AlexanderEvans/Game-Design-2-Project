@@ -10,7 +10,7 @@ public class RecipeTemplate : ScriptableObject
     [System.Serializable]
     public struct ItemsTemplate
     {
-        public int itemGUID { get; private set; }
+        public int ItemGUID { get; private set; }
 #pragma warning disable 0649
         public int count;
         [SerializeField]
@@ -19,7 +19,7 @@ public class RecipeTemplate : ScriptableObject
         public void InitializeGUID()
         {
             Debug.Assert(prefab != null, "Error: prefab is null in " + this);
-                itemGUID = prefab.GUID;
+                ItemGUID = prefab.GUID;
             if(prefab==null)
                 Debug.LogWarning(prefab + " is null!");
         }

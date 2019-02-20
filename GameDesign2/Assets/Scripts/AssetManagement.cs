@@ -20,11 +20,26 @@ public class AssetManagement : MonoBehaviour
         }
         return assets;
     }
+    public static List<GameObject> FindAssetsByPrefab() 
+    {
+        List<GameObject> assets = new List<GameObject>();
+        string[] guids = AssetDatabase.FindAssets("t:GameObject");
+        for (int i = 0; i < guids.Length; i++)
+        {
+            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+            GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+            if (asset != null)
+            {
+                assets.Add(asset);
+            }
+        }
+        return assets;
+    }
 
     public static List<T> FindAssetsByComponent<T>() where T : UnityEngine.Object
     {
         List<T> componentList = new List<T>();
-        List<GameObject> gameObjects = FindAssetsByType<GameObject>();
+        List<GameObject> gameObjects = FindAssetsByPrefab();
         foreach(GameObject gameObject in gameObjects)
         {
             T[] components = gameObject.GetComponents<T>();
