@@ -20,14 +20,12 @@ class MeleeWeapon : Item, IWeapon
     private ObjectPool objectPool = null;
     [SerializeField]
     private LineRendererPooler lineRendererPooler = null;
-    public Transform lineRendererRoot = null;
 
     private void Start()
     {
         Debug.Assert(objectPool != null, "Error: objectPool is null in " + this);
         Debug.Assert(lineRendererPooler != null, "Error: lineRendererPooler is null in " + this);
         Debug.Assert(weaponFlashMaterial != null, "Error: weaponFlashMaterial is null in " + this);
-        Debug.Assert(lineRendererRoot != null, "Error: lineRendererRoot is null in " + this);
     }
 
     
@@ -81,7 +79,6 @@ class MeleeWeapon : Item, IWeapon
 
         //grab a lineRenderer from the pool
         LineRendererPooler lineRendererPooler = (LineRendererPooler) objectPool.PopObject(this.lineRendererPooler);
-        lineRendererPooler.transform.parent = lineRendererRoot;
         LineRenderer lineRenderer = lineRendererPooler.GetComponent<LineRenderer>();
 
         //set the lines default values
