@@ -1,12 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(MeleeWeaponPooler))]
 class MeleeWeapon : Item, IWeapon
 {
+    private void OnEnable()
+    {
+        lastAttackTime = 0 - weaponProperties.weaponCooldown;
+    }
+
     //holds the weapon stat block
     public WeaponProperties weaponProperties = new WeaponProperties();
+
+    [SerializeField]
+    private Material weaponFlashMaterial = null;
+    [SerializeField]
+    private ObjectPool objectPool = null;
+    [SerializeField]
+    private LineRendererPooler lineRendererPooler = null;
+    public Transform lineRendererRoot = null;
+
+    private void Start()
+    {
+        Debug.Assert(objectPool != null, "Error: objectPool is null in " + this);
+        Debug.Assert(lineRendererPooler != null, "Error: lineRendererPooler is null in " + this);
+        Debug.Assert(weaponFlashMaterial != null, "Error: weaponFlashMaterial is null in " + this);
+        Debug.Assert(lineRendererRoot != null, "Error: lineRendererRoot is null in " + this);
+    }
+
     
+    float lastAttackTime;
+
     /// <summary>
     /// Set the target physics layer to make attacks at.
     /// </summary>
@@ -16,44 +42,25 @@ class MeleeWeapon : Item, IWeapon
         weaponProperties.targetLayer = targetLayer;
     }
 
-    [SerializeField]
-    Material weaponFlashMaterial;
-
-    //these are used to generate a pool of line renderers
-    static GameObject lineContainer;//This game objects holds the line manager component
-    static LineSupervisor lineSupervisor;//This component is responsible for spawning and pooling game objects with line renderers attatched
-
-    private void Awake()
-    {
-        //Checks if a line container already exists in the game
-        if (lineContainer == null)
-        {
-            lineContainer = new GameObject("Line Container");//create tehe game object
-            lineSupervisor = lineContainer.AddComponent<LineSupervisor>();//attatch the supervisor component
-        }
-    }
-
-    void Update()
-    {
-        //decrement the current weapon cooldown until we reach 0 based on hte time between frames
-        weaponProperties.currentCooldown = Mathf.Max(weaponProperties.currentCooldown - Time.deltaTime, 0);
-    }
-
     /// <summary>
     /// Make an attack in the direction of attackDirection from an origin point of parentTransform
     /// </summary>
     /// <param name="parentTransform"></param>
     /// <param name="attackDirection"></param>
-    public void Attack(Transform parentTransform, Vector2 attackDirection)
+    public void Attack(CombatController combatController, Vector2 attackDirection)
     {
-        if(weaponProperties.currentCooldown<=0)//make sure the cooldown has expired
+        if(gameObject.activeInHierarchy==true)
         {
+            //do error checking
+            Debug.Assert(objectPool != null, "Error: " + this + " needs acess to an objectPool Scriptable Object, but is null");
 
-            StartCoroutine(MeleeAttack(attackDirection));//start a new attatck coroutine(time sharing parraleleism)
-            weaponProperties.currentCooldown = weaponProperties.weaponCooldown;//reset the cooldown
+            if (Time.time - lastAttackTime > weaponProperties.weaponCooldown)//make sure the cooldown has expired
+            {
+                lastAttackTime = Time.time;
+                Transform parentTransform = combatController.transform;
+                combatController.StartCoroutine(MeleeAttack(parentTransform, attackDirection));//start a new attatck coroutine(time sharing parraleleism)
+            }
         }
-        
-        return;
     }
 
     /// <summary>
@@ -61,7 +68,7 @@ class MeleeWeapon : Item, IWeapon
     /// </summary>
     /// <param name="attackDirection"></param>
     /// <returns></returns>
-    IEnumerator MeleeAttack(Vector2 attackDirection)
+    IEnumerator MeleeAttack(Transform origin, Vector2 attackDirection)
     {
         //store a list of objects we already hit with this attack to prevent multi-attacking with a single swing
         List<GameObject> objectsHit = new List<GameObject>();
@@ -73,7 +80,9 @@ class MeleeWeapon : Item, IWeapon
         float angle = Vector2.SignedAngle(Vector2.right, attackDirection);
 
         //grab a lineRenderer from the pool
-        LineRenderer lineRenderer = lineSupervisor.getLine();
+        LineRendererPooler lineRendererPooler = (LineRendererPooler) objectPool.PopObject(this.lineRendererPooler);
+        lineRendererPooler.transform.parent = lineRendererRoot;
+        LineRenderer lineRenderer = lineRendererPooler.GetComponent<LineRenderer>();
 
         //set the lines default values
         lineRenderer.enabled = true;
@@ -91,8 +100,20 @@ class MeleeWeapon : Item, IWeapon
         {
             RaycastHit2D[] hits;//store everything we hit this frame
 
-            //determine how far out we have swung the weapon on this frame
-            float castDistance = Mathf.Lerp(0, weaponProperties.weaponReach, 1-((endTime - Time.time)/weaponProperties.hitDuration));
+
+            #region positional data
+            float castDistance;
+            if (weaponProperties.constantReach!=true)
+            {
+                //determine how far out we have swung the weapon on this frame
+                castDistance = Mathf.Lerp(0, weaponProperties.weaponReach, 1 - ((endTime - Time.time) / weaponProperties.hitDuration));
+            }
+            else
+            {
+                castDistance = weaponProperties.weaponReach;
+            }
+            #endregion
+
 
             #region render
             //determine the target offset vector
@@ -101,8 +122,8 @@ class MeleeWeapon : Item, IWeapon
             target.z = 0;
 
             //set the points in the array that will form the line's verticies in order
-            linePoints[0] = transform.position;
-            linePoints[1] = transform.position + target;
+            linePoints[0] = origin.position;
+            linePoints[1] = origin.position + target;
 
             //load the array of points
             lineRenderer.SetPositions(linePoints);
@@ -113,7 +134,7 @@ class MeleeWeapon : Item, IWeapon
             LayerMask layerMask = weaponProperties.targetLayer;
 
             //raycast to everythinging the layer mask
-            hits = Physics2D.RaycastAll(transform.position, attackDirection, castDistance, layerMask);
+            hits = Physics2D.RaycastAll(origin.position, attackDirection, castDistance, layerMask);
 
             //examine the results of the clollision events from the raycast
             foreach (RaycastHit2D hit in hits)
@@ -141,7 +162,8 @@ class MeleeWeapon : Item, IWeapon
         }
         #endregion
 
-        lineSupervisor.removeLine(lineRenderer);//release line renderer back to the pool
+        objectPool.PushObject(lineRendererPooler);//release line renderer back to the pool
         objectsHit.Clear();//release the memory of objects hit
     }
 }
+

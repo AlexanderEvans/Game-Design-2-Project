@@ -5,11 +5,11 @@ using UnityEngine;
 [System.Serializable]
 class WeaponProperties
 {
+    public bool constantReach = false;
     public float weaponReach=1;
-    public float hitDuration=1;
     public float damage=1;
+    public float hitDuration=1;
     public float weaponCooldown=1;
-    public float currentCooldown=0;
     [HideInInspector]
     public int targetLayer = 1<<9;
 }
@@ -27,9 +27,9 @@ interface IWeapon
     /// <summary>
     /// Make an attack in the direction of attackDirection from an origin point of parentTransform
     /// </summary>
-    /// <param name="parentTransform"></param>
+    /// <param name="combatController"></param>
     /// <param name="attackDirection"></param>
-    void Attack(Transform parentTransform, Vector2 attackDirection);
+    void Attack(CombatController combatController, Vector2 attackDirection);
 }
 
 /// <summary>

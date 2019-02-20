@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerCombatController : MonoBehaviour, IDamageable
+public class PlayerCombatController : CombatController, IDamageable
 {
     float HP = 100;
+
+    #region weapon
     [System.Serializable]
     struct Weapon
     {
@@ -15,22 +17,58 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     [SerializeField]
     Weapon weapon;
 
-    private void Awake()
-    {
-        //grab the reference to the physics component
-        rigidbody2d = GetComponent<Rigidbody2D>();
 
-        //use a "dirty hack" to dynamically link the interface on object load
-        if (weapon.component is IWeapon)
+    /// <summary>
+    /// use a "dirty hack" to dynamically link the interface on object load
+    /// </summary>
+    void initializeWeapon()
+    {
+        if (weapon.component is IWeapon != true)
         {
-            weapon.weaponInterface = (IWeapon) weapon.component;//cast to an interface
-            weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
+            Debug.LogWarning("Error: " + weapon.component + " does not implement IWeapon!");
+            weapon.component = null;
         }
         else
         {
-            //This component should always be of a weapon type
-            Debug.LogError("Error: "+weapon.component+" does not implement IWeapon!");
+            weapon.weaponInterface = (IWeapon)weapon.component;//cast to an interface
+            weapon.weaponInterface.SetTargetLayer(1 << 9);//Targets Enemies on layer 9
         }
+    }
+    #endregion
+
+    private void OnValidate()
+    {
+        
+        if(weapon.component !=null)
+            initializeWeapon();
+
+
+        if(rigidbody2d==null)
+        {
+            //grab the reference to the physics component
+            rigidbody2d = GetComponent<Rigidbody2D>();
+        }
+    }
+
+    private void Reset()
+    {
+        //grab the reference to the physics component
+        rigidbody2d = GetComponent<Rigidbody2D>();
+    }
+
+    private void Awake()
+    {
+        //attempt lazy load
+        if(rigidbody2d==null)
+        {
+            Debug.LogWarning("Warning: " + this + " does not allow 'rigidbody2d' to be null! Attempting correction...");
+            rigidbody2d = GetComponent<Rigidbody2D>();
+        }
+    }
+
+    private void Start()
+    {
+        Debug.Assert(rigidbody2d != null, "Error: "+this+ " does not allow 'rigidbody2d' to be null!  Corection failed!");
     }
 
     /// <summary>
@@ -45,23 +83,11 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         }
         set
         {
-            //get all the Item Monobehaviours on the weapon GameObject
-            Item[] MBs = value.GetComponents<Item>();
-            bool errorDetected = true;//create a flag
-            foreach(Item mb in MBs)//loop over all the item components
-            {
-                if(mb is IWeapon)//if the MonoBehaviour implements the Iweapon interface
-                {
-                    weapon.weaponInterface = (IWeapon) mb;//assign the interface
-                    weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
-                    weapon.component = mb;//cache the MonoBehaviour Component
-                    errorDetected = false;//set the flag
-                }
-            }
-            if(errorDetected==true)//If the Item didn't impliment IWeapon, the flag never gets cleared
-            {
-                Debug.LogError("Error: " + value + " does not implement IWeapon!");
-            }
+            Debug.Assert(value is IWeapon, "Error: " + value + " does not implement IWeapon!");
+
+            weapon.weaponInterface = (IWeapon) value;//assign the interface
+            weapon.weaponInterface.SetTargetLayer(1<<9);//Targets Enemies
+            weapon.component = value;
 
             return;
         }
@@ -77,7 +103,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
-        Mathf.Max(0, HP - damage);
+        HP = Mathf.Max(0, HP - damage);
     }
     
 
@@ -87,11 +113,11 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         //update the attatck direction
         if (rigidbody2d.velocity != Vector2.zero)
             attackDirection = rigidbody2d.velocity;
-        else
-            attackDirection = Vector2.down;
 
         //trigger an attack with the held weapon
-        if (Input.GetButtonDown("Fire1"))
-            weapon.weaponInterface.Attack(transform, attackDirection);
+        if (Input.GetButtonDown("Fire1") && weapon.component != null)
+        {
+            weapon.weaponInterface.Attack(this, attackDirection);
+        }
     }
 }
