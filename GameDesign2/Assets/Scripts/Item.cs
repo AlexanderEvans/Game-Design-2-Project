@@ -253,6 +253,7 @@ public class Item : MonoBehaviour
         {
             prefab.guid = GUIDCount;
             GUIDCount++;
+            PrefabUtility.SavePrefabAsset(prefab.gameObject);
         }
         Debug.Log("Instances: " + instances.Count);
         foreach (Item instance in instances)
@@ -262,7 +263,7 @@ public class Item : MonoBehaviour
             PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
         }
 
-        UpdatePrefabsDictionary(prefabs);
+        UpdatePrefabsDictionary();
     }
 
     static public void UpdatePrefabsDictionary()
@@ -272,20 +273,8 @@ public class Item : MonoBehaviour
 
         foreach (Item item in items)
         {
+            Debug.Log("Adding Item: " + item + "\nAdding GUID:" + item.GUID);
             prefabs.Add(item.GUID, item);
         }
     }
-
-    static private void UpdatePrefabsDictionary(List<Item> items)
-    {
-        prefabs.Clear();
-        Debug.Log("items: "+items.Count);
-        foreach (Item item in items)
-        {
-            Debug.Log("Adding: " + item.gameObject + " : " + item.GUID);
-            prefabs.Add(item.GUID, item);
-            PrefabUtility.SavePrefabAsset(item.gameObject);
-        }
-    }
-
 }
