@@ -13,6 +13,7 @@ public class Autorun
 
     static void RunOnce()
     {
+        Item.GetLargestGUIDAndRebuildPrefabsDictionary();
         PrefabUtility.prefabInstanceUpdated = new PrefabUtility.PrefabInstanceUpdated(PrefabInstanceUpdated);
         EditorApplication.update -= RunOnce;
     }
