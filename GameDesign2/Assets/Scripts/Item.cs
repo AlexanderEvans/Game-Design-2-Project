@@ -20,7 +20,7 @@ public class Item : MonoBehaviour
         //public string itemProperties;
     }
     [SerializeField]
-    public Sprite icon;
+    Sprite icon;
 
     [SerializeField]
     bool isPrefab = true;
