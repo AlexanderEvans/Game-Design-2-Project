@@ -8,7 +8,7 @@ using System.Linq;
 public class ResourceBuildings : MonoBehaviour, IOutputResource
 {
     [SerializeField]
-    public List<RecipeTemplate> recipeTemplates = new List<RecipeTemplate>();
+    public List<RecipeTemplate> RecipeTemplates = new List<RecipeTemplate>();
     RecipeTemplate activeRecipeTemplate;
 
     void SetActiveRecipeTemplate(int index)

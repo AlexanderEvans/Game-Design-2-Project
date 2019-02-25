@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 21300008, guid: 84fa19a8c91d0b642a47c85cb36cfa64, type: 3}
+  isPrefab: 0
+  guid: 3
