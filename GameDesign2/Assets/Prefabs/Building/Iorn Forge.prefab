@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29046be4e7ef83c4f917db3e70fc1f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recipeTemplates:
+  - {fileID: 11400000, guid: 94d34c8f0c5f3814ebe9ff4112cefd0c, type: 2}

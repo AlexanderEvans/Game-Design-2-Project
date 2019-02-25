@@ -15,6 +15,7 @@ public class Item : MonoBehaviour
         public int itemGUID=-1;
         //public string itemProperties;
     }
+    [SerializeField]
     Sprite icon;
 
     [SerializeField]
