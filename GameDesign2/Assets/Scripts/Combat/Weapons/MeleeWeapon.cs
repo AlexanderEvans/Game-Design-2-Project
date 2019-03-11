@@ -110,8 +110,7 @@ class MeleeWeapon : Item, IWeapon
                 castDistance = weaponProperties.weaponReach;
             }
             #endregion
-
-
+            
             #region render
             //determine the target offset vector
             target.x = (attackDirection * castDistance).x;

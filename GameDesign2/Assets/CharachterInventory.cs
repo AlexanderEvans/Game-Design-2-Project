@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharachterInventory : MonoBehaviour
+public class CharachterInventory : MonoBehaviour, IOutputResource
 {
-    Dictionary<int, int> items = new Dictionary<int, int>();
+    public Dictionary<string, int> items = new Dictionary<string, int>();
 
-    public bool Search(int GUID)
+    public bool Search(string GUID)
     {
         return items.ContainsKey(GUID);
     }
 
-    public bool TryGetAmount(int GUID, int amount = 1)
+    public bool TakeOutput(string GUID, int amount = 1)
     {
         int itemCount;
         bool found = items.TryGetValue(GUID, out itemCount);
         if (found == true)
         {
             found = (itemCount >= amount);
-            if(found==true)
+            if (found == true)
             {
                 itemCount -= amount;
             }
@@ -26,35 +26,70 @@ public class CharachterInventory : MonoBehaviour
         return found;
     }
 
-    public bool TryGetPatialAmount(int GUID, out int amountFound, int amountRequested)
+    public bool CheckOutput(string GUID, int amount = 1)
     {
         int itemCount;
+        bool found = items.TryGetValue(GUID, out itemCount);
+        if (found == true)
+        {
+            found = (itemCount >= amount);
+        }
+        return found;
+    }
+
+    public int TakePartialOutput(string GUID, int amountRequested)
+    {
+        int itemCount;
+        int amountFound = 0;
         bool found = items.TryGetValue(GUID, out itemCount);
         if (found == true)
         {
             if(itemCount<amountRequested)
             {
                 amountFound = itemCount;
-                found = false;
                 items.Remove(GUID);
             }
             else if(itemCount == amountRequested)
             {
                 amountFound = itemCount;
-                found = true;
                 items.Remove(GUID);
             }
             else
             {
                 itemCount -= amountRequested;
                 amountFound = amountRequested;
-                found = true;
             }
         }
         else
         {
             amountFound = 0;
         }
-        return found;
+        return amountFound;
+    }
+    public int CheckPartialOutput(string GUID, int amountRequested)
+    {
+        int itemCount;
+        int amountFound = 0;
+        bool found = items.TryGetValue(GUID, out itemCount);
+        if (found == true)
+        {
+            if (itemCount < amountRequested)
+            {
+                amountFound = itemCount;
+            }
+            else if (itemCount == amountRequested)
+            {
+                amountFound = itemCount;
+            }
+            else
+            {
+                amountFound = amountRequested;
+            }
+        }
+        else
+        {
+            amountFound = 0;
+        }
+        return amountFound;
     }
 }

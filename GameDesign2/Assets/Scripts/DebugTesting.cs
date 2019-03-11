@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class DebugTesting : MonoBehaviour
 {
+    //[MenuItem("Custom Actions/Debugging... /Test Function Driver")]
+    //public static void testFunctionDriver()
+    //{
+    //    Debug.Log(System.DateTime.UtcNow.Ticks);
+    //}
+
     //[SerializeField]
     //MeleeWeapon meleeWeapon;
     //// Start is called before the first frame update

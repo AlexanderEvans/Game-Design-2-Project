@@ -1,32 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Experimental.SceneManagement;
 
+[DisallowMultipleComponent]
 public abstract class PrefabPooler : MonoBehaviour, IPoolableObject
 {
-    public IPoolableObject CreateInstance()
+    public virtual IPoolableObject CreateInstance(string objectProperties = "")
     {
-        Debug.Assert(gameObject.scene.name == null, "Error, not a prefab");
+        Debug.Assert(PrefabStageUtility.GetPrefabStage(gameObject)!=null, "Error, not a prefab");
         GameObject newGameObject = Instantiate(gameObject);
         return newGameObject.GetComponent<PrefabPooler>();
     }
 
-    public void Activate()
+    public virtual void Activate(string objectProperties = "")
     {
         gameObject.SetActive(true);
     }
 
-    public void Deactivate()
+    public virtual void Deactivate()
     {
         gameObject.SetActive(false);
     }
 
-    public object GetValue()
+    public virtual object getObjRef()
     {
         return this;
     }
 
-    public void ReleaseSelf()
+    public virtual void ReleaseSelf()
     {
         Destroy(gameObject);
     }

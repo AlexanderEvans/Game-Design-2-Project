@@ -5,11 +5,11 @@ using UnityEngine;
 
 public interface IPoolableObject
 {
-    void Activate();
+    void Activate(string objectProperties = "");
     void Deactivate();
     System.Type GetType();
-    object GetValue();
-    IPoolableObject CreateInstance();
+    object getObjRef();
+    IPoolableObject CreateInstance(string objectProperties = "");
     void ReleaseSelf();
 }
 
@@ -47,7 +47,7 @@ public class ObjectPool : ScriptableObject
         }
     }
 
-    public void PushObject(object objectToPool)
+    public void PushObject(object objectToPool) 
     {
         IPoolableObject poolableObject = (IPoolableObject) objectToPool;
         poolableObject.Deactivate();
@@ -66,7 +66,7 @@ public class ObjectPool : ScriptableObject
         }
     }
 
-    public object PopObject(object inPrefab) 
+    public object PopObject(object inPrefab, string objectProperties = "") 
     {
         Debug.Assert((inPrefab is IPoolableObject) == true, "Error: " + inPrefab + " does not implement IPoolableObject");
 
@@ -79,20 +79,20 @@ public class ObjectPool : ScriptableObject
             if (poolableObjects.Count == 0)
             {
                 IPoolableObject poolableObj = (IPoolableObject) inPrefab;
-                rtnVal = poolableObj.CreateInstance();
+                rtnVal = poolableObj.CreateInstance(objectProperties);
             }
             else
             {
                 IPoolableObject poolableObj = poolableObjects[poolableObjects.Count-1];
                 poolableObjects.Remove(poolableObj);
-                poolableObj.Activate();
-                rtnVal = poolableObj.GetValue();
+                poolableObj.Activate(objectProperties);
+                rtnVal = poolableObj.getObjRef();
             }
         }
         else
         {
             IPoolableObject poolableObj = (IPoolableObject) inPrefab;
-            rtnVal = poolableObj.CreateInstance().GetValue();
+            rtnVal = poolableObj.CreateInstance(objectProperties).getObjRef();
         }
         return rtnVal;
     }

@@ -16,14 +16,16 @@ public class Item : MonoBehaviour
     public class ItemsSlot
     {
         public int count=0;
-        public int itemGUID=-1;
+        public string itemGUID = "";
         //public string itemProperties;
     }
-    [SerializeField]
-    Sprite icon;
+    public Sprite icon;
+
+    bool needsLoad = false;
+    string itemPropertyDataCache = "";
 
     [SerializeField]
-    bool isPrefab = true;
+    bool isPrefab = false;
     public bool IsPrefab
     {
         get
@@ -36,8 +38,8 @@ public class Item : MonoBehaviour
         }
     }
     [SerializeField]
-    private int guid=-1;
-    public int GUID
+    private string guid = "";
+    public string GUID
     {
         get
         {
@@ -45,7 +47,7 @@ public class Item : MonoBehaviour
         }
         private set
         {
-            if (guid == -1)
+            if (guid == "")
                 guid = value;
             else if (IsPrefab != true)
                 guid = value;
@@ -53,15 +55,23 @@ public class Item : MonoBehaviour
                 Debug.LogWarning("Warning: Reseting GUID on " + this + " is not allowed!");
         }
     }
-
-    public static int GUIDCount = 0;
-    static Dictionary<int, Item> prefabs = new Dictionary<int, Item>();
+    
+    static Dictionary<string, Item> prefabs = new Dictionary<string, Item>();
 
 
     private void OnValidate()
     {
+        CheckIfIsPrefab();
         //Debug.Log("Validating..."+this);
-        if (CheckIfIsPrefab() != true)
+        if(IsPrefab == true)
+        {
+            if (GUID == "")
+            {
+                GUID = name + " + " + System.DateTime.Now + " + " + System.DateTime.UtcNow.Ticks;
+                prefabs.Add(GUID, this);
+            }
+        }
+        else
         {
             SerializedObject serializedObject = new SerializedObject(this);
             SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("guid");
@@ -71,11 +81,13 @@ public class Item : MonoBehaviour
 
     private void Reset()
     {
-        if (CheckIfIsPrefab())
+        if (CheckIfIsPrefab()==true)
         {
-            GUID = GUIDCount;
-            GUIDCount++;
-            prefabs.Add(GUID, this);
+            if(GUID == "")
+            {
+                GUID = name + " + " + System.DateTime.Now + " + " + System.DateTime.UtcNow.Ticks;
+                prefabs.Add(GUID, this);
+            }
         }
 
         List<Item> items = GetAllItemsInAllScenes();
@@ -87,14 +99,15 @@ public class Item : MonoBehaviour
         }
     }
 
-    private bool CheckIfIsPrefab()
+    public bool CheckIfIsPrefab()
     {
         PrefabStage prefabStage = PrefabStageUtility.GetPrefabStage(gameObject);
         //Debug.Log("IsPrefabSource: " + gameObject + " : " + prefabStage+", "+ (prefabStage != null));
-        return IsPrefab = (prefabStage != null);
+        IsPrefab = (prefabStage != null);
+        return IsPrefab;
     }
 
-    /// <summary>
+    /// <summary> 
     /// Warning!!! SLOW AF!!!  EDITOR ONLY!!!
     /// </summary>
     /// <returns></returns>
@@ -134,7 +147,6 @@ public class Item : MonoBehaviour
     {
         //List<Item>;
         List<Item> items = AssetManagement.FindAssetsByComponent<Item>();
-        Debug.Log("Items: "+items.Count);
         List<Item> itemList = new List<Item>();
         foreach(Item item in items)
         {
@@ -145,23 +157,15 @@ public class Item : MonoBehaviour
 
     public virtual void InitializeItemFromPrefab(Item PrefabItemComponent)
     {
-        Debug.Assert(IsPrefab != true, "Error: Can not InitializeItemFromPrefab() because "+this+ " is a PrefabItemComponent!");
+        Debug.Assert(IsPrefab != true, "Error: Can not InitializeItemFromPrefab() because " + this + " is a PrefabItemComponent!");
         guid = PrefabItemComponent.GUID;
         icon = PrefabItemComponent.icon;
         PrefabUtility.SavePrefabAsset(gameObject);
     }
-
-    private static int GetLargestGUID()
+    public void RegeneratePrefabGuid()
     {
-        List<Item> items = GetAllItemPrefabsInProjectFolder();
-
-        int LargestGUID = 0;
-        foreach (Item item in items.Where((item) => item.IsPrefab == true))
-        {
-            if (item.GUID > LargestGUID)
-                LargestGUID = item.GUID;
-        }
-        return LargestGUID;
+        GUID = name + " + " + System.DateTime.Now + " + " + System.DateTime.UtcNow.Ticks;
+        prefabs.Add(GUID, this);
     }
 
     public static Item GetPrefab(Item instance)
@@ -170,53 +174,16 @@ public class Item : MonoBehaviour
         return temp;
     }
 
-    public static Item GetPrefab(int itemGUID)
+    public static Item GetPrefabComponent(string itemGUID)
     {
         prefabs.TryGetValue(itemGUID, out Item temp);
         return temp;
     }
-
     
-    /// <summary>
-    /// Initialise Item GUID System
-    /// </summary>
-    [MenuItem("Custom Actions/Prefab Management/Initialise Item GUID Sys./GetLargestGUIDAndRebuildPrefabsDictionary")]
-    public static int GetLargestGUIDAndRebuildPrefabsDictionary()
-    {
-        List<Item> items = GetAllItemPrefabsInProjectFolder();
-
-        int LargestGUID = 0;
-        prefabs.Clear();
-        foreach (Item item in items.Where((item) => item.IsPrefab == true))
-        {
-            if (item.GUID >= LargestGUID)
-                LargestGUID = item.GUID+1;
-            prefabs.Add(item.GUID, item);
-        }
-        return LargestGUID;
-    }
-
-    /// <summary>
-    /// Warning, this might break Item Prefab Initialization!  Use with caution!!!
-    /// </summary>
-    [MenuItem("Custom Actions/Prefab Management/Set GUIDCount=0")]
-    static void SetGUIDCountToZero()
-    {
-        GUIDCount = 0;
-    }
-
-    /// <summary>
-    /// Get the largest GUID and add one to restart the counter
-    /// </summary>
-    [MenuItem("Custom Actions/Prefab Management/Set GUIDCount to current Largest GUID")]
-    static void SetGUIDCountToCurrentLargestGUID()
-    {
-        GUIDCount = GetLargestGUID()+1;
-    }
-
+    
 
     [MenuItem("Custom Actions/Prefab Management/Sync GUIDS")]
-    static void SyncGUIDS()
+    public static void SyncGUIDS()
     {
         List<Item> instances = GetAllItemsInAllScenes();
 
@@ -226,6 +193,7 @@ public class Item : MonoBehaviour
             SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("guid");
             PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
         }
+
         UpdatePrefabsDictionary();
     }
 
@@ -239,33 +207,17 @@ public class Item : MonoBehaviour
             Debug.Log(prefab.GUID);
         }
     }
-    /// <summary>
-    /// Warning, will break between save/load between runs!
-    /// </summary>
-    [MenuItem("Custom Actions/Prefab Management/Reset GUIDS")]
-    static void ResetGUIDS()
+
+    [MenuItem("Custom Actions/Prefab Management/Regenerate prefab GUIDS")]
+    static void RegenGUIDS()
     {
-        GUIDCount = 0;
         List<Item> prefabs = GetAllItemPrefabsInProjectFolder();
-        List<Item> instances = GetAllItemsInAllScenes();
-        Debug.Log("Prefabs: " + prefabs.Count);
         foreach (Item prefab in prefabs)
         {
-            prefab.guid = GUIDCount;
-            GUIDCount++;
-            PrefabUtility.SavePrefabAsset(prefab.gameObject);
+            Debug.Log(prefab.GUID);
         }
-        Debug.Log("Instances: " + instances.Count);
-        foreach (Item instance in instances)
-        {
-            SerializedObject serializedObject = new SerializedObject(instance);
-            SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("guid");
-            PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
-        }
-
-        UpdatePrefabsDictionary();
     }
-
+     
     static public void UpdatePrefabsDictionary()
     {
         prefabs.Clear();
@@ -273,8 +225,26 @@ public class Item : MonoBehaviour
 
         foreach (Item item in items)
         {
-            Debug.Log("Adding Item: " + item + "\nAdding GUID:" + item.GUID);
-            prefabs.Add(item.GUID, item);
+            //Debug.Log("Adding Item: " + item + "\nAdding GUID:" + item.GUID);
+            if(prefabs.ContainsKey(item.GUID))
+            {
+                Item old;
+                prefabs.TryGetValue(item.GUID, out old);
+                Debug.Log("Error: " + item.GUID + "already exists!\nOld: " + old + "\nNew: " + item);
+            }
+            else
+                prefabs.Add(item.GUID, item);
         }
     }
+
+    public virtual string saveItemPropertiesToString()
+    {
+        return "";
+    }
+
+    public virtual void loadItemPropertiesFromString(string data)
+    {
+        
+    }
+
 }

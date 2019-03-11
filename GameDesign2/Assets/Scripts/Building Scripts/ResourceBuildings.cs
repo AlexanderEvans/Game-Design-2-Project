@@ -27,7 +27,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
         }
     }
 
-    public bool TakeOutput(int itemGUID, int amount)
+    public bool TakeOutput(string itemGUID, int amount)
     {
         foreach (Item.ItemsSlot itemSlot in outputItems)
         {
@@ -42,7 +42,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
         }
         return false;
     }
-    public bool CheckOutput(int itemGUID, int amount)
+    public bool CheckOutput(string itemGUID, int amount)
     {
         foreach (Item.ItemsSlot itemSlot in outputItems)
         {
@@ -57,7 +57,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
         return false;
     }
 
-    public int TakePartialOutput(int itemGUID, int amount)
+    public int TakePartialOutput(string itemGUID, int amount)
     {
         foreach (Item.ItemsSlot itemSlot in outputItems)
         {
@@ -78,7 +78,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
         }
         return 0;
     }
-    public int CheckPartialOutput(int itemGUID, int amount)
+    public int CheckPartialOutput(string itemGUID, int amount)
     {
         foreach (Item.ItemsSlot itemSlot in outputItems)
         {
@@ -136,7 +136,7 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
                 {
                     outputItems[i].count += activeRecipeTemplate.OutputProducts[i].count;
                 }
-                else if(outputItems[i].itemGUID == -1)
+                else if(outputItems[i].itemGUID == "")
                 {
                     outputItems[i].count = activeRecipeTemplate.OutputProducts[i].count;
                     outputItems[i].itemGUID = activeRecipeTemplate.OutputProducts[i].ItemGUID;
