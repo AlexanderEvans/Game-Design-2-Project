@@ -6,6 +6,10 @@ public class EditorScriptInterfaces : MonoBehaviour
 {
 }
 
+public interface IOnPrefabCreated
+{
+    void OnPrefabCreated();
+}
 
 public interface IGameObjectAddedToSceneHierarchy
 {

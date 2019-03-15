@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class InventoryData : ScriptableObject
     CollectionPool collectionPool = null;
 
     int itemsPerPage = 12;
+
+    [SerializeField]
     int maxPages = 5;
 
     public int MaxPages
@@ -19,9 +22,25 @@ public class InventoryData : ScriptableObject
         }
         set
         {
-            if(maxPages<value)
-
-            MaxPages = value;
+            if (maxPages < value)
+            {
+                GenericItemSlot temp;
+                temp.guid = "";
+                temp.item = null;
+                temp.itemCount = 0;
+                temp.isLive = false;
+                for (int i = maxPages; i < value; i++)
+                {
+                    for (int j = 0; j < itemsPerPage; j++)
+                    {
+                        temp.itemData = collectionPool.popBack<List<string>>();
+                        allItems.Add(temp);
+                    }
+                }
+                maxPages = value;
+            }
+            else
+                Debug.LogWarning("Inventory size can't be shrunk!");
         }
     }
     
@@ -79,9 +98,24 @@ public class InventoryData : ScriptableObject
         }
     }
 
-    void clearItems()
+    GenericItemSlot swapItemAt(int page, int slotID)
+    {
+        GenericItemSlot genericItemSlot = allItems[(page * itemsPerPage) + slotID];
+        genericItemSlot.
+    }
+
+    public void AddPage()
+    {
+        MaxPages++;
+    }
+
+    void ClearItemsAndUpdatePageCount()
     {
         GenericItemSlot temp;
+        temp.guid = "";
+        temp.item = null;
+        temp.itemCount = 0;
+        temp.isLive = false;
 
         for (int i = 0; i < (itemsPerPage * MaxPages); i++)
         {
@@ -90,13 +124,8 @@ public class InventoryData : ScriptableObject
                 collectionPool.pushBack(allItems[i].itemData);
             }
         }
-
         allItems.Clear();
 
-        temp.guid = "";
-        temp.item = null;
-        temp.itemCount = 0;
-        temp.isLive = false;
         for (int i = 0; i < (itemsPerPage * MaxPages); i++)
         {
             temp.itemData = collectionPool.popBack<List<string>>();
@@ -104,37 +133,39 @@ public class InventoryData : ScriptableObject
         }
     }
 
-    void saveInventoryData()
-    {
-        staticRuntimeItems.Clear();
+    //void saveInventoryData()
+    //{
+    //    staticRuntimeItems.Clear();
 
-        LiveItemSaveSlot temp;
+    //    LiveItemSaveSlot temp;
 
-        foreach (GenericItemSlot genericItemSlot in allItems)
-        {
-            if(genericItemSlot.isLive)
-            {
+    //    foreach (GenericItemSlot genericItemSlot in allItems)
+    //    {
+    //        if(genericItemSlot.isLive)
+    //        {
 
-            }
-            else
-            {
-                temp.guid = item.GUID;
-                temp.itemData = item.saveItemPropertiesToString();
-                temp.positionInList =
+    //        }
+    //        else
+    //        {
+    //            temp.guid = item.GUID;
+    //            temp.itemData = item.saveItemPropertiesToString();
+    //            temp.positionInList =
 
-                staticRuntimeItems.Add(temp);
-            }
+    //            staticRuntimeItems.Add(temp);
+    //        }
 
-        }
+    //    }
 
-        //write to json
-    }
+    //    //write to json
+    //}
 
     void loadInventoryData()
     {
         dynamicRuntimeItems.Clear();
 
         //read from json
+
+        ClearItemsAndUpdatePageCount();
 
         GenericItemSlot genericItemSlot;
 
@@ -174,8 +205,7 @@ public class InventoryData : ScriptableObject
                 collectionPool.pushBack(allItems[staticItemSlot.positionInList].itemData);//cache list... probably not thread safe
 
             //overwrite
-            allItems[staticItemSlot.positionInList] = genericItemSlot; ;
-
+            allItems[staticItemSlot.positionInList] = genericItemSlot;
         }
     }
 }
