@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Rock
+  m_EditorClassIdentifier: Assembly-CSharp::WorldManager/Biome
+  titles:
+  - {fileID: 5682672453956593273, guid: 6c13395fa5574ae49bc5f848fefab558, type: 3}
+  - {fileID: 5887872140807548152, guid: cb4a33a55a716d04a94fd33613c7c12e, type: 3}
+  - {fileID: 7593100838326833744, guid: b38af08ebb9d7d647af943326dafea0b, type: 3}
+  - {fileID: 4877926019584334526, guid: 246103e33e6d64f428683b13cd38423e, type: 3}
