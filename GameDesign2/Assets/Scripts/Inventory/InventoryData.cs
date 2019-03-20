@@ -27,7 +27,6 @@ public class InventoryData : ScriptableObject, IInventory
                 GenericItemSlot temp;
                 temp.guid = "";
                 temp.item = null;
-                temp.itemCount = 0;
                 temp.isLive = false;
                 for (int i = maxPages; i < value; i++)
                 {
@@ -50,10 +49,28 @@ public class InventoryData : ScriptableObject, IInventory
         public bool isLive;
 
         public string guid;
-        public int itemCount;
-        
         public List<string> itemData;
+
         public Item item;//use to check if we are working with live item!!
+
+        public GenericItemSlot getDynamic()
+        {
+            if (isLive != true)
+            {
+                if(guid!="")
+                {
+                    if(itemData.Count>0)
+                    {
+                        string tempStr = itemData[0];
+
+                    }
+                }
+            }
+        }
+        public void getStatic()
+        {
+
+        }
     }
 
     [System.Serializable]
@@ -88,7 +105,6 @@ public class InventoryData : ScriptableObject, IInventory
         GenericItemSlot temp;
         temp.guid = "";
         temp.item = null;
-        temp.itemCount = 0;
         temp.isLive = false;
 
         for (int i = 0; i<(itemsPerPage*MaxPages); i++)
@@ -185,7 +201,6 @@ public class InventoryData : ScriptableObject, IInventory
             genericItemSlot.guid = item.GUID;
             genericItemSlot.item = item;
             genericItemSlot.isLive = true;
-            genericItemSlot.itemCount = 1;
             genericItemSlot.itemData = collectionPool.popBack<List<string>>();
             if (allItems[liveItemSaveSlot.positionInList].itemData != null)
                 collectionPool.pushBack(allItems[liveItemSaveSlot.positionInList].itemData);//cache list... probably not thread safe
@@ -199,7 +214,6 @@ public class InventoryData : ScriptableObject, IInventory
             genericItemSlot.isLive = false;
             genericItemSlot.item = null;
             genericItemSlot.guid = staticItemSlot.guid;
-            genericItemSlot.itemCount = allItems[staticItemSlot.positionInList].itemCount + 1;
             genericItemSlot.itemData = collectionPool.popBack<List<string>>();
             genericItemSlot.itemData.AddRange(staticItemSlot.itemData);
             if(allItems[staticItemSlot.positionInList].itemData!=null)
