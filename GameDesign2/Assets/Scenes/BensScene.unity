@@ -250,6 +250,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28ef5d5bccbb1b740b7758618395a5ec, type: 2}
   - {fileID: 11400000, guid: 177bd935d1d89664fa22b9a9bda649d7, type: 2}
   - {fileID: 11400000, guid: 397fd3af1ba09b6418b443629e48855b, type: 2}
+  - {fileID: 11400000, guid: 6d1324964e6596d41953f337d36c0639, type: 2}
   seed: 0
   BiomeSize: 25
   columns: 150
