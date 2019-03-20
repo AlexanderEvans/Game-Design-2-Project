@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class InventoryData : ScriptableObject
+public class InventoryData : ScriptableObject, IInventory
 {
     ObjectPool objectPool = null;
     CollectionPool collectionPool = null;
@@ -98,10 +98,11 @@ public class InventoryData : ScriptableObject
         }
     }
 
-    GenericItemSlot swapItemAt(int page, int slotID)
+    void swapItemAt(int page, int slotID,ref GenericItemSlot toSwap)
     {
         GenericItemSlot genericItemSlot = allItems[(page * itemsPerPage) + slotID];
-        genericItemSlot.
+        allItems[(page * itemsPerPage) + slotID] = toSwap;
+        toSwap = genericItemSlot;
     }
 
     public void AddPage()
