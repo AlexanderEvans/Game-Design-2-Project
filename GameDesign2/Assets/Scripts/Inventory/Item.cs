@@ -10,7 +10,7 @@ using UnityEditor.Experimental.SceneManagement;
 
 [System.Serializable]
 [DisallowMultipleComponent]
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, ISaveable
 {
     public Sprite icon;
     [SerializeField]
@@ -242,13 +242,13 @@ public class Item : MonoBehaviour
         }
     }
 
-    public virtual string SaveItemPropertiesToString()
+    public virtual  string SavePropertiesToJSONString()
     {
         NeedsLoad = true;
         return "";
     }
 
-    public virtual void LoadItemPropertiesFromString(string data)
+    public virtual void LoadPropertiesFromJSONString(string data)
     {
         NeedsLoad = false;
     }

@@ -15,14 +15,14 @@ public class ItemPooler : PrefabPooler
 
     public override void Activate(string objectProperties = "")
     {
-        item.loadItemPropertiesFromString(objectProperties);
+        item.LoadPropertiesFromJSONString(objectProperties);
     }
 
     public override IPoolableObject CreateInstance(string objectProperties = "")
     {
         Debug.Assert(PrefabStageUtility.GetPrefabStage(gameObject) != null, "Error, not a prefab");
         GameObject newGameObject = Instantiate(gameObject);
-        newGameObject.GetComponent<Item>().loadItemPropertiesFromString(objectProperties);
+        newGameObject.GetComponent<Item>().LoadPropertiesFromJSONString(objectProperties);
         return newGameObject.GetComponent<ItemPooler>();
     }
 

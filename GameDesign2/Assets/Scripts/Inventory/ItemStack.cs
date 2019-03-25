@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemStack : MonoBehaviour
+public class ItemStack : MonoBehaviour, ISaveable
 {
+    [System.Serializable]
     struct TempStack
     {
         public bool isDynamic;
@@ -109,7 +110,7 @@ public class ItemStack : MonoBehaviour
 
     ReturnStruct StoreItem(ItemStack itemStack, int Amount = -1)
     {
-        ReturnStruct returnStruct;
+        ReturnStruct returnStruct = new ReturnStruct();
         if(itemStack.isDynamic!=isDynamic)
         {
             returnStruct.AmountNotStored = itemStack.GetStackSize();
@@ -134,7 +135,7 @@ public class ItemStack : MonoBehaviour
             returnStruct.AmountStored = 0;
             returnStruct.returnCode = ReturnStruct.ReturnCode.NONE;
         }
-        else if ((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize() == itemStack.GetStackSize()))
+        else if ((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize() >= itemStack.GetStackSize()))
         {
             returnStruct.AmountNotStored = 0;
             returnStruct.AmountStored = itemStack.GetStackSize();
@@ -150,22 +151,38 @@ public class ItemStack : MonoBehaviour
                 itemStack.properties.Clear();
             }
         }
-        else if ((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize() > itemStack.GetStackSize()))
+        else if ((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize() < itemStack.GetStackSize()))
         {
-            returnStruct.AmountNotStored = 0;
-            returnStruct.AmountStored = itemStack.GetStackSize();
-            returnStruct.returnCode = ReturnStruct.ReturnCode.ALL;
+            int remainingSpace = Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize();
+            int numToStore = itemStack.GetStackSize();
+
+            int possibleToStore = numToStore - remainingSpace;
+
+            returnStruct.AmountNotStored = numToStore-possibleToStore;
+            returnStruct.AmountStored = possibleToStore;
+            returnStruct.returnCode = ReturnStruct.ReturnCode.PART;
             if (itemStack.isDynamic == true)
             {
-                items.AddRange(itemStack.items);
-                itemStack.items.Clear();
+                for(int i = 0; i<possibleToStore;i++)
+                {
+                    items.Add(itemStack.items[0]);
+                    itemStack.items.Remove(itemStack.items[0]);
+                }
             }
             else
             {
-                properties.AddRange(itemStack.properties);
-                itemStack.properties.Clear();
+                for (int i = 0; i < possibleToStore; i++)
+                {
+                    properties.Add(itemStack.properties[0]);
+                    itemStack.properties.Remove(itemStack.properties[0]);
+                }
             }
         }
+        else
+        {
+            Debug.LogError("ItemStack unhandled case in: " + this);
+        }
+        return returnStruct;
     }
 
     public struct ReturnStruct
@@ -181,5 +198,33 @@ public class ItemStack : MonoBehaviour
         public int AmountStored;
         public int AmountNotStored;
         public ReturnCode returnCode;
+    }
+
+    public string SavePropertiesToJSONString()
+    {
+        TempStack tempStack = new TempStack();
+        tempStack.SetStack(this);
+        if(tempStack.isDynamic==true)
+        {
+            foreach(Item item in tempStack.items)
+            {
+                tempStack.properties.Add(item.SavePropertiesToJSONString());
+            }
+        }
+        return JsonUtility.ToJson(tempStack);
+    }
+    public void LoadPropertiesFromJSONString(string data)
+    {
+        TempStack tempStack = JsonUtility.FromJson<TempStack>(data);
+        if(tempStack.isDynamic==true)
+        {
+            foreach(string Property in tempStack.properties)
+            {
+                GameObject itemObj = Instantiate(Item.GetPrefabComponent(tempStack.GUID).gameObject);
+                Item item = itemObj.GetComponent<Item>();
+                item.LoadPropertiesFromJSONString(Property);
+                tempStack.items.Add(item);
+            }
+        }
     }
 }

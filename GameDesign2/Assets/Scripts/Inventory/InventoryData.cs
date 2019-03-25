@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class InventoryData : ScriptableObject, IOutputResource
+public class InventoryData : ScriptableObject, IOutputResource, ISaveable
 {
     ObjectPool objectPool = null;
     CollectionPool collectionPool = null;
 
+    [SerializeField]
     int itemsPerPage = 12;
 
     [SerializeField]
@@ -43,62 +44,10 @@ public class InventoryData : ScriptableObject, IOutputResource
         }
     }
     
-
-    public struct GenericItemSlot
-    {
-        public bool isLive;
-
-        public string guid;
-        public List<string> itemData;
-
-        public Item item;//use to check if we are working with live item!!
-
-        public GenericItemSlot getDynamic()
-        {
-            if (isLive != true)
-            {
-                if(guid!="")
-                {
-                    if(itemData.Count>0)
-                    {
-                        string tempStr = itemData[0];
-
-                    }
-                }
-            }
-        }
-        public void getStatic()
-        {
-
-        }
-    }
-
-    [System.Serializable]
-    public struct StaticItemSlot
-    {
-        public string guid;
-        public string[] itemData;
-        public int positionInList;
-    }
-
-    [System.Serializable]
-    public struct LiveItemSaveSlot
-    {
-        public string guid;
-        public string itemData;
-        public int positionInList;
-    }
-
-    [SerializeField]
-    public List<GenericItemSlot> allItems = new List<GenericItemSlot>();
-
-    [SerializeField]
-    public List<StaticItemSlot> staticGUIDItems = new List<StaticItemSlot>();
-
-    public List<Item> dynamicRuntimeItems = new List<Item>();
-    [SerializeField]
-    public List<LiveItemSaveSlot> staticRuntimeItems = new List<LiveItemSaveSlot>();
-
+    List<AllItems>
+    
+    
+    
     private void Awake()
     {
         GenericItemSlot temp;
