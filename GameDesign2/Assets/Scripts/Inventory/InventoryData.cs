@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class InventoryData : ScriptableObject, IInventory
+public class InventoryData : ScriptableObject, IOutputResource
 {
     ObjectPool objectPool = null;
     CollectionPool collectionPool = null;
@@ -98,7 +98,6 @@ public class InventoryData : ScriptableObject, IInventory
     public List<Item> dynamicRuntimeItems = new List<Item>();
     [SerializeField]
     public List<LiveItemSaveSlot> staticRuntimeItems = new List<LiveItemSaveSlot>();
-
 
     private void Awake()
     {

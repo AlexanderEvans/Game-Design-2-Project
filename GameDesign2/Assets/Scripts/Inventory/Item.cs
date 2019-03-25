@@ -12,17 +12,22 @@ using UnityEditor.Experimental.SceneManagement;
 [DisallowMultipleComponent]
 public class Item : MonoBehaviour
 {
-    [System.Serializable]
-    public class ItemsSlot
-    {
-        public int count=0;
-        public string itemGUID = "";
-        //public string itemProperties;
-    }
     public Sprite icon;
+    [SerializeField]
+    private int maxStackSize = 99;
+    public int MaxStackSize
+    {
+        get
+        {
+            return maxStackSize;
+        }
+        private set
+        {
+            maxStackSize = value;
+        }
+    }
 
-    bool needsLoad = false;
-    string itemPropertyDataCache = "";
+    public bool NeedsLoad { get; private set; } = false;
 
     [SerializeField]
     bool isPrefab = false;
@@ -168,7 +173,7 @@ public class Item : MonoBehaviour
         prefabs.Add(GUID, this);
     }
 
-    public static Item GetPrefab(Item instance)
+    public static Item GetPrefabComponent(Item instance)
     {
         prefabs.TryGetValue(instance.GUID, out Item temp);
         return temp;
@@ -237,14 +242,15 @@ public class Item : MonoBehaviour
         }
     }
 
-    public virtual string saveItemPropertiesToString()
+    public virtual string SaveItemPropertiesToString()
     {
+        NeedsLoad = true;
         return "";
     }
 
-    public virtual void loadItemPropertiesFromString(string data)
+    public virtual void LoadItemPropertiesFromString(string data)
     {
-        
+        NeedsLoad = false;
     }
 
 }
