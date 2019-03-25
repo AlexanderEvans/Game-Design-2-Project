@@ -93,33 +93,79 @@ public class ItemStack : MonoBehaviour
         return isEmpty;
     }
 
+    int GetStackSize()
+    {
+        int rtnVal;
+        if (isDynamic == true)
+        {
+            rtnVal = items.Count;
+        }
+        else
+        {
+            rtnVal = properties.Count;
+        }
+        return rtnVal;
+    }
+
     ReturnStruct StoreItem(ItemStack itemStack, int Amount = -1)
     {
-        if(isDynamic==true)
-        {
-
-        }
-
         ReturnStruct returnStruct;
         if(itemStack.isDynamic!=isDynamic)
         {
-            if (itemStack.isDynamic == true)
-                returnStruct.AmountNotStored = itemStack.items.Count;
-            else
-                returnStruct.AmountNotStored = itemStack.properties.Count;
+            returnStruct.AmountNotStored = itemStack.GetStackSize();
             returnStruct.AmountStored = 0;
             returnStruct.returnCode = ReturnStruct.ReturnCode.IS_DYNAMIC_MISSMATCH;
         }
         else if(itemStack.GUID!=GUID)
         {
-            if (itemStack.isDynamic == true)
-                returnStruct.AmountNotStored = itemStack.items.Count;
-            else
-                returnStruct.AmountNotStored = itemStack.properties.Count;
+            returnStruct.AmountNotStored = itemStack.GetStackSize();
             returnStruct.AmountStored = 0;
             returnStruct.returnCode = ReturnStruct.ReturnCode.GUID_MISSMATCH;
         }
-        else if(Item.GetPrefabComponent(GUID).MaxStackSize==stack)
+        else if (Item.GetPrefabComponent(GUID).MaxStackSize <= GetStackSize())
+        {
+            returnStruct.AmountNotStored = itemStack.GetStackSize();
+            returnStruct.AmountStored = 0;
+            returnStruct.returnCode = ReturnStruct.ReturnCode.NONE;
+        }
+        else if (itemStack.GetStackSize()==0)
+        {
+            returnStruct.AmountNotStored = itemStack.GetStackSize();
+            returnStruct.AmountStored = 0;
+            returnStruct.returnCode = ReturnStruct.ReturnCode.NONE;
+        }
+        else if ((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize() == itemStack.GetStackSize()))
+        {
+            returnStruct.AmountNotStored = 0;
+            returnStruct.AmountStored = itemStack.GetStackSize();
+            returnStruct.returnCode = ReturnStruct.ReturnCode.ALL;
+            if (itemStack.isDynamic == true)
+            {
+                items.AddRange(itemStack.items);
+                itemStack.items.Clear();
+            }
+            else
+            {
+                properties.AddRange(itemStack.properties);
+                itemStack.properties.Clear();
+            }
+        }
+        else if ((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize() > itemStack.GetStackSize()))
+        {
+            returnStruct.AmountNotStored = 0;
+            returnStruct.AmountStored = itemStack.GetStackSize();
+            returnStruct.returnCode = ReturnStruct.ReturnCode.ALL;
+            if (itemStack.isDynamic == true)
+            {
+                items.AddRange(itemStack.items);
+                itemStack.items.Clear();
+            }
+            else
+            {
+                properties.AddRange(itemStack.properties);
+                itemStack.properties.Clear();
+            }
+        }
     }
 
     public struct ReturnStruct
