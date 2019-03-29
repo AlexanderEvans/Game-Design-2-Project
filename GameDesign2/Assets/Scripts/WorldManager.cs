@@ -41,20 +41,36 @@ public class WorldManager : MonoBehaviour
     public int rows = 10;
     private Transform boardHolder;
 
-
+    FastNoise noiseGen = new FastNoise();
 
 
     void BoardSetUp()
     {
-        int biome;
-
+        int biome = 0;
+        float noise = 0;
+        float distance = 2f;
+        float range = distance / Biomes.Count;
 
         boardHolder = new GameObject("Board").transform;
         for (int x = (-columns/2); x < columns/2; x++)
         {
             for (int y = (-rows/2); y < rows/2; y++)
             {
-                biome = CheckBiome(x, y);
+               // biome = CheckBiome(x, y);
+                noise = noiseGen.GetNoise(x, y);
+                int count = 0;
+                biome = 0;
+                float left = -1.0f;
+                while ((left + range) <= 1.0)
+                {
+                    if(noise > left && noise < (left + range))
+                    {
+                        biome = count;
+                        
+                    }
+                    count++;
+                    left = left + range;
+                }
                 GameObject toInstantiate = Biomes[biome].titles[Random.Range(0, Biomes[biome].titles.Count)];
                 
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
@@ -72,7 +88,9 @@ public class WorldManager : MonoBehaviour
             seed = Random.Range(1000, 9999);
         }
         Random.InitState(seed);
+        noiseGen.SetSeed(seed);
     }
+
     int CheckBiome(int x, int y)
     {
         int biome= Random.Range(0, Biomes.Count);
@@ -108,10 +126,27 @@ public class WorldManager : MonoBehaviour
         }
     }
 
+    void NoiseSetUp()
+    {
+        /*
+        noiseGen.SetNoiseType(FastNoise.NoiseType.Cubic);
+        noiseGen.SetFrequency((float)0.05);
+        noiseGen.SetInterp(FastNoise.Interp.Quintic);
+        noiseGen.SetFractalType(FastNoise.FractalType.FBM);
+        noiseGen.SetFractalOctaves(5);
+        noiseGen.SetFractalLacunarity((float)2.0);
+        noiseGen.SetFractalGain((float)0.5);
+        noiseGen.SetCellularDistanceFunction(FastNoise.CellularDistanceFunction.Natural);
+        noiseGen.SetCellularReturnType(FastNoise.CellularReturnType.NoiseLookup);
+        
+        */
+    }
+
     public void Awake()
     {
         HandleSeed();
-        GenerateBiomes();
+       // GenerateBiomes();
+        NoiseSetUp();
         BoardSetUp();
 
     }
