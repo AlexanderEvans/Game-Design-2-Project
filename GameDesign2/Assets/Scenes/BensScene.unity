@@ -252,9 +252,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 397fd3af1ba09b6418b443629e48855b, type: 2}
   - {fileID: 11400000, guid: 6d1324964e6596d41953f337d36c0639, type: 2}
   seed: 0
-  BiomeSize: 25
-  columns: 150
-  rows: 150
+  columns: 300
+  rows: 300
 --- !u!4 &482428670
 Transform:
   m_ObjectHideFlags: 0

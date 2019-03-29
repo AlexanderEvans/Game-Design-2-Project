@@ -27,16 +27,9 @@ public class WorldManager : MonoBehaviour
 
     public List<Biome> Biomes = new List<Biome>();
 
-    struct biomeLocation
-    {
-        public int x, y, biome;
-    }
-
-    List<biomeLocation> biomeLocations = new List<biomeLocation>();
 
     [SerializeField]
     public int seed;
-    public float BiomeSize;
     public int columns = 10;
     public int rows = 10;
     private Transform boardHolder;
@@ -101,18 +94,18 @@ public class WorldManager : MonoBehaviour
 
     void NoiseSetUp()
     {
-        /*
-        noiseGen.SetNoiseType(FastNoise.NoiseType.Cubic);
+        
+        noiseGen.SetNoiseType(FastNoise.NoiseType.Perlin);
         noiseGen.SetFrequency((float)0.05);
         noiseGen.SetInterp(FastNoise.Interp.Quintic);
         noiseGen.SetFractalType(FastNoise.FractalType.FBM);
         noiseGen.SetFractalOctaves(5);
         noiseGen.SetFractalLacunarity((float)2.0);
         noiseGen.SetFractalGain((float)0.5);
-        noiseGen.SetCellularDistanceFunction(FastNoise.CellularDistanceFunction.Natural);
-        noiseGen.SetCellularReturnType(FastNoise.CellularReturnType.NoiseLookup);
+        noiseGen.SetCellularDistanceFunction(FastNoise.CellularDistanceFunction.Euclidean);
+        noiseGen.SetCellularReturnType(FastNoise.CellularReturnType.CellValue);
         
-        */
+        
     }
 
     public void Awake()
