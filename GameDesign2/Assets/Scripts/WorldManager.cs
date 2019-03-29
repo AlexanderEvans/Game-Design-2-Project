@@ -47,30 +47,14 @@ public class WorldManager : MonoBehaviour
     void BoardSetUp()
     {
         int biome = 0;
-        float noise = 0;
-        float distance = 2f;
-        float range = distance / Biomes.Count;
 
         boardHolder = new GameObject("Board").transform;
         for (int x = (-columns/2); x < columns/2; x++)
         {
             for (int y = (-rows/2); y < rows/2; y++)
             {
-               // biome = CheckBiome(x, y);
-                noise = noiseGen.GetNoise(x, y);
-                int count = 0;
-                biome = 0;
-                float left = -1.0f;
-                while ((left + range) <= 1.0)
-                {
-                    if(noise > left && noise < (left + range))
-                    {
-                        biome = count;
-                        
-                    }
-                    count++;
-                    left = left + range;
-                }
+
+                biome = getBiome(x, y);
                 GameObject toInstantiate = Biomes[biome].titles[Random.Range(0, Biomes[biome].titles.Count)];
                 
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
@@ -81,6 +65,30 @@ public class WorldManager : MonoBehaviour
         }
     }
     
+    public int getBiome(int x ,int y)
+    {
+        int biome = 0;
+        float noise = 0;
+        float distance = 2f;
+        float range = distance / Biomes.Count;
+        noise = noiseGen.GetNoise(x, y);
+        int count = 0;
+        biome = 0;
+        float left = -1.0f;
+        while ((left + range) <= 1.0)
+        {
+            if (noise > left && noise < (left + range))
+            {
+                biome = count;
+
+            }
+            count++;
+            left = left + range;
+        }
+
+        return biome;
+    }
+
     void HandleSeed()
     {
         if (seed == 0)
@@ -89,41 +97,6 @@ public class WorldManager : MonoBehaviour
         }
         Random.InitState(seed);
         noiseGen.SetSeed(seed);
-    }
-
-    int CheckBiome(int x, int y)
-    {
-        int biome= Random.Range(0, Biomes.Count);
-
-        foreach (biomeLocation biomeloc in biomeLocations)
-        {
-            float Radius = Mathf.Sqrt( Mathf.Pow((x - biomeloc.x),2) + Mathf.Pow((y - biomeloc.y),2) );
-            if(Radius <= BiomeSize)
-            {
-                biome = biomeloc.biome;
-            }
-        }
-
-        return biome;
-    }
-
-    void GenerateBiomes()
-    {
-        if(BiomeSize == 0)
-        {
-            BiomeSize = 25;
-        }
-        float tileArea = Mathf.PI * (BiomeSize * BiomeSize);
-        float numOfBiomes = ((columns * rows)) / (tileArea/4);
-
-        for(int i = 0; i < numOfBiomes; i++)
-        {
-            biomeLocation newLocation = new biomeLocation();
-            newLocation.x = Random.Range((-rows / 2), (rows/2));
-            newLocation.y = Random.Range((-columns / 2), (columns/2));
-            newLocation.biome = Random.Range(0, Biomes.Count);
-            biomeLocations.Add(newLocation);
-        }
     }
 
     void NoiseSetUp()
@@ -145,7 +118,6 @@ public class WorldManager : MonoBehaviour
     public void Awake()
     {
         HandleSeed();
-       // GenerateBiomes();
         NoiseSetUp();
         BoardSetUp();
 
