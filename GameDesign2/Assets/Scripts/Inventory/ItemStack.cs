@@ -2,8 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemStack : MonoBehaviour, ISaveable
+public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
 {
+    public void Activate(string str="")
+    {
+
+    }
+
+    public void Deactivate()
+    {
+
+    }
+
+    public object getObjRef()
+    {
+        return this;
+    }
+
+    public void ReleaseSelf()
+    {
+        //do nothing in this case
+    }
+
+    public IPoolableObject CreateInstance(string str = "")
+    {
+        return new ItemStack();
+    }
+
+
     [System.Serializable]
     struct TempStack
     {
