@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: Dirt
   m_EditorClassIdentifier: Assembly-CSharp::WorldManager/Biome
   titles:
-  - {fileID: 6135511900467408708, guid: 013f54eabd565904a819b0216a5ead3c, type: 3}
-  - {fileID: 5200872175045060295, guid: abb05c6545f2cd346bbd0ab7cff7b3bd, type: 3}
-  - {fileID: 768679985894109458, guid: 49f6c908f98012b4ea02abdfc3637ccc, type: 3}
-  - {fileID: 1197442974635673755, guid: cf1f543bd4c5cea4eb85eca141b3b419, type: 3}
+  - {fileID: 11400000, guid: 9e3b648afc00c45469423b0638b25cce, type: 2}

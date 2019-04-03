@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sand
   m_EditorClassIdentifier: Assembly-CSharp::WorldManager/Biome
   titles:
-  - {fileID: 6422162140298572421, guid: 2247f9b35e912bb4791800d0a5e12f66, type: 3}
+  - {fileID: 11400000, guid: 47ffb13ed7cf2f647ad14bf38ac82f59, type: 2}

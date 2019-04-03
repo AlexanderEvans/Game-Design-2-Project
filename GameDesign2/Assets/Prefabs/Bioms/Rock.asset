@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: Assembly-CSharp::WorldManager/Biome
   titles:
-  - {fileID: 5682672453956593273, guid: 6c13395fa5574ae49bc5f848fefab558, type: 3}
-  - {fileID: 5887872140807548152, guid: cb4a33a55a716d04a94fd33613c7c12e, type: 3}
-  - {fileID: 7593100838326833744, guid: b38af08ebb9d7d647af943326dafea0b, type: 3}
-  - {fileID: 4877926019584334526, guid: 246103e33e6d64f428683b13cd38423e, type: 3}
+  - {fileID: 11400000, guid: d5596a81f38843e46afaddded5db260d, type: 2}

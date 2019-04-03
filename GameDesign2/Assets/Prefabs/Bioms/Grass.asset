@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: Assembly-CSharp::WorldManager/Biome
   titles:
-  - {fileID: 1348058024191413282, guid: 914f2c460ebd3404b90e8c587dc232b3, type: 3}
+  - {fileID: 11400000, guid: 43d13027ad803c84ca1ffd4bce429870, type: 2}

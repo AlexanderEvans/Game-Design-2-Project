@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class WorldManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class WorldManager : MonoBehaviour
     public class Biome : ScriptableObject
     {
         [SerializeField]
-        public List<GameObject> titles = new List<GameObject>();
+        public List<Tile> titles = new List<Tile>();
     }
 
     public List<Biome> Biomes = new List<Biome>();
@@ -32,7 +33,7 @@ public class WorldManager : MonoBehaviour
     public int seed;
     public int columns = 10;
     public int rows = 10;
-    private Transform boardHolder;
+    private Tilemap boardHolder;
 
     FastNoise noiseGen = new FastNoise();
 
@@ -41,21 +42,22 @@ public class WorldManager : MonoBehaviour
     {
         int biome = 0;
 
-        boardHolder = new GameObject("Board").transform;
+        boardHolder = GetComponentInChildren<Tilemap>();
         for (int x = (-columns/2); x < columns/2; x++)
         {
             for (int y = (-rows/2); y < rows/2; y++)
             {
 
                 biome = getBiome(x, y);
-                GameObject toInstantiate = Biomes[biome].titles[Random.Range(0, Biomes[biome].titles.Count)];
-                
-                GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                Tile tile = Biomes[biome].titles[Random.Range(0, Biomes[biome].titles.Count)];
+                boardHolder.SetTile(new Vector3Int(x, y, 0), tile);
+                //Tile instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity);
 
-                instance.transform.SetParent(boardHolder);
+                
 
             }
         }
+        
     }
     
     public int getBiome(int x ,int y)
@@ -95,14 +97,14 @@ public class WorldManager : MonoBehaviour
     void NoiseSetUp()
     {
         
-        noiseGen.SetNoiseType(FastNoise.NoiseType.Perlin);
+        noiseGen.SetNoiseType(FastNoise.NoiseType.Cellular);
         noiseGen.SetFrequency((float)0.05);
         noiseGen.SetInterp(FastNoise.Interp.Quintic);
-        noiseGen.SetFractalType(FastNoise.FractalType.FBM);
+        noiseGen.SetFractalType(FastNoise.FractalType.Billow);
         noiseGen.SetFractalOctaves(5);
         noiseGen.SetFractalLacunarity((float)2.0);
         noiseGen.SetFractalGain((float)0.5);
-        noiseGen.SetCellularDistanceFunction(FastNoise.CellularDistanceFunction.Euclidean);
+        noiseGen.SetCellularDistanceFunction(FastNoise.CellularDistanceFunction.Manhattan);
         noiseGen.SetCellularReturnType(FastNoise.CellularReturnType.CellValue);
         
         
