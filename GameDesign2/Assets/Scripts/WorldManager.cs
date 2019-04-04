@@ -65,7 +65,7 @@ public class WorldManager : MonoBehaviour
         int biome = 0;
         float noise = 0;
         float distance = 2f;
-        float range = distance / Biomes.Count;
+        float range = distance / (Biomes.Count+1);
         noise = noiseGen.GetNoise(x, y);
         int count = 0;
         biome = 0;
@@ -98,7 +98,7 @@ public class WorldManager : MonoBehaviour
     {
         
         noiseGen.SetNoiseType(FastNoise.NoiseType.Cellular);
-        noiseGen.SetFrequency((float)0.05);
+        noiseGen.SetFrequency((float)0.02);
         noiseGen.SetInterp(FastNoise.Interp.Quintic);
         noiseGen.SetFractalType(FastNoise.FractalType.Billow);
         noiseGen.SetFractalOctaves(5);

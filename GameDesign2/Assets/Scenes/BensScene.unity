@@ -406,12 +406,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Biomes:
   - {fileID: 11400000, guid: 28ef5d5bccbb1b740b7758618395a5ec, type: 2}
-  - {fileID: 11400000, guid: 6d1324964e6596d41953f337d36c0639, type: 2}
   - {fileID: 11400000, guid: 397fd3af1ba09b6418b443629e48855b, type: 2}
   - {fileID: 11400000, guid: 177bd935d1d89664fa22b9a9bda649d7, type: 2}
+  - {fileID: 11400000, guid: 6d1324964e6596d41953f337d36c0639, type: 2}
+  - {fileID: 11400000, guid: 8b7bd88b63d147f4585e9e8d9edab539, type: 2}
+  - {fileID: 11400000, guid: d1cc3c280be34114ea0f59e4a12bd006, type: 2}
   seed: 0
-  columns: 300
-  rows: 300
+  columns: 1000
+  rows: 1000
 --- !u!4 &482428670
 Transform:
   m_ObjectHideFlags: 0

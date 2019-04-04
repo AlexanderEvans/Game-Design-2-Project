@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Rock
+  m_Name: Hell
   m_EditorClassIdentifier: Assembly-CSharp::WorldManager/Biome
   titles:
-  - {fileID: 11400000, guid: d5596a81f38843e46afaddded5db260d, type: 2}
-  - {fileID: 11400000, guid: f4f77383044b2e2448f98a5f718f122a, type: 2}
+  - {fileID: 11400000, guid: a4e25b6da8438734ba85e9772a91fedc, type: 2}
