@@ -5,28 +5,28 @@ using UnityEngine;
 
 public interface IPoolableObject
 {
-    void Activate(string objectProperties = "");
-    void Deactivate();
-    System.Type GetType();
-    object getObjRef();
-    IPoolableObject CreateInstance(string objectProperties = "");
+    IPoolableObject CreateInstance();
     void ReleaseSelf();
 }
+
 
 [CreateAssetMenu(fileName = "New Object Pool Singleton", menuName = "Scriptable Object/Object Pool Singleton")]
 public class ObjectPool : ScriptableObject
 {
-    Dictionary<System.Type, List<IPoolableObject>> pools = new Dictionary<System.Type, List<IPoolableObject>>();
+    Dictionary<System.Type, List<object>> pools = new Dictionary<System.Type, List<object>>();
 
     public void ClearAllPools()
     {
-        foreach (List<IPoolableObject> pool in pools.Values)
+        foreach (List<object> pool in pools.Values)
         {
             if(pool!=null)
             {
-                foreach(IPoolableObject poolableObject in pool)
+                foreach(object poolableObject in pool)
                 {
-                    poolableObject.ReleaseSelf();
+                    if(poolableObject.GetType() is IPoolableObject)
+                    {
+                        ((IPoolableObject)poolableObject).ReleaseSelf();
+                    }
                 }
                 pool.Clear();
             }
@@ -35,64 +35,89 @@ public class ObjectPool : ScriptableObject
     }
     public void ClearPool(System.Type type)
     {
-        List<IPoolableObject> pool;
+        List<object> pool;
         pools.TryGetValue(type, out pool);
         if(pool!=null)
         {
-            foreach(IPoolableObject poolableObject in pool)
+            foreach(object poolableObject in pool)
             {
-                poolableObject.ReleaseSelf();
+                if (poolableObject.GetType() is IPoolableObject)
+                {
+                    ((IPoolableObject)poolableObject).ReleaseSelf();
+                }
             }
             pool.Clear();
         }
     }
 
-    public void PushObject(object objectToPool) 
+    public void PushObject<T>(T objectToPool) where T : class
     {
-        IPoolableObject poolableObject = (IPoolableObject) objectToPool;
-        poolableObject.Deactivate();
 
         System.Type type = objectToPool.GetType();
-        List<IPoolableObject> poolableObjects;
+        List<object> poolableObjects;
         if (pools.TryGetValue(type, out poolableObjects))
         {
-            poolableObjects.Add(poolableObject);
+            poolableObjects.Add(objectToPool);
         }
         else
         {
-            poolableObjects = new List<IPoolableObject>();
-            poolableObjects.Add(poolableObject);
+            poolableObjects = new List<object>();
+            poolableObjects.Add(objectToPool);
             pools.Add(type, poolableObjects);
         }
     }
 
-    public object PopObject(object inPrefab, string objectProperties = "") 
+    public T PopObject<T>(T classTemplate) where T : class, IPoolableObject
     {
-        Debug.Assert((inPrefab is IPoolableObject) == true, "Error: " + inPrefab + " does not implement IPoolableObject");
+        Debug.Assert(classTemplate != null, "Error:  classTemplate can not be null!");
+        T rtnVal=null;
+        System.Type type = typeof(T);
+        List<object> poolableObjects;
 
-        object rtnVal = null;
-        System.Type type = inPrefab.GetType();
-        List<IPoolableObject> poolableObjects;
-        
         if (pools.TryGetValue(type, out poolableObjects))
         {
             if (poolableObjects.Count == 0)
             {
-                IPoolableObject poolableObj = (IPoolableObject) inPrefab;
-                rtnVal = poolableObj.CreateInstance(objectProperties);
+                IPoolableObject poolableObj = classTemplate;
+                rtnVal = (T) poolableObj.CreateInstance();
             }
             else
             {
-                IPoolableObject poolableObj = poolableObjects[poolableObjects.Count-1];
+                object poolableObj = poolableObjects[poolableObjects.Count - 1];
                 poolableObjects.Remove(poolableObj);
-                poolableObj.Activate(objectProperties);
-                rtnVal = poolableObj.getObjRef();
+                rtnVal = (T)poolableObj;
             }
         }
         else
         {
-            IPoolableObject poolableObj = (IPoolableObject) inPrefab;
-            rtnVal = poolableObj.CreateInstance(objectProperties).getObjRef();
+            IPoolableObject poolableObj = classTemplate;
+            rtnVal = (T)poolableObj.CreateInstance();
+        }
+        return rtnVal;
+    }
+
+    public T PopObject<T>() where T : class, new()
+    {
+        T rtnVal = null;
+        System.Type type = typeof(T);
+        List<object> poolableObjects;
+
+        if (pools.TryGetValue(type, out poolableObjects))
+        {
+            if (poolableObjects.Count == 0)
+            {
+                rtnVal = new T();
+            }
+            else
+            {
+                object poolableObj = poolableObjects[poolableObjects.Count - 1];
+                poolableObjects.Remove(poolableObj);
+                rtnVal = (T)poolableObj;
+            }
+        }
+        else
+        {
+            rtnVal = new T();
         }
         return rtnVal;
     }

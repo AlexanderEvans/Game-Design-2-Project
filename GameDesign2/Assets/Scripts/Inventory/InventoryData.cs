@@ -10,7 +10,10 @@ public class InventoryData : ScriptableObject, ISaveable
     CollectionPool collectionPool = null;
     
     List<ItemStack> itemStacks = new List<ItemStack>();
-    int inventorySize = 60;
+    List<int> inputItemSlots = new List<int>();
+    List<int> outputItemSlots = new List<int>();
+
+    int inventorySize = 128;
     
     private void OnEnable()
     {
@@ -35,7 +38,9 @@ public class InventoryData : ScriptableObject, ISaveable
         {
             int nullIndex = itemStacks.FindLastIndex(0, itemStacks.Count, isNullLamda);
             if (nullIndex != -1)
+            {
                 itemStacks.RemoveAt(nullIndex);
+            }
             else
                 success = false;
         }

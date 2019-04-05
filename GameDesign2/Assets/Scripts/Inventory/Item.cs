@@ -10,7 +10,7 @@ using UnityEditor.Experimental.SceneManagement;
 
 [System.Serializable]
 [DisallowMultipleComponent]
-public class Item : MonoBehaviour, ISaveable
+public class Item : PrefabPooler, ISaveable
 {
     public Sprite icon;
     [SerializeField]

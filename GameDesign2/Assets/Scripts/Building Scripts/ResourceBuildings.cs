@@ -80,6 +80,11 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
     }
     public int CheckPartialOutput(string itemGUID, int amount)
     {
+        foreach(int outputIndex in outputItemSlots)
+        {
+            if(allItems[outputIndex].)
+        }
+
         foreach (Item.ItemsSlot itemSlot in outputItems)
         {
             if (itemGUID == itemSlot.itemGUID)
@@ -100,8 +105,13 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
 
     //set in code
     List<ResourceConnection> inputConnections = new List<ResourceConnection>();
-    List<Item.ItemsSlot> outputItems = new List<Item.ItemsSlot>();
     List<ResourceConnection> outputConnection = new List<ResourceConnection>();
+    
+
+    //new
+    List<ItemStack> allItems = new List<ItemStack>();
+    List<int> inputItemSlots = new List<int>();
+    List<int> outputItemSlots = new List<int>();
 
     //max item stack size
     //do stuff

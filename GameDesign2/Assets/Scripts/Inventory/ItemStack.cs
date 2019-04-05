@@ -68,11 +68,11 @@ public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
     }
 
 
-    bool isDynamic;
-    string GUID;
+    public bool isDynamic { get; private set; }
+    public string GUID { get; private set; }
 
-    List<string> properties;
-    List<Item> items;
+    public List<string> properties { get; private set; }
+    public List<Item> items { get; private set; }
 
 
     private void SetStack(ItemStack other)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(MeleeWeaponPooler))]
+[DisallowMultipleComponent]
 class MeleeWeapon : Item, IWeapon
 {
     private void OnEnable()
@@ -78,8 +78,9 @@ class MeleeWeapon : Item, IWeapon
         float angle = Vector2.SignedAngle(Vector2.right, attackDirection);
 
         //grab a lineRenderer from the pool
-        LineRendererPooler lineRendererPooler = (LineRendererPooler) objectPool.PopObject(this.lineRendererPooler);
+        LineRendererPooler lineRendererPooler = objectPool.PopObject<LineRendererPooler>();
         LineRenderer lineRenderer = lineRendererPooler.GetComponent<LineRenderer>();
+        lineRendererPooler.gameObject.SetActive(true);
 
         //set the lines default values
         lineRenderer.enabled = true;
@@ -155,9 +156,9 @@ class MeleeWeapon : Item, IWeapon
             }
             //proceed 1 frame
             yield return null;
+            #endregion
         }
-        #endregion
-
+        lineRendererPooler.gameObject.SetActive(false);
         objectPool.PushObject(lineRendererPooler);//release line renderer back to the pool
         objectsHit.Clear();//release the memory of objects hit
     }
