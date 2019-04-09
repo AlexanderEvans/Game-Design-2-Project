@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerCombatController : CombatController, IDamageable
 {
+    [SerializeField]
     float HP = 100;
 
     #region weapon
