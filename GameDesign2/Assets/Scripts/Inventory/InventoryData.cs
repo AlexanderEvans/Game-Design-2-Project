@@ -10,11 +10,68 @@ public class InventoryData : ScriptableObject, ISaveable
     CollectionPool collectionPool = null;
     
     List<ItemStack> itemStacks = new List<ItemStack>();
-    List<int> inputItemSlots = new List<int>();
-    List<int> outputItemSlots = new List<int>();
+    List<int> inputItemSlots;
+    List<int> outputItemSlots;
+
+    private void Awake()
+    {
+        AdjustInventorySize();
+
+        if (inputItemSlots == null)
+        {
+            inputItemSlots = new List<int>();
+            for(int i = 0; i< itemStacks.Count; i++)
+            {
+                inputItemSlots.Add(i);
+            }
+        }
+
+        if (outputItemSlots == null)
+        {
+            outputItemSlots = new List<int>();
+            for (int i = 0; i < itemStacks.Count; i++)
+            {
+                outputItemSlots.Add(i);
+            }
+        }
+    }
 
     int inventorySize = 128;
+    public int InventorySize { get; private set; }
     
+    public bool SwapItemStacksAt(int index, ItemStack itemStackToSwap)
+    {
+        bool validOperation = false;
+
+        if (index < itemStacks.Count)
+        {
+            validOperation = true;
+            if(itemStackToSwap!=null)
+            {
+                itemStackToSwap.Swap(itemStacks[index]);
+            }
+            else if(itemStacks[index]!=null)
+            {
+                itemStacks[index].Swap(itemStackToSwap);
+            }
+        }
+        return validOperation;
+    }
+
+    public bool SetInventorySize(int newSize)
+    {
+        int oldInvSize = inventorySize;
+        inventorySize = newSize;
+        bool success = AdjustInventorySize();
+        if(success!=true)
+        {
+            inventorySize = oldInvSize;
+            if (AdjustInventorySize() != true)
+                Debug.LogError("Can't revert inventory size!");
+        }
+        return success;
+    }
+
     private void OnEnable()
     {
         AdjustInventorySize();
@@ -30,15 +87,17 @@ public class InventoryData : ScriptableObject, ISaveable
         return success;
     }
 
-    Predicate<ItemStack> isNullLamda = delegate (ItemStack a) { return a == null; };
+    readonly Predicate<ItemStack> IsNullCheckerDelegate = delegate (ItemStack a) { return a == null; };
     private bool ShrinkInventory()
     {
         bool success = true;
-        while (itemStacks.Count>inventorySize)
+        while (itemStacks.Count>inventorySize && success)
         {
-            int nullIndex = itemStacks.FindLastIndex(0, itemStacks.Count, isNullLamda);
+            int nullIndex = itemStacks.FindLastIndex(0, itemStacks.Count, IsNullCheckerDelegate);
             if (nullIndex != -1)
             {
+                itemStacks[nullIndex].gameObject.SetActive(false);
+                objectPool.PushObject(itemStacks[nullIndex]);
                 itemStacks.RemoveAt(nullIndex);
             }
             else

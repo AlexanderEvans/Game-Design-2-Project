@@ -41,28 +41,69 @@ public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
 
         public void SetStack(ItemStack other)
         {
-            isDynamic = other.isDynamic;
-            GUID = other.GUID;
-            foreach (string property in other.properties)
+            if (other != null)
             {
-                properties.Add(property);
+                isDynamic = other.isDynamic;
+                GUID = other.GUID;
+                if(other.properties != null && other.properties.Count!=0)
+                {
+                    if (properties == null)
+                        properties = new List<string>();
+                    
+                    foreach (string property in other.properties)
+                    {
+                        properties.Add(property);
+                        if (items != null)
+                            items.Clear();
+                    }
+                }
+
+                if(other.items != null && other.items.Count != 0)
+                {
+                    if (items == null)
+                        items = new List<Item>();
+                    
+                    foreach (Item item in other.items)
+                    {
+                        items.Add(item);
+                        if (properties != null)
+                            properties.Clear();
+                    }
+                }
+                
             }
-            foreach (Item item in other.items)
+            else
             {
-                items.Add(item);
+                isDynamic = false;
+                GUID = "";
+                if (properties != null)
+                    properties.Clear();
+                if (items != null)
+                    items.Clear();
             }
         }
         public void SetStack(TempStack other)
         {
+
             isDynamic = other.isDynamic;
             GUID = other.GUID;
-            foreach (string property in other.properties)
+            if (other.properties != null)
             {
-                properties.Add(property);
+                if (properties == null)
+                    properties = new List<string>();
+                foreach (string property in other.properties)
+                {
+                    properties.Add(property);
+                }
             }
-            foreach (Item item in other.items)
+            if (other.items != null)
             {
-                items.Add(item);
+                if (items == null)
+                    items = new List<Item>();
+                foreach (Item item in other.items)
+                {
+                    items.Add(item);
+                }
             }
         }
     }
@@ -77,28 +118,69 @@ public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
 
     private void SetStack(ItemStack other)
     {
-        isDynamic = other.isDynamic;
-        GUID = other.GUID;
-        foreach(string property in other.properties)
+
+        if (other != null)
         {
-            properties.Add(property);
+            isDynamic = other.isDynamic;
+            GUID = other.GUID;
+            if (other.properties != null)
+            {
+                if (properties == null)
+                    properties = new List<string>();
+
+                foreach (string property in other.properties)
+                {
+                    properties.Add(property);
+                    if (items != null)
+                        items.Clear();
+                }
+            }
+
+            if (other.items != null)
+            {
+                if (items == null)
+                    items = new List<Item>();
+
+                foreach (Item item in other.items)
+                {
+                    items.Add(item);
+                    if (properties != null)
+                        properties.Clear();
+                }
+            }
+
         }
-        foreach (Item item in other.items)
+        else
         {
-            items.Add(item);
+            isDynamic = false;
+            GUID = "";
+            if (properties != null)
+                properties.Clear();
+            if (items != null)
+                items.Clear();
         }
     }
     private void SetStack(TempStack other)
     {
         isDynamic = other.isDynamic;
         GUID = other.GUID;
-        foreach (string property in other.properties)
+        if (other.properties != null)
         {
-            properties.Add(property);
+            if (properties == null)
+                properties = new List<string>();
+            foreach (string property in other.properties)
+            {
+                properties.Add(property);
+            }
         }
-        foreach (Item item in other.items)
+        if (other.items != null)
         {
-            items.Add(item);
+            if (items == null)
+                items = new List<Item>();
+            foreach (Item item in other.items)
+            {
+                items.Add(item);
+            }
         }
     }
 
@@ -137,7 +219,23 @@ public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
     ReturnStruct StoreItem(ItemStack itemStack, int Amount = -1)
     {
         ReturnStruct returnStruct = new ReturnStruct();
-        if(itemStack.isDynamic!=isDynamic)
+        if(GetStackSize()==0)
+        {
+            returnStruct.AmountNotStored = 0;
+            returnStruct.AmountStored = itemStack.GetStackSize();
+            returnStruct.returnCode = ReturnStruct.ReturnCode.ALL;
+            if (itemStack.isDynamic == true)
+            {
+                items.AddRange(itemStack.items);
+                itemStack.items.Clear();
+            }
+            else
+            {
+                properties.AddRange(itemStack.properties);
+                itemStack.properties.Clear();
+            }
+        }
+        else if(itemStack.isDynamic!=isDynamic)
         {
             returnStruct.AmountNotStored = itemStack.GetStackSize();
             returnStruct.AmountStored = 0;
@@ -161,7 +259,7 @@ public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
             returnStruct.AmountStored = 0;
             returnStruct.returnCode = ReturnStruct.ReturnCode.NONE;
         }
-        else if ((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize() >= itemStack.GetStackSize()))
+        else if (((Item.GetPrefabComponent(GUID).MaxStackSize - GetStackSize()) >= itemStack.GetStackSize()))
         {
             returnStruct.AmountNotStored = 0;
             returnStruct.AmountStored = itemStack.GetStackSize();
