@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151fc494dbbd6b34ca5195fa2735dada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRange: 1
+  minRange: 0.9
   maxRange: 10
   speed: 9.8
   attackCoolDownSec: 1

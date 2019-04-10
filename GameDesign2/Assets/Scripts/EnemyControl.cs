@@ -70,10 +70,10 @@ public class EnemyControl : MonoBehaviour
     }
 
     public void setAnimationDir() {
-        float angle = Vector2.Angle(Vector2.right, new Vector2(dirNormalized.x,dirNormalized.y));
+        float angle = Vector2.SignedAngle(Vector2.right, new Vector2(dirNormalized.x,dirNormalized.y));
         if (angle != oldAngle) {
             oldAngle = angle;
-            if (angle < 45 || angle >= 315) {
+            if (angle < 45 && angle >= -45) {
                 myAnimator.SetBool("up", false);
                 myAnimator.SetBool("down", false);
                 myAnimator.SetBool("left", false);
@@ -87,7 +87,7 @@ public class EnemyControl : MonoBehaviour
                 myAnimator.SetBool("right", false);
 
             }
-            else if (angle >= 135 && angle < 225)
+            else if (angle >= 135 || angle < -135)
             {
                 myAnimator.SetBool("up", false);
                 myAnimator.SetBool("down", false);
@@ -95,7 +95,7 @@ public class EnemyControl : MonoBehaviour
                 myAnimator.SetBool("right", false);
 
             }
-            else if (angle >= 135 && angle < 225)
+            else if (angle >= -135 && angle < -45)
             {
                 myAnimator.SetBool("up", false);
                 myAnimator.SetBool("down", true);
