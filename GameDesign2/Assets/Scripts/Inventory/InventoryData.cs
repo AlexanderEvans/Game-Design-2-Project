@@ -2,16 +2,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [System.Serializable]
-public class InventoryData : ScriptableObject, ISaveable
+public class InventoryData : ScriptableObject//, ISaveable
 {
     ObjectPool objectPool = null;
-    CollectionPool collectionPool = null;
+    //CollectionPool collectionPool = null;
     
     List<ItemStack> itemStacks = new List<ItemStack>();
     List<int> inputItemSlots;
     List<int> outputItemSlots;
+
+    public void PushItem(ItemStack itemStack)
+    {
+        foreach(int index in inputItemSlots.TakeWhile(index => itemStack.GetStackSize()>0))
+        {
+
+        }
+    }
+
+    string SavePropertiesToJSONString()
+    {
+        return "";
+    }
+    void LoadPropertiesFromJSONString(string str)
+    {
+
+    }
 
     private void Awake()
     {

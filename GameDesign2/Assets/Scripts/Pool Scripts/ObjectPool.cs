@@ -79,7 +79,7 @@ public class ObjectPool : ScriptableObject
             if (poolableObjects.Count == 0)
             {
                 IPoolableObject poolableObj = classTemplate;
-                rtnVal = (T) poolableObj.CreateInstance();
+                rtnVal = (T) (poolableObj.CreateInstance());
             }
             else
             {
@@ -91,7 +91,7 @@ public class ObjectPool : ScriptableObject
         else
         {
             IPoolableObject poolableObj = classTemplate;
-            rtnVal = (T)poolableObj.CreateInstance();
+            rtnVal = (T)(poolableObj.CreateInstance());
         }
         return rtnVal;
     }
@@ -107,9 +107,11 @@ public class ObjectPool : ScriptableObject
             if (poolableObjects.Count == 0)
             {
                 rtnVal = new T();
+                Debug.Log("Count == " + poolableObjects.Count);
             }
             else
             {
+                Debug.Log("Count == " + poolableObjects.Count);
                 object poolableObj = poolableObjects[poolableObjects.Count - 1];
                 poolableObjects.Remove(poolableObj);
                 rtnVal = (T)poolableObj;
@@ -117,6 +119,7 @@ public class ObjectPool : ScriptableObject
         }
         else
         {
+            Debug.Log("Failed get pool");
             rtnVal = new T();
         }
         return rtnVal;

@@ -2,33 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
+public class ItemStack : PrefabPooler, ISaveable
 {
-    public void Activate(string str="")
-    {
-
-    }
-
-    public void Deactivate()
-    {
-
-    }
-
-    public object getObjRef()
-    {
-        return this;
-    }
-
-    public void ReleaseSelf()
-    {
-        //do nothing in this case
-    }
-
-    public IPoolableObject CreateInstance(string str = "")
-    {
-        return new ItemStack();
-    }
-
 
     [System.Serializable]
     struct TempStack
@@ -115,6 +90,8 @@ public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
     public List<string> properties { get; private set; }
     public List<Item> items { get; private set; }
 
+    [SerializeField]
+    ItemStack itemStackPrefab = null;
 
     private void SetStack(ItemStack other)
     {
@@ -202,7 +179,7 @@ public class ItemStack : MonoBehaviour, ISaveable, IPoolableObject
         return isEmpty;
     }
 
-    int GetStackSize()
+    public int GetStackSize()
     {
         int rtnVal;
         if (isDynamic == true)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollectionPool : ScriptableObject
 {
-    Dictionary<System.Type, object> stacks;
+    Dictionary<System.Type, object> stacks = new Dictionary<System.Type, object>();
     
     public void pushBack<T>(T col)
     {

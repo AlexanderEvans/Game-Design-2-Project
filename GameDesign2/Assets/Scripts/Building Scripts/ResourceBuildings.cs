@@ -5,7 +5,7 @@ using System.Linq;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class ResourceBuildings : MonoBehaviour, IOutputResource
+public class ResourceBuildings : MonoBehaviour//, IOutputResource
 {
     [SerializeField]
     public List<RecipeTemplate> RecipeTemplates = new List<RecipeTemplate>();
@@ -27,22 +27,23 @@ public class ResourceBuildings : MonoBehaviour, IOutputResource
         }
     }
 
-    public bool TryTakeOutput(string itemGUID, int amount)
+    bool TryTakeOutput(string itemGUID, int amount)
     {
-
+        return true;
     }
-    public bool CheckOutput(string itemGUID, int amount)
+    bool CheckOutput(string itemGUID, int amount)
     {
-
+        //foreach(int index in )
+        return true;
     }
-    public int CheckOutput(string itemGUID)
+    int CheckOutput(string itemGUID)
     {
-
+        return 1;
     }
 
-    public int TakePartialOutput(string itemGUID, int amount)
+    int TakePartialOutput(string itemGUID, int amount)
     {
-
+        return 1;
     }
 
 

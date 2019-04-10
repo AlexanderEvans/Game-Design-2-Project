@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PrefabCalbackSupportMetaFileHack : AssetModificationProcessor
+public class PrefabCalbackSupportMetaFileHack : UnityEditor.AssetModificationProcessor
 {
     public static List<string> newAssets = new List<string>();
     static void OnWillCreateAsset(string aMetaAssetPath)

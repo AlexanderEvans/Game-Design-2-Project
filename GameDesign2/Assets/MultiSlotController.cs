@@ -8,7 +8,6 @@ public class MultiSlotController : MonoBehaviour
     [SerializeField] Button leftButton = null;
     [SerializeField] Button rightButton = null;
     [SerializeField] List<Image> images = new List<Image>();
-    [SerializeField] CharachterInventory charachterInventory = null;
     List<Item> items = new List<Item>();
     int maxPages = 5;
 
@@ -44,11 +43,11 @@ public class MultiSlotController : MonoBehaviour
 
     void UpdateItemsList()
     {
-        foreach (string str in charachterInventory.items.Keys)
-        {
-            Item prefabRef = Item.GetPrefabComponent(str);
-            items.Add(prefabRef);
-        }
+        //foreach (string str in charachterInventory.items.Keys)
+        //{
+        //    Item prefabRef = Item.GetPrefabComponent(str);
+        //    items.Add(prefabRef);
+        //}
     }
 
     void NextSet()

@@ -35,7 +35,7 @@ public class Autorun
             {
                 Debug.Log("prefab callback: " + item);
                 //item.RegeneratePrefabGuid();
-                Item iRef = Item.GetPrefab(item);
+                Item iRef = Item.GetPrefabComponent(item);
                 if (item.GUID == "")
                     item.RegeneratePrefabGuid();
             }

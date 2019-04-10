@@ -78,7 +78,8 @@ class MeleeWeapon : Item, IWeapon
         float angle = Vector2.SignedAngle(Vector2.right, attackDirection);
 
         //grab a lineRenderer from the pool
-        LineRendererPooler lineRendererPooler = objectPool.PopObject<LineRendererPooler>();
+        LineRendererPooler lineRendererPooler = objectPool.PopObject(this.lineRendererPooler);
+        Debug.Assert(lineRendererPooler != null, "lineRendererPooler is null");
         LineRenderer lineRenderer = lineRendererPooler.GetComponent<LineRenderer>();
         lineRendererPooler.gameObject.SetActive(true);
 

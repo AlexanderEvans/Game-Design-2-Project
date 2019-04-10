@@ -64,8 +64,9 @@ public class Item : PrefabPooler, ISaveable
     static Dictionary<string, Item> prefabs = new Dictionary<string, Item>();
 
 
-    private void OnValidate()
+    public new void OnValidate()
     {
+        base.OnValidate();
         CheckIfIsPrefab();
         //Debug.Log("Validating..."+this);
         if(IsPrefab == true)
@@ -84,8 +85,9 @@ public class Item : PrefabPooler, ISaveable
         }
     }
 
-    private void Reset()
+    public new void Reset()
     {
+        base.Reset();
         if (CheckIfIsPrefab()==true)
         {
             if(GUID == "")
