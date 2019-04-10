@@ -19,6 +19,8 @@ public class EnemyControl : MonoBehaviour
     float coolDown;
 
     float enemySpeed;
+    float oldAngle=0;
+    Animator myAnimator;
 
     Vector3 dirNormalized;
     // Start is called before the first frame update
@@ -29,6 +31,7 @@ public class EnemyControl : MonoBehaviour
 
     private void Awake()
     {
+        myAnimator = gameObject.GetComponent<Animator>();
         CircleCollider2D targetCircle = this.GetComponent<CircleCollider2D>();
         targetCircle.radius = (float)maxRange;
         GetClosestPlayerInRadius();
@@ -40,11 +43,17 @@ public class EnemyControl : MonoBehaviour
     void Update()
     {
         if (target == null) return;
+        setAnimationDir();
         if (Time.time > coolDown)
         {
             dirNormalized = (target.transform.position - transform.position).normalized;
             if (Vector3.Distance(target.transform.position, transform.position) <= minRange)
             {
+
+                myAnimator.SetBool("up", false);
+                myAnimator.SetBool("down", false);
+                myAnimator.SetBool("left", false);
+                myAnimator.SetBool("right", false);
                 enemySpeed = 0;
                 AttackTarget();
                 enemySpeed = speed;
@@ -53,9 +62,47 @@ public class EnemyControl : MonoBehaviour
             else
             {
                 transform.position = transform.position + dirNormalized * speed * Time.deltaTime;
+                setAnimationDir();
+
             }
         }
 
+    }
+
+    public void setAnimationDir() {
+        float angle = Vector2.Angle(Vector2.right, new Vector2(dirNormalized.x,dirNormalized.y));
+        if (angle != oldAngle) {
+            oldAngle = angle;
+            if (angle < 45 || angle >= 315) {
+                myAnimator.SetBool("up", false);
+                myAnimator.SetBool("down", false);
+                myAnimator.SetBool("left", false);
+                myAnimator.SetBool("right", true);
+            }
+            else if (angle >= 45 && angle < 135)
+            {
+                myAnimator.SetBool("up", true);
+                myAnimator.SetBool("down", false);
+                myAnimator.SetBool("left", false);
+                myAnimator.SetBool("right", false);
+
+            }
+            else if (angle >= 135 && angle < 225)
+            {
+                myAnimator.SetBool("up", false);
+                myAnimator.SetBool("down", false);
+                myAnimator.SetBool("left", true);
+                myAnimator.SetBool("right", false);
+
+            }
+            else if (angle >= 135 && angle < 225)
+            {
+                myAnimator.SetBool("up", false);
+                myAnimator.SetBool("down", true);
+                myAnimator.SetBool("left", false);
+                myAnimator.SetBool("right", false);
+            }
+        }
     }
 
     public void AttackTarget() {
