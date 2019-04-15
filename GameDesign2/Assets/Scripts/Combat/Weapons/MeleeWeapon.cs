@@ -45,7 +45,7 @@ class MeleeWeapon : Item, IWeapon
     /// </summary>
     /// <param name="parentTransform"></param>
     /// <param name="attackDirection"></param>
-    public void Attack(CombatController combatController, Vector2 attackDirection)
+    public void Attack(CombatController OriginComponent, Vector2 attackDirection)
     {
         if(gameObject.activeInHierarchy==true)
         {
@@ -55,8 +55,8 @@ class MeleeWeapon : Item, IWeapon
             if (Time.time - lastAttackTime > weaponProperties.weaponCooldown)//make sure the cooldown has expired
             {
                 lastAttackTime = Time.time;
-                Transform parentTransform = combatController.transform;
-                combatController.StartCoroutine(MeleeAttack(parentTransform, attackDirection));//start a new attatck coroutine(time sharing parraleleism)
+                Transform parentTransform = OriginComponent.transform;
+                OriginComponent.StartCoroutine(MeleeAttack(parentTransform, attackDirection));//start a new attatck coroutine(time sharing parraleleism)
             }
         }
     }

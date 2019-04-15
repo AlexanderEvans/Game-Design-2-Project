@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 8626237590613734825, guid: 6733d12f74f8bb14d84a46b973c5fabc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8626237590613734825, guid: 6733d12f74f8bb14d84a46b973c5fabc,
         type: 3}
@@ -231,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 6006947452141710513, guid: f99304cb0bffb034eb53d47e9b3c2581,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6006947452141710513, guid: f99304cb0bffb034eb53d47e9b3c2581,
         type: 3}
@@ -777,7 +777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &560874122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -886,7 +886,7 @@ PrefabInstance:
     - target: {fileID: 3540081043769712553, guid: 867c36ca144a7124388a65019212a43f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3540081043769712553, guid: 867c36ca144a7124388a65019212a43f,
         type: 3}
@@ -5456,6 +5456,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090436362570899721, guid: 0256131adc9baa74989ae19b18e45b9c,
+        type: 3}
+      propertyPath: weaponProperties.hitDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090436362570899721, guid: 0256131adc9baa74989ae19b18e45b9c,
+        type: 3}
+      propertyPath: weaponProperties.weaponCooldown
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5491329748976412175, guid: 0256131adc9baa74989ae19b18e45b9c,
         type: 3}

@@ -111,9 +111,24 @@ public class PlayerCombatController : CombatController, IDamageable
     // Update is called once per frame
     void Update()
     {
+        Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //float offset = 1;
+        //Vector2 spawnOffset = (mouseWorldPosition - (Vector2)transform.position).normalized * offset;
+        //Vector3 spawnLocation = transform.position + (Vector3)spawnOffset;
+        //spawnLocation.z = transform.position.z;
+
+
+        attackDirection = mouseWorldPosition - (Vector2)transform.position;
+        //float rotation = Mathf.Rad2Deg * (Mathf.Atan(attackDirection.y / attackDirection.x));
+        //rotation += -90;
+        //if (attackDirection.x < 0)
+        //{
+        //    rotation += 180;
+        //}
+
         //update the attatck direction
-        if (rigidbody2d.velocity != Vector2.zero)
-            attackDirection = rigidbody2d.velocity;
+        //if (rigidbody2d.velocity != Vector2.zero)
+        //    attackDirection = rigidbody2d.velocity;
 
         //trigger an attack with the held weapon
         if (Input.GetButtonDown("Fire1") && weapon.component != null)
