@@ -63,6 +63,15 @@ public class Item : PrefabPooler, ISaveable
     
     static Dictionary<string, Item> prefabs = new Dictionary<string, Item>();
 
+    public static List<KeyValuePair<string, Item>> dumpPrefabTableKVPs()
+    {
+        List<KeyValuePair<string, Item>> KVPs = new List<KeyValuePair<string, Item>>();
+        foreach(KeyValuePair<string, Item> KVP in prefabs)
+        {
+            KVPs.Add(KVP);
+        }
+        return KVPs;
+    }
 
     public new void OnValidate()
     {
@@ -204,6 +213,7 @@ public class Item : PrefabPooler, ISaveable
         UpdatePrefabsDictionary();
     }
 
+    
 
     [MenuItem("Custom Actions/Prefab Management/Display prefab GUIDS")]
     static void DisplayGUIDS()
@@ -224,7 +234,8 @@ public class Item : PrefabPooler, ISaveable
             Debug.Log(prefab.GUID);
         }
     }
-     
+
+    [MenuItem("Custom Actions/Prefab Management/Manual update prefab GUIDS dictionary")]
     static public void UpdatePrefabsDictionary()
     {
         prefabs.Clear();
@@ -240,7 +251,10 @@ public class Item : PrefabPooler, ISaveable
                 Debug.Log("Error: " + item.GUID + "already exists!\nOld: " + old + "\nNew: " + item);
             }
             else
+            {
                 prefabs.Add(item.GUID, item);
+                Debug.Log("Adding: " + item.GUID + " : " + item);
+            }
         }
     }
 

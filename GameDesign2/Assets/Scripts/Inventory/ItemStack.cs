@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class ItemStack : PrefabPooler, ISaveable
 {
 
@@ -85,17 +86,75 @@ public class ItemStack : PrefabPooler, ISaveable
 
 
     public bool isDynamic { get; private set; }
-    public string GUID { get; private set; }
-
+    [SerializeField]
+    public string GUIDBack = "";
+    public string GUID
+    {
+        get
+        {
+            return GUIDBack;
+        }
+        private set
+        {
+            GUIDBack = value;
+        }
+    }
+    
     public List<string> properties { get; private set; }
     public List<Item> items { get; private set; }
 
     [SerializeField]
-    ItemStack itemStackPrefab = null;
+    public ItemStack isPrefab=null;
+    public ItemStack itemStackPrefab
+    {
+        get
+        {
+            return isPrefab;
+        }
+        private set
+        {
+            isPrefab = value;
+        }
+    }
+
+    [SerializeField]
+    SpriteRenderer spriteRenderer = null;
+    private void Awake()
+    {
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    new private void OnValidate()
+    {
+        base.OnValidate();
+        if(spriteRenderer==null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void OnEnable()
+    {
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateIcon();
+    }
+
+    public void UpdateIcon()
+    {
+        List<KeyValuePair<string,Item>> dbObj = Item.dumpPrefabTableKVPs();
+
+        foreach(KeyValuePair<string, Item> v in dbObj)
+        {
+            Debug.Log(v.Key + " : "+v.Value);
+        }
+
+        Debug.Log(Item.GetPrefabComponent(GUID));
+        if (GUID!="" && spriteRenderer != null)
+            spriteRenderer.sprite = Item.GetPrefabComponent(GUID).icon;
+    }
 
     private void SetStack(ItemStack other)
     {
-
         if (other != null)
         {
             isDynamic = other.isDynamic;
@@ -136,6 +195,8 @@ public class ItemStack : PrefabPooler, ISaveable
             if (items != null)
                 items.Clear();
         }
+
+        UpdateIcon();
     }
     private void SetStack(TempStack other)
     {
@@ -159,6 +220,7 @@ public class ItemStack : PrefabPooler, ISaveable
                 items.Add(item);
             }
         }
+        UpdateIcon();
     }
 
     public void Swap(ItemStack other)
@@ -167,6 +229,8 @@ public class ItemStack : PrefabPooler, ISaveable
         temp.SetStack(this);
         SetStack(other);
         other.SetStack(temp);
+        other.UpdateIcon();
+        UpdateIcon();
     }
 
     public bool IsEmpty()
@@ -283,6 +347,7 @@ public class ItemStack : PrefabPooler, ISaveable
         {
             Debug.LogError("ItemStack unhandled case in: " + this);
         }
+        UpdateIcon();
         return returnStruct;
     }
 
@@ -327,5 +392,6 @@ public class ItemStack : PrefabPooler, ISaveable
                 tempStack.items.Add(item);
             }
         }
+        UpdateIcon();
     }
 }

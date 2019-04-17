@@ -50,7 +50,7 @@ public class ResourceBuildings : MonoBehaviour//, IOutputResource
     //set in code
     List<ResourceConnection> inputConnections = new List<ResourceConnection>();
     List<ResourceConnection> outputConnection = new List<ResourceConnection>();
-
+    
 
     //new
     InventoryData inventoryData;

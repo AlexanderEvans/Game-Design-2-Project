@@ -38,30 +38,30 @@ public class DebugTesting : MonoBehaviour
 
     //}
 
-    private void Awake()
-    {
-        TestClasser testClasser = new TestClasser();
-        TestClasser testClasser2 = new TestClasser();
+    //private void Awake()
+    //{
+    //    TestClasser testClasser = new TestClasser();
+    //    TestClasser testClasser2 = new TestClasser();
 
-        testClasser2.makeNull(testClasser);
+    //    testClasser2.makeNull(testClasser);
 
-        Debug.Log(testClasser);
-        Debug.Log(testClasser2);
+    //    Debug.Log(testClasser);
+    //    Debug.Log(testClasser2);
 
-        if (testClasser != null)
-            Debug.Log(testClasser.myInt);
-        if (testClasser2 != null)
-            Debug.Log(testClasser2.myInt);
-    }
+    //    if (testClasser != null)
+    //        Debug.Log(testClasser.myInt);
+    //    if (testClasser2 != null)
+    //        Debug.Log(testClasser2.myInt);
+    //}
 }
 
 
-class TestClasser
-{
-    public void makeNull(TestClasser other)
-    {
-        other = null;
-    }
+//class TestClasser
+//{
+//    public void makeNull(TestClasser other)
+//    {
+//        other = null;
+//    }
 
-    public int myInt = 10;
-}
+//    public int myInt = 10;
+//}

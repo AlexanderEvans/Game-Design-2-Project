@@ -5,14 +5,24 @@ using UnityEngine;
 using System.Linq;
 
 [System.Serializable]
+[RequireComponent(typeof(GuiManager))]
 public class InventoryData : ScriptableObject//, ISaveable
 {
     ObjectPool objectPool = null;
+    bool notAwakened = true;
     //CollectionPool collectionPool = null;
     
     List<ItemStack> itemStacks = new List<ItemStack>();
     List<int> inputItemSlots;
     List<int> outputItemSlots;
+    List<int> inputItemSlotsInGUI;
+    List<int> outputItemSlotsInGUI;
+
+    bool Initialise(GuiManager guiManager)
+    {
+        notAwakened = false;
+        return guiManager.setUpInventoryData(this);
+    }
 
     public void PushItem(ItemStack itemStack)
     {
@@ -33,12 +43,21 @@ public class InventoryData : ScriptableObject//, ISaveable
 
     private void Awake()
     {
+        if(notAwakened == true)
+        {
+            notAwakened = false;
+            dumbStartUp();
+        }
+    }
+
+    private void dumbStartUp()
+    {
         AdjustInventorySize();
 
         if (inputItemSlots == null)
         {
             inputItemSlots = new List<int>();
-            for(int i = 0; i< itemStacks.Count; i++)
+            for (int i = 0; i < itemStacks.Count; i++)
             {
                 inputItemSlots.Add(i);
             }
@@ -52,6 +71,23 @@ public class InventoryData : ScriptableObject//, ISaveable
                 outputItemSlots.Add(i);
             }
         }
+        if (inputItemSlotsInGUI == null)
+        {
+            inputItemSlotsInGUI = new List<int>();
+            for (int i = 0; i < itemStacks.Count; i++)
+            {
+                inputItemSlotsInGUI.Add(i);
+            }
+        }
+
+        if (outputItemSlotsInGUI == null)
+        {
+            outputItemSlotsInGUI = new List<int>();
+            for (int i = 0; i < itemStacks.Count; i++)
+            {
+                outputItemSlotsInGUI.Add(i);
+            }
+        }
     }
 
     int inventorySize = 128;
@@ -61,7 +97,7 @@ public class InventoryData : ScriptableObject//, ISaveable
     {
         bool validOperation = false;
 
-        if (index < itemStacks.Count)
+        if (index < itemStacks.Count && inputItemSlots.Contains(index)  && outputItemSlots.Contains(index))
         {
             validOperation = true;
             if(itemStackToSwap!=null)
