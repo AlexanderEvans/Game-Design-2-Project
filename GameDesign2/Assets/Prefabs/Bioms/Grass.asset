@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WorldManager/Biome
   titles:
   - {fileID: 11400000, guid: 43d13027ad803c84ca1ffd4bce429870, type: 2}
+  DynamicTiles:
+  - {fileID: 11400000, guid: 05123be49bfddeb46aa2d08b592d7b26, type: 2}
+  - {fileID: 11400000, guid: c511d5e83a265f64491e451210ddbef5, type: 2}

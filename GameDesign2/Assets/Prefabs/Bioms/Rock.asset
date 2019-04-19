@@ -15,3 +15,5 @@ MonoBehaviour:
   titles:
   - {fileID: 11400000, guid: d5596a81f38843e46afaddded5db260d, type: 2}
   - {fileID: 11400000, guid: f4f77383044b2e2448f98a5f718f122a, type: 2}
+  DynamicTiles:
+  - {fileID: 11400000, guid: 03b10948cb39f1445bcbf24e26b95497, type: 2}
