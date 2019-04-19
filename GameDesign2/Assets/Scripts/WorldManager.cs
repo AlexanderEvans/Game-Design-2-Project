@@ -26,7 +26,7 @@ using UnityEngine.Tilemaps;
         {
             [SerializeField]
             public List<Tile> titles = new List<Tile>();
-            public List<Tile> DynamicTiles = new List<Tile>();
+            public List<GameObject> DynamicTiles = new List<GameObject>();
         }
 
         public List<Biome> Biomes = new List<Biome>();
@@ -36,9 +36,12 @@ using UnityEngine.Tilemaps;
         public int seed;
         public int columns = 10;
         public int rows = 10;
+        [SerializeField]
+        public Tile Wall;
         private Tilemap[] Boards;
         private Tilemap StaticBoard;
-        private Tilemap DynamicBoard;
+        private Transform DynamicObjects;
+        //private Tilemap DynamicBoard;
 
         FastNoise StaticNoiseGen = new FastNoise();
         FastNoise DynamicnoiseGen = new FastNoise();
@@ -49,27 +52,37 @@ using UnityEngine.Tilemaps;
             int biome = 0;
             int dynamicMapItem = 0;
             Boards = GetComponentsInChildren<Tilemap>();
+            DynamicObjects = new GameObject("Board").transform;
             StaticBoard = Boards[0];
-            DynamicBoard = Boards[1];
+           //DynamicBoard = Boards[1];
         
             for (int y = (rows / 2); y > -rows / 2; y--)
             {
                 for (int x = (-columns / 2); x < columns / 2; x++)
                 {
-
-                    biome = getBiome(x, y);
-                    Tile Statictile = Biomes[biome].titles[Random.Range(0, Biomes[biome].titles.Count)];
-                    StaticBoard.SetTile(new Vector3Int(x, y, 0), Statictile);
-
-                    if (Biomes[biome].DynamicTiles.Count != 0)
+                    if( y == -rows/2 +1 || x == (-columns/2) || y == (rows/2)  || x == columns/2 - 1)
                     {
-                        dynamicMapItem = GetDynamicMapItem(x, y, biome);
-                        if(dynamicMapItem != 0)
+                        StaticBoard.SetTile(new Vector3Int(x, y, 0), Wall);
+                    }
+                    else
+                    {
+                        biome = getBiome(x, y);
+                        Tile Statictile = Biomes[biome].titles[Random.Range(0, Biomes[biome].titles.Count)];
+                        StaticBoard.SetTile(new Vector3Int(x, y, 0), Statictile);
+
+                        if (Biomes[biome].DynamicTiles.Count != 0)
                         {
-                            Tile DynamicTile = Biomes[biome].DynamicTiles[Random.Range(0, Biomes[biome].DynamicTiles.Count)];
-                            DynamicBoard.SetTile(new Vector3Int(x, y, 0), DynamicTile);  
+                            dynamicMapItem = GetDynamicMapItem(x, y, biome);
+                            if(dynamicMapItem != 0)
+                            {
+                                GameObject DynamicTile = Biomes[biome].DynamicTiles[Random.Range(0, Biomes[biome].DynamicTiles.Count)];
+                                GameObject instance = Instantiate(DynamicTile, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject;
+                                //DynamicBoard.SetTile(new Vector3Int(x, y, 0), DynamicTile);  
+                                instance.transform.SetParent(DynamicObjects);
+                            }
                         }
                     }
+
                 }
             }
         }
