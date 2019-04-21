@@ -10,11 +10,13 @@ public class TreeController : CombatController, IDamageable
     float HP = 30;
     [SerializeField]
     List<Sprite> states = new List<Sprite>();
+    AudioSource audiosource;
 
     // Start is called before the first frame update
     void Awake()
     {
          currentSprite = GetComponent<SpriteRenderer>();
+        audiosource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class TreeController : CombatController, IDamageable
     public void TakeDamage(float damage)
     {
         HP = HP - damage;
+        audiosource.Play();
 
     }
 }

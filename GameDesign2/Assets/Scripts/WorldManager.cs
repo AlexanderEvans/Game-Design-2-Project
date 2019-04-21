@@ -54,7 +54,6 @@ using UnityEngine.Tilemaps;
             Boards = GetComponentsInChildren<Tilemap>();
             DynamicObjects = new GameObject("Board").transform;
             StaticBoard = Boards[0];
-           //DynamicBoard = Boards[1];
         
             for (int y = (rows / 2); y > -rows / 2; y--)
             {
@@ -76,8 +75,7 @@ using UnityEngine.Tilemaps;
                             if(dynamicMapItem != 0)
                             {
                                 GameObject DynamicTile = Biomes[biome].DynamicTiles[Random.Range(0, Biomes[biome].DynamicTiles.Count)];
-                                GameObject instance = Instantiate(DynamicTile, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject;
-                                //DynamicBoard.SetTile(new Vector3Int(x, y, 0), DynamicTile);  
+                                GameObject instance = Instantiate(DynamicTile, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject; 
                                 instance.transform.SetParent(DynamicObjects);
                             }
                         }
