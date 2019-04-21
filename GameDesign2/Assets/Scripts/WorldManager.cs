@@ -32,7 +32,7 @@ using UnityEngine.Tilemaps;
         public List<Biome> Biomes = new List<Biome>();
 
 
-        [SerializeField]
+    [SerializeField]
         public int seed;
         public int columns = 10;
         public int rows = 10;
@@ -41,7 +41,7 @@ using UnityEngine.Tilemaps;
         private Tilemap[] Boards;
         private Tilemap StaticBoard;
         private Transform DynamicObjects;
-        //private Tilemap DynamicBoard;
+        private List<Vector3> gridpositions = new List<Vector3>();
 
         FastNoise StaticNoiseGen = new FastNoise();
         FastNoise DynamicnoiseGen = new FastNoise();
@@ -146,7 +146,7 @@ using UnityEngine.Tilemaps;
         }
 
         void HandleSeed()
-        {
+        {  
             if (seed == 0)
             {
                 seed = Random.Range(1000, 9999);
@@ -184,12 +184,21 @@ using UnityEngine.Tilemaps;
 
         public void Awake()
         {
+            
             HandleSeed();
             NoiseSetUp();
+            ClearMap();
             BoardSetUp();
 
         }
-
+        
+        void ClearMap()
+        {
+          
+            Tilemap.Destroy(StaticBoard);
+            GameObject Board = GameObject.Find("Board");
+            Destroy(Board);
+        }
 
 
         // Start is called before the first frame update
