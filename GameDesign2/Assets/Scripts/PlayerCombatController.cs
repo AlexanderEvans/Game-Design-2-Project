@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerCombatController : CombatController, IDamageable
 {
     float HP = 100;
-
+    AudioSource audiosource;
     #region weapon
     [System.Serializable]
     struct Weapon
@@ -59,8 +59,9 @@ public class PlayerCombatController : CombatController, IDamageable
 
     private void Awake()
     {
+        audiosource = GetComponent<AudioSource>();
         //attempt lazy load
-        if(rigidbody2d==null)
+        if (rigidbody2d==null)
         {
             Debug.LogWarning("Warning: " + this + " does not allow 'rigidbody2d' to be null! Attempting correction...");
             rigidbody2d = GetComponent<Rigidbody2D>();
@@ -105,6 +106,7 @@ public class PlayerCombatController : CombatController, IDamageable
     public void TakeDamage(float damage)
     {
         HP = Mathf.Max(0, HP - damage);
+        audiosource.Play();
     }
     
 
