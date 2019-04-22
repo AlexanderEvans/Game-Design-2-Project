@@ -60,18 +60,11 @@ public class Item : PrefabPooler, ISaveable
                 Debug.LogWarning("Warning: Reseting GUID on " + this + " is not allowed!");
         }
     }
-    
-    static Dictionary<string, Item> prefabs = new Dictionary<string, Item>();
 
-    public static List<KeyValuePair<string, Item>> dumpPrefabTableKVPs()
-    {
-        List<KeyValuePair<string, Item>> KVPs = new List<KeyValuePair<string, Item>>();
-        foreach(KeyValuePair<string, Item> KVP in prefabs)
-        {
-            KVPs.Add(KVP);
-        }
-        return KVPs;
-    }
+    [SerializeField]
+    PrefabGuidMap prefabGuidMap;
+    static bool prefabsSet = false;
+   
 
     public new void OnValidate()
     {
@@ -83,7 +76,7 @@ public class Item : PrefabPooler, ISaveable
             if (GUID == "")
             {
                 GUID = name + " + " + System.DateTime.Now + " + " + System.DateTime.UtcNow.Ticks;
-                prefabs.Add(GUID, this);
+                prefabGuidMap.Add(GUID, this);
             }
         }
         else
@@ -102,7 +95,7 @@ public class Item : PrefabPooler, ISaveable
             if(GUID == "")
             {
                 GUID = name + " + " + System.DateTime.Now + " + " + System.DateTime.UtcNow.Ticks;
-                prefabs.Add(GUID, this);
+                prefabGuidMap.Add(GUID, this);
             }
         }
 
@@ -181,18 +174,43 @@ public class Item : PrefabPooler, ISaveable
     public void RegeneratePrefabGuid()
     {
         GUID = name + " + " + System.DateTime.Now + " + " + System.DateTime.UtcNow.Ticks;
-        prefabs.Add(GUID, this);
+        prefabGuidMap.Add(GUID, this);
+    }
+
+    static PrefabGuidMap staticPrefabGuidMap=null;
+
+    private void Awake()
+    {
+        if(staticPrefabGuidMap==null || staticPrefabGuidMap.getCount()==0)
+            staticPrefabGuidMap = prefabGuidMap;
     }
 
     public static Item GetPrefabComponent(Item instance)
     {
-        prefabs.TryGetValue(instance.GUID, out Item temp);
+        if (staticPrefabGuidMap == null)
+        {
+            staticPrefabGuidMap = AssetManagement.FindAssetByType<PrefabGuidMap>();
+        }
+        staticPrefabGuidMap.TryGetValue(instance.GUID, out Item temp);
         return temp;
+    }
+
+    public static void dumpAll()
+    {
+        if (staticPrefabGuidMap == null)
+        {
+            staticPrefabGuidMap = AssetManagement.FindAssetByType<PrefabGuidMap>();
+        }
+        staticPrefabGuidMap.DumpData();
     }
 
     public static Item GetPrefabComponent(string itemGUID)
     {
-        prefabs.TryGetValue(itemGUID, out Item temp);
+        if (staticPrefabGuidMap == null)
+        {
+            staticPrefabGuidMap = AssetManagement.FindAssetByType<PrefabGuidMap>();
+        }
+        staticPrefabGuidMap.TryGetValue(itemGUID, out Item temp);
         return temp;
     }
     
@@ -238,21 +256,26 @@ public class Item : PrefabPooler, ISaveable
     [MenuItem("Custom Actions/Prefab Management/Manual update prefab GUIDS dictionary")]
     static public void UpdatePrefabsDictionary()
     {
-        prefabs.Clear();
+        if(staticPrefabGuidMap==null)
+        {
+            staticPrefabGuidMap = AssetManagement.FindAssetByType<PrefabGuidMap>();
+        }
+
+        staticPrefabGuidMap.Clear();
         List<Item> items = GetAllItemPrefabsInProjectFolder();
 
         foreach (Item item in items)
         {
             //Debug.Log("Adding Item: " + item + "\nAdding GUID:" + item.GUID);
-            if(prefabs.ContainsKey(item.GUID))
+            if(staticPrefabGuidMap.ContainsKey(item.GUID))
             {
                 Item old;
-                prefabs.TryGetValue(item.GUID, out old);
+                staticPrefabGuidMap.TryGetValue(item.GUID, out old);
                 Debug.Log("Error: " + item.GUID + "already exists!\nOld: " + old + "\nNew: " + item);
             }
             else
             {
-                prefabs.Add(item.GUID, item);
+                staticPrefabGuidMap.Add(item.GUID, item);
                 Debug.Log("Adding: " + item.GUID + " : " + item);
             }
         }

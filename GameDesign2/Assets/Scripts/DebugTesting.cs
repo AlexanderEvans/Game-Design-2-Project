@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[System.Serializable]
 public class DebugTesting : MonoBehaviour
 {
+    [SerializeField]
+    public PrefabGuidMap prefabGuidMap;
     //[MenuItem("Custom Actions/Debugging... /Test Function Driver")]
     //public static void testFunctionDriver()
     //{

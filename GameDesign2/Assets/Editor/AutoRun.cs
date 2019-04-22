@@ -6,8 +6,10 @@ using System;
 [InitializeOnLoad]
 public class Autorun
 {
+    
     static Autorun()
     {
+        Debug.Log("test");
         EditorApplication.update += RunOnce;
     }
 

@@ -141,14 +141,11 @@ public class ItemStack : PrefabPooler, ISaveable
 
     public void UpdateIcon()
     {
-        List<KeyValuePair<string,Item>> dbObj = Item.dumpPrefabTableKVPs();
-
-        foreach(KeyValuePair<string, Item> v in dbObj)
-        {
-            Debug.Log(v.Key + " : "+v.Value);
-        }
-
-        Debug.Log(Item.GetPrefabComponent(GUID));
+        Item.dumpAll();
+        Debug.Log("guid: "+GUID);
+        Debug.Log("prefab: "+Item.GetPrefabComponent(GUID));
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
         if (GUID!="" && spriteRenderer != null)
             spriteRenderer.sprite = Item.GetPrefabComponent(GUID).icon;
     }
