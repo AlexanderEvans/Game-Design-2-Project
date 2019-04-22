@@ -54,7 +54,7 @@ using UnityEngine.Tilemaps;
             Boards = GetComponentsInChildren<Tilemap>();
             DynamicObjects = new GameObject("Board").transform;
             StaticBoard = Boards[0];
-        
+            StaticBoard.ClearAllTiles();
             for (int y = (rows / 2); y > -rows / 2; y--)
             {
                 for (int x = (-columns / 2); x < columns / 2; x++)
@@ -194,8 +194,14 @@ using UnityEngine.Tilemaps;
         
         void ClearMap()
         {
-          
+        /*
+            TilemapCollider2D TMC2D = GetComponentInChildren<TilemapCollider2D>();
+            TilemapCollider2D.Destroy(TMC2D);
+            TilemapRenderer tmr = GetComponentInChildren<TilemapRenderer>();
+            TilemapRenderer.Destroy(tmr);
             Tilemap.Destroy(StaticBoard);
+            */
+           
             GameObject Board = GameObject.Find("Board");
             Destroy(Board);
         }
