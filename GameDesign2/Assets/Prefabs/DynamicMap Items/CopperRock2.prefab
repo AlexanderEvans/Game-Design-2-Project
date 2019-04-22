@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 30
+  outputItem: {fileID: 5629762452859035087, guid: 6a12e8d618f62084a9ac02d36d89c607,
+    type: 3}
 --- !u!82 &1306242316604713529
 AudioSource:
   m_ObjectHideFlags: 0
