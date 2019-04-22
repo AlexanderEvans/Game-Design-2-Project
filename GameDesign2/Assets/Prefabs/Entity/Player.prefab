@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7523275055676408250}
   - component: {fileID: 7523275055676408251}
   - component: {fileID: 4492593844664300577}
+  - component: {fileID: 2033550928847887375}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4013c5b8201998f46b356efac038e9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 100
   weapon:
     component: {fileID: 5491329748976412175}
 --- !u!61 &4492593844664300577
@@ -181,6 +183,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.19}
   m_EdgeRadius: 0
+--- !u!114 &2033550928847887375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7523275055676408245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f9c2730b305ad4eb7cf05d8198f341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemylist:
+  - {fileID: 6093131948663355525, guid: 9c53e0da61d76c546854f2972f7adbca, type: 3}
+  radius: 10
+  biome: 4
+  SpawnTime: 10
 --- !u!1 &8322477183357119017
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +251,7 @@ PrefabInstance:
     - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}
       propertyPath: isPrefab
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}

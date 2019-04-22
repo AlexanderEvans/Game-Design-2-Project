@@ -130,10 +130,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minRange: 0.9
-  maxRange: 10
-  speed: 9.8
+  maxRange: 15
+  speed: 10
+  speedrange: 1
   attackCoolDownSec: 1
-  spawnMoveCoolDown: 1
+  spawnMoveCoolDown: 0.5
 --- !u!58 &6093131948663355521
 CircleCollider2D:
   m_ObjectHideFlags: 0

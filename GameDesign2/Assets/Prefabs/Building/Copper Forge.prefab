@@ -124,5 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29046be4e7ef83c4f917db3e70fc1f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipeTemplates:
-  - {fileID: 11400000, guid: fa07298db6449c44f9421b3872d8960f, type: 2}
+  RecipeTemplates: []
