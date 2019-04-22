@@ -1,0 +1,134 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class WorldManager : MonoBehaviour
+{
+
+    [SerializeField]
+    public class Count
+    {
+        public int minimum;
+        public int maximum;
+
+        public Count(int min, int max)
+        {
+            minimum = min;
+            maximum = max;
+        }
+    }
+
+    [CreateAssetMenu(fileName = "NewBiome~", menuName = "Scriptable Object/New Biome")]
+    public class Biome : ScriptableObject
+    {
+        [SerializeField]
+        public List<Tile> titles = new List<Tile>();
+    }
+
+    public List<Biome> Biomes = new List<Biome>();
+
+
+    [SerializeField]
+    public int seed;
+    public int columns = 10;
+    public int rows = 10;
+    private Tilemap boardHolder;
+
+    FastNoise noiseGen = new FastNoise();
+
+
+    void BoardSetUp()
+    {
+        int biome = 0;
+
+        boardHolder = GetComponentInChildren<Tilemap>();
+        for (int x = (-columns/2); x < columns/2; x++)
+        {
+            for (int y = (-rows/2); y < rows/2; y++)
+            {
+
+                biome = getBiome(x, y);
+                Tile tile = Biomes[biome].titles[Random.Range(0, Biomes[biome].titles.Count)];
+                boardHolder.SetTile(new Vector3Int(x, y, 0), tile);
+                //Tile instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity);
+
+                
+
+            }
+        }
+        
+    }
+    
+    public int getBiome(int x ,int y)
+    {
+        int biome = 0;
+        float noise = 0;
+        float distance = 2f;
+        float range = distance / (Biomes.Count+1);
+        noise = noiseGen.GetNoise(x, y);
+        int count = 0;
+        biome = 0;
+        float left = -1.0f;
+        while ((left + range) <= 1.0)
+        {
+            if (noise > left && noise < (left + range))
+            {
+                biome = count;
+
+            }
+            count++;
+            left = left + range;
+        }
+
+        return biome;
+    }
+
+    void HandleSeed()
+    {
+        if (seed == 0)
+        {
+            seed = Random.Range(1000, 9999);
+        }
+        Random.InitState(seed);
+        noiseGen.SetSeed(seed);
+    }
+
+    void NoiseSetUp()
+    {
+        
+        noiseGen.SetNoiseType(FastNoise.NoiseType.Cellular);
+        noiseGen.SetFrequency((float)0.02);
+        noiseGen.SetInterp(FastNoise.Interp.Quintic);
+        noiseGen.SetFractalType(FastNoise.FractalType.Billow);
+        noiseGen.SetFractalOctaves(5);
+        noiseGen.SetFractalLacunarity((float)2.0);
+        noiseGen.SetFractalGain((float)0.5);
+        noiseGen.SetCellularDistanceFunction(FastNoise.CellularDistanceFunction.Manhattan);
+        noiseGen.SetCellularReturnType(FastNoise.CellularReturnType.CellValue);
+        
+        
+    }
+
+    public void Awake()
+    {
+        HandleSeed();
+        NoiseSetUp();
+        BoardSetUp();
+
+    }
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
