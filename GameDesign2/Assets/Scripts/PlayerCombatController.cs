@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlayerCombatController : CombatController, IDamageable
 {
-    [SerializeField]
-    float HP = 100;
+    public float HP = 100;
     AudioSource audiosource;
     #region weapon
     [System.Serializable]
