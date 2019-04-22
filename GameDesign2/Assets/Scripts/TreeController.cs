@@ -26,29 +26,30 @@ public class TreeController : CombatController, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (HP <= 0)
-        {
-            Destroy(gameObject);
-            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
-        }
-        else if(HP ==  20)
-        {
-            currentSprite.sprite = states[1];
-            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
 
-
-        }
-        else if(HP == 10)
-        {
-            currentSprite.sprite = states[2];
-            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
-        }
     }
 
     public void TakeDamage(float damage)
     {
         HP = HP - damage;
         audiosource.Play();
+        if (HP <= 0)
+        {
+            Destroy(gameObject);
+            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
+        }
+        else if (HP == 20)
+        {
+            currentSprite.sprite = states[1];
+            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
+
+
+        }
+        else if (HP == 10)
+        {
+            currentSprite.sprite = states[2];
+            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
+        }
 
     }
 }

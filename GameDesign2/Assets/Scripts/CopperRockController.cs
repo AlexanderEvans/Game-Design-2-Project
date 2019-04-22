@@ -18,11 +18,7 @@ public class CopperRockController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (HP <= 0)
-        {
-            Destroy(gameObject);
-            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
-        }
+
     }
 
 
@@ -30,5 +26,10 @@ public class CopperRockController : MonoBehaviour, IDamageable
     {
         HP = HP - damage;
         audiosource.Play();
+        if (HP <= 0)
+        {
+            Destroy(gameObject);
+            Item instance = Instantiate(outputItem, new Vector3(this.transform.position.x, this.transform.position.y, -0.1f), Quaternion.identity);
+        }
     }
 }
