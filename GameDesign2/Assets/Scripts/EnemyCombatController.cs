@@ -7,6 +7,8 @@ public class EnemyCombatController : CombatController, IDamageable
 {
     [SerializeField]
     float HP = 10;
+    [SerializeField]
+    float Attack = 1;
     public float hitPoints
     {
         get
@@ -27,6 +29,16 @@ public class EnemyCombatController : CombatController, IDamageable
 
                     Debug.LogError(this+" has a negative HP value!");
                 }
+            }
+        }
+    }
+
+    public float AttackPoints {
+        get { return Attack; }
+        set
+        {
+            if (Attack != value && value > 0) {
+                Attack = value;
             }
         }
     }
@@ -57,5 +69,10 @@ public class EnemyCombatController : CombatController, IDamageable
     {
         Debug.Log(this + " says: \"ouch!\"");
         hitPoints = hitPoints - amount;
+    }
+
+    public void AttackPlayer(PlayerCombatController target) {
+        target.TakeDamage(AttackPoints);
+        Debug.Log(this + " says: \"attack!\"");
     }
 }
