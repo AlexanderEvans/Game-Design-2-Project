@@ -271,14 +271,15 @@ public class Item : PrefabPooler, ISaveable
             {
                 Item old;
                 staticPrefabGuidMap.TryGetValue(item.GUID, out old);
-                Debug.Log("Error: " + item.GUID + "already exists!\nOld: " + old + "\nNew: " + item);
+                //Debug.Log("Error: " + item.GUID + "already exists!\nOld: " + old + "\nNew: " + item);
             }
             else
             {
-                staticPrefabGuidMap.Add(item.GUID, item);
-                Debug.Log("Adding: " + item.GUID + " : " + item);
+                staticPrefabGuidMap.Add(item.GUID, item, false);
+                //Debug.Log("Adding: " + item.GUID + " : " + item);
             }
         }
+        staticPrefabGuidMap.Populate();
     }
 
     public virtual  string SavePropertiesToJSONString()

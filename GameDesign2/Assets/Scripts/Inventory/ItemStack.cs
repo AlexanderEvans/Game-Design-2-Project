@@ -141,7 +141,7 @@ public class ItemStack : PrefabPooler, ISaveable
 
     public void UpdateIcon()
     {
-        Item.dumpAll();
+        //Item.dumpAll();
         Debug.Log("guid: "+GUID);
         Debug.Log("prefab: "+Item.GetPrefabComponent(GUID));
         if (spriteRenderer == null)

@@ -64,7 +64,7 @@ public class PrefabGuidMap : ScriptableObject
     public int getCount()
     {
         int count = 0;
-        if (prefabsSet == true)
+        if (prefabs.Count == 0)
             count = prefabs.Count;
         else
             count = guidPrefabPairs.Count;
@@ -73,7 +73,6 @@ public class PrefabGuidMap : ScriptableObject
     }
 
     Dictionary<string, Item> prefabs = new Dictionary<string, Item>();
-    bool prefabsSet = false;
 
     public void DumpData()
     {
@@ -93,52 +92,53 @@ public class PrefabGuidMap : ScriptableObject
         Debug.Log("Dumped: "+prefabs.Count);
     }
 
-    void Populate()
+    public void Populate()
     {
-        Debug.Log("Populating...");
+        Debug.Log("Populating... "+prefabs.Count);
         prefabs.Clear();
         foreach (GuidPrefabPair guidPrefabPair in guidPrefabPairs)
         {
             if (guidPrefabPair != null)
+            {
                 prefabs.Add(guidPrefabPair.GUID, guidPrefabPair.item);
+                Debug.Log("Element: " + guidPrefabPair.GUID + " : " + guidPrefabPair.item);
+            }
         }
     }
 
     private void Awake()
     {
-        if (prefabsSet != true)
+        if (prefabs.Count == 0)
         {
             Populate();
-            prefabsSet = true;
         }
     }
 
     private void OnEnable()
     {
-        if (prefabsSet != true)
+        if (prefabs.Count == 0)
         {
             Populate();
-            prefabsSet = true;
         }
     }
 
     public void TryGetValue(string GUID, out Item temp)
     {
-        if (prefabsSet != true)
+        if (prefabs.Count==0)
         {
             Populate();
-            prefabsSet = true;
         }
         prefabs.TryGetValue(GUID, out temp);
     }
 
-    public void Add(string guid, Item item)
+    public void Add(string guid, Item item, bool noPop=true)
     {
         GuidPrefabPair temp = objectPool.PopObject<GuidPrefabPair>();
         temp.Init(guid, item);
 
         guidPrefabPairs.Add(temp);
-        Populate();
+        if(noPop!=true)
+            Populate();
     }
 
     public void Clear()
@@ -153,10 +153,9 @@ public class PrefabGuidMap : ScriptableObject
 
     public bool ContainsKey(string gUID)
     {
-        if (prefabsSet != true)
+        if (prefabs.Count == 0)
         {
             Populate();
-            prefabsSet = true;
         }
         return prefabs.ContainsKey(gUID);
     }

@@ -107,11 +107,11 @@ public class ObjectPool : ScriptableObject
             if (poolableObjects.Count == 0)
             {
                 rtnVal = new T();
-                Debug.Log("Count == " + poolableObjects.Count);
+                //Debug.Log("Count == " + poolableObjects.Count);
             }
             else
             {
-                Debug.Log("Count == " + poolableObjects.Count);
+                //Debug.Log("Count == " + poolableObjects.Count);
                 object poolableObj = poolableObjects[poolableObjects.Count - 1];
                 poolableObjects.Remove(poolableObj);
                 rtnVal = (T)poolableObj;
