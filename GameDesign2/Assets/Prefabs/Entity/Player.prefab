@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemylist:
   - {fileID: 6093131948663355525, guid: 9c53e0da61d76c546854f2972f7adbca, type: 3}
-  radius: 10
+  radius: 12
   biome: 4
   SpawnTime: 10
 --- !u!1 &8322477183357119017
@@ -242,41 +242,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Weapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: lineRendererRoot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: isPrefab
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: weaponProperties.damage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: weaponProperties.hitDuration
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: weaponProperties.weaponReach
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: weaponProperties.weaponCooldown
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: weaponProperties.constantReach
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2308179194234767437, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}
@@ -331,6 +296,41 @@ PrefabInstance:
     - target: {fileID: 2308179194234767437, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: lineRendererRoot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: isPrefab
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: weaponProperties.damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: weaponProperties.hitDuration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: weaponProperties.weaponReach
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: weaponProperties.weaponCooldown
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: weaponProperties.constantReach
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

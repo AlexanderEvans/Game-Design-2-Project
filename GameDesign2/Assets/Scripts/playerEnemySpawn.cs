@@ -28,13 +28,18 @@ public class playerEnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (world.getBiome((int)player.transform.position.x, (int)player.transform.position.y) == biome) {
-            if(time == 0) time = Time.time + Random.Range(SpawnTime - 2, SpawnTime + 2);
-            if (Time.time > time) {
-                time = Time.time + Random.Range(SpawnTime - 2, SpawnTime + 2 );
+        if (world.getBiome((int)player.transform.position.x, (int)player.transform.position.y) == biome)
+        {
+            if (time == 0) time = Time.time + Random.Range(SpawnTime - 2, SpawnTime + 2);
+            if (Time.time > time)
+            {
+                time = Time.time + Random.Range(SpawnTime - 2, SpawnTime + 2);
 
-                Instantiate(enemylist[Random.Range(0,enemylist.Count)], RandomCircle(), Quaternion.identity);
+                Instantiate(enemylist[Random.Range(0, enemylist.Count)], RandomCircle(), Quaternion.identity);
             }
+        }
+        else {
+            time = 0;
         }
     }
 
