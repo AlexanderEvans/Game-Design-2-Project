@@ -5,13 +5,14 @@ using UnityEngine;
 using System.Linq;
 
 [System.Serializable]
-[RequireComponent(typeof(GuiManager))]
+[CreateAssetMenu(fileName = "New bag of holding, lol", menuName = "Scriptable Object/New Inventory Data")]
 public class InventoryData : ScriptableObject//, ISaveable
 {
     ObjectPool objectPool = null;
     bool notAwakened = true;
     //CollectionPool collectionPool = null;
     
+    [SerializeField]
     List<ItemStack> itemStacks = new List<ItemStack>();
     List<int> inputItemSlots;
     List<int> outputItemSlots;

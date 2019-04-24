@@ -97,8 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f56bc0d0bfabfe4da4ec1b71a4108cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 10
-  speedY: 10
+  speed: 10
   myRigidody2D: {fileID: 7523275055676408250}
   myAnimator: {fileID: 7523275055676408249}
 --- !u!95 &7523275055676408249
@@ -282,6 +281,11 @@ PrefabInstance:
     - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}
       propertyPath: isPrefab
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: isPrefabbedPooler
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
