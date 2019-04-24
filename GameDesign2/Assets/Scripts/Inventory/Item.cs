@@ -65,7 +65,6 @@ public class Item : PrefabPooler, ISaveable
 #pragma warning disable 0649
     PrefabGuidMap prefabGuidMap;
 #pragma warning restore 0649
-    static bool prefabsSet = false;
    
 
     public new void OnValidate()
