@@ -46,7 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPrefabbedPooler: 0
   GUIDBack: Melee Weapon + 2/27/2019 11:41:43 AM
-  isPrefab: {fileID: 8655468358751872870}
+  itemstackPrefab: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+    type: 3}
+  spriteRenderer: {fileID: 3975533015993525922}
 --- !u!212 &3975533015993525922
 SpriteRenderer:
   m_ObjectHideFlags: 0

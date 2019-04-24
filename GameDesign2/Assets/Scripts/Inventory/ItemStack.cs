@@ -104,16 +104,16 @@ public class ItemStack : PrefabPooler, ISaveable
     public List<Item> items { get; private set; }
 
     [SerializeField]
-    public ItemStack isPrefab=null;
+    public ItemStack itemstackPrefab=null;
     public ItemStack itemStackPrefab
     {
         get
         {
-            return isPrefab;
+            return itemstackPrefab;
         }
         private set
         {
-            isPrefab = value;
+            itemstackPrefab = value;
         }
     }
 

@@ -135,6 +135,7 @@ public class PrefabGuidMap : ScriptableObject
 
     public void Add(string guid, Item item, bool autoPopulate=true)
     {
+        Debug.Log("Adding... [guid]:" + guid + " [item]:" + item);
         GuidPrefabPair temp = objectPool.PopObject<GuidPrefabPair>();
         temp.Init(guid, item);
 
