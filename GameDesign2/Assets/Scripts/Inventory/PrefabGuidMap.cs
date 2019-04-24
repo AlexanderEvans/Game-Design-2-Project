@@ -96,11 +96,11 @@ public class PrefabGuidMap : ScriptableObject
 
     public void Populate()
     {
-        Debug.Log("Populating... "+prefabs.Count);
+        Debug.Log("Populating... (old)"+prefabs.Count+" (new)"+guidPrefabPairs.Count);
         prefabs.Clear();
         foreach (GuidPrefabPair guidPrefabPair in guidPrefabPairs)
         {
-            if (guidPrefabPair != null)
+            if (guidPrefabPair != null)  
             {
                 prefabs.Add(guidPrefabPair.GUID, guidPrefabPair.item);
                 Debug.Log("Element: " + guidPrefabPair.GUID + " : " + guidPrefabPair.item);
@@ -133,13 +133,13 @@ public class PrefabGuidMap : ScriptableObject
         prefabs.TryGetValue(GUID, out temp);
     }
 
-    public void Add(string guid, Item item, bool noPop=true)
+    public void Add(string guid, Item item, bool autoPopulate=true)
     {
         GuidPrefabPair temp = objectPool.PopObject<GuidPrefabPair>();
         temp.Init(guid, item);
 
         guidPrefabPairs.Add(temp);
-        if(noPop!=true)
+        if(autoPopulate==true)
             Populate();
     }
 
