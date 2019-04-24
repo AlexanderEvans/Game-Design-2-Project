@@ -8,7 +8,9 @@ using System;
 public class PrefabGuidMap : ScriptableObject
 {
     [SerializeField]
+#pragma warning disable 0649
     ObjectPool objectPool;
+#pragma warning restore 0649
 
     [Serializable]
     class GuidPrefabPair

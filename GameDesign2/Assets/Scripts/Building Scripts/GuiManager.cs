@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GuiManager : MonoBehaviour
 {
-
+    [SerializeField]
+#pragma warning disable 0649
     InventoryData inventoryData;
+#pragma warning restore 0649
 
     private void Awake()
     {

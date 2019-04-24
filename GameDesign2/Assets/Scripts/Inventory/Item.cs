@@ -62,7 +62,9 @@ public class Item : PrefabPooler, ISaveable
     }
 
     [SerializeField]
+#pragma warning disable 0649
     PrefabGuidMap prefabGuidMap;
+#pragma warning restore 0649
     static bool prefabsSet = false;
    
 
