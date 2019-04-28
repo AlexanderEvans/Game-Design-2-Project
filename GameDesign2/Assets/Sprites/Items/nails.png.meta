@@ -1,0 +1,565 @@
+fileFormatVersion: 2
+guid: 84fa19a8c91d0b642a47c85cb36cfa64
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: nails_0
+    21300002: nails_1
+    21300004: nails_2
+    21300006: nails_3
+    21300008: nails_4
+    21300010: nails_5
+    21300012: nails_6
+    21300014: nails_7
+    21300016: nails_8
+    21300018: nails_9
+    21300020: nails_10
+    21300022: nails_11
+    21300024: nails_12
+    21300026: nails_13
+    21300028: nails_14
+    21300030: nails_15
+  externalObjects: {}
+  serializedVersion: 7
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: nails_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 99
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 992da0ce4f8f0464fb43176bacd46953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 100
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 973abaa8d37d16748852dfffedb6dfc1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 100
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ad26c4981811f6488569fa69b441e45
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 106
+        width: 26
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e43e661b199ff34ebce1994c2edce23
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_4
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 69
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fa60b643476b5a4e9f181d14c186919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_5
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 69
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06a9ff0d88191574c85dabc6a3d76adb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_6
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 71
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a2623802f4f1e24fa31f5c2c3b695ba
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_7
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 71
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 578b55832f3caa54f8802a4f4d2487f3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_8
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 36
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd153d7fc7891d3418e24297e8b0e444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_9
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 36
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 649b9021ab64a1e408bd64b346330648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_10
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 36
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edaae756b86951144a1571494bd20631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_11
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 37
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 668ebfe1874e03048ab6bea15a18ca69
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_12
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 5
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 632322f6fb7aec24da5396a2d439354b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_13
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 2
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 147b1596d7a9e4b43b3272be68e08323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_14
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 3
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c7dc320e20f10449a6b827a724d9fc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nails_15
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 4
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: affb5695562e96849b7f1b3504c54982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -20, y: -32}
+      - {x: -31, y: -40}
+      - {x: -31, y: -48}
+      - {x: -29, y: -51}
+      - {x: -17, y: -64}
+      - {x: -14, y: -63}
+      - {x: -2, y: -52}
+      - {x: -2, y: -38}
+      - {x: -13, y: -32}
+    - - {x: 15, y: -34}
+      - {x: 7, y: -42}
+      - {x: 7, y: -55}
+      - {x: 15, y: -63}
+      - {x: 17, y: -63}
+      - {x: 25, y: -55}
+      - {x: 25, y: -42}
+      - {x: 17, y: -34}
+    - - {x: 41, y: -34}
+      - {x: 36, y: -40}
+      - {x: 36, y: -60}
+      - {x: 37, y: -62}
+      - {x: 58, y: -62}
+      - {x: 61, y: -60}
+      - {x: 61, y: -39}
+      - {x: 59, y: -34}
+    - - {x: -44, y: -35}
+      - {x: -60, y: -52}
+      - {x: -60, y: -61}
+      - {x: -49, y: -61}
+      - {x: -37, y: -56}
+      - {x: -37, y: -35}
+    - - {x: -39, y: -2}
+      - {x: -43, y: -2}
+      - {x: -64, y: -11}
+      - {x: -64, y: -23}
+      - {x: -60, y: -30}
+      - {x: -50, y: -30}
+      - {x: -32, y: -19}
+      - {x: -32, y: -11}
+    - - {x: -9, y: -2}
+      - {x: -14, y: -2}
+      - {x: -32, y: -13}
+      - {x: -32, y: -23}
+      - {x: -23, y: -30}
+      - {x: -17, y: -30}
+      - {x: 0, y: -20}
+      - {x: 0, y: -11}
+    - - {x: 17, y: -2}
+      - {x: 0, y: -12}
+      - {x: 0, y: -21}
+      - {x: 7, y: -30}
+      - {x: 12, y: -30}
+      - {x: 31, y: -23}
+      - {x: 32, y: -20}
+      - {x: 32, y: -8}
+      - {x: 23, y: -2}
+    - - {x: 47, y: -1}
+      - {x: 33, y: -8}
+      - {x: 32, y: -13}
+      - {x: 32, y: -22}
+      - {x: 39, y: -29}
+      - {x: 43, y: -29}
+      - {x: 62, y: -21}
+      - {x: 64, y: -20}
+      - {x: 64, y: -10}
+      - {x: 60, y: -1}
+    - - {x: -55, y: 27}
+      - {x: -63, y: 23}
+      - {x: -63, y: 10}
+      - {x: -61, y: 5}
+      - {x: -58, y: 3}
+      - {x: -39, y: 3}
+      - {x: -34, y: 9}
+      - {x: -34, y: 23}
+      - {x: -38, y: 27}
+    - - {x: -23, y: 27}
+      - {x: -31, y: 23}
+      - {x: -31, y: 10}
+      - {x: -29, y: 5}
+      - {x: -26, y: 3}
+      - {x: -4, y: 3}
+      - {x: -2, y: 9}
+      - {x: -2, y: 26}
+      - {x: -4, y: 27}
+    - - {x: 7, y: 24}
+      - {x: 2, y: 20}
+      - {x: 2, y: 5}
+      - {x: 27, y: 5}
+      - {x: 29, y: 7}
+      - {x: 29, y: 16}
+      - {x: 26, y: 24}
+    - - {x: 40, y: 24}
+      - {x: 35, y: 20}
+      - {x: 35, y: 5}
+      - {x: 60, y: 5}
+      - {x: 62, y: 7}
+      - {x: 62, y: 16}
+      - {x: 59, y: 24}
+    - - {x: -47, y: 62}
+      - {x: -64, y: 49}
+      - {x: -64, y: 33}
+      - {x: -45, y: 33}
+      - {x: -31, y: 38}
+      - {x: -31, y: 56}
+      - {x: -41, y: 62}
+    - - {x: -15, y: 59}
+      - {x: -31, y: 46}
+      - {x: -31, y: 37}
+      - {x: -30, y: 34}
+      - {x: -16, y: 34}
+      - {x: 0, y: 47}
+      - {x: 0, y: 56}
+      - {x: -1, y: 59}
+    - - {x: 20, y: 58}
+      - {x: 3, y: 41}
+      - {x: 3, y: 38}
+      - {x: 7, y: 34}
+      - {x: 10, y: 34}
+      - {x: 27, y: 51}
+      - {x: 27, y: 54}
+      - {x: 23, y: 58}
+    - - {x: 51, y: 55}
+      - {x: 44, y: 52}
+      - {x: 33, y: 44}
+      - {x: 33, y: 42}
+      - {x: 34, y: 40}
+      - {x: 57, y: 40}
+      - {x: 63, y: 45}
+      - {x: 63, y: 49}
+      - {x: 56, y: 55}
+    physicsShape: []
+    bones: []
+    spriteID: 23f14b74a861bf54098ad86afd8ed979
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

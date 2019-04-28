@@ -7,5 +7,11 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: fa3f499e3d1bcd440b7b952de22aa5ee
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5474628d350dd2941af9b5cdbcbba41d
+  - enabled: 1
+    path: Assets/Scenes/BensScene.unity
+    guid: 20e6bb57218df764bb4fd64e646cb045
   m_configObjects: {}
