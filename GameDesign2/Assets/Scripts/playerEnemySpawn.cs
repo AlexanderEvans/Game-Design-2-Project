@@ -8,11 +8,11 @@ public class playerEnemySpawn : MonoBehaviour
     [SerializeField]
     public List<GameObject> enemylist = new List<GameObject>();
     [SerializeField]
-    float radius;
+    float radius=12;
     [SerializeField]
-    int biome;
+    int biome=4;
     [SerializeField]
-    float SpawnTime;
+    float SpawnTime=3;
 
 
     GameObject player;
