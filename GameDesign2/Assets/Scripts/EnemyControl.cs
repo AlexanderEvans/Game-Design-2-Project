@@ -13,9 +13,11 @@ public class EnemyControl : MonoBehaviour
     [SerializeField]
     float speed = 9;
     [SerializeField]
+    float speedrange = 9;
+    [SerializeField]
     float attackCoolDownSec = 1f;
     [SerializeField]
-    float spawnMoveCoolDown = 1f;
+    float spawnMoveCoolDown = .5f;
     float coolDown;
 
     float enemySpeed;
@@ -26,7 +28,8 @@ public class EnemyControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        speed = Random.Range(speed - (speedrange * 2), speed + speedrange);
     }
 
     private void Awake()
@@ -138,12 +141,12 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player") target = other.gameObject;
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Player") target = null;
     }
