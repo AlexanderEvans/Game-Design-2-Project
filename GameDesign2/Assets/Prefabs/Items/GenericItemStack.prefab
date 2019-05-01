@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8888924387898552577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -49,6 +49,8 @@ MonoBehaviour:
   isPrefabbedPooler: 0
   objectPool: {fileID: 11400000, guid: 7d8c431a700c91040a4a48f4d74a4c10, type: 2}
   GUIDBack: Melee Weapon + 2/27/2019 11:41:43 AM
+  properties: []
+  items: []
   itemstackPrefab: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
     type: 3}
   spriteRenderer: {fileID: 3975533015993525922}
