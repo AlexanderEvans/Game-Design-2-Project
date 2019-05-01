@@ -6191,6 +6191,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7090436362570899721, guid: 0256131adc9baa74989ae19b18e45b9c,
+        type: 3}
+      propertyPath: prefabGuidMap
+      value: 
+      objectReference: {fileID: 11400000, guid: 23a5d8427e3cf034a86404422e5c1dfb,
+        type: 2}
     - target: {fileID: 5491329748976412175, guid: 0256131adc9baa74989ae19b18e45b9c,
         type: 3}
       propertyPath: lineRendererRoot

@@ -503,6 +503,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6201553056787437139, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6201553056787437139, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
       propertyPath: properties.Array.size
@@ -934,7 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f69bd87d771cd47850bcda9d750fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryData: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: f42a8989ef85d0e45999cb1335807d29, type: 2}
 --- !u!1001 &572725412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4132,7 +4142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7ad51cef7b15e4ebcbff94538fe1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToToggle: {fileID: 0}
+  gameObjectToToggle: {fileID: 560874121}
 --- !u!114 &1260307447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5634,11 +5644,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5491329748976412175, guid: 0256131adc9baa74989ae19b18e45b9c,
-        type: 3}
-      propertyPath: lineRendererRoot
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7523275055676408251, guid: 0256131adc9baa74989ae19b18e45b9c,
         type: 3}
       propertyPath: weapon.component
@@ -5653,6 +5658,11 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponProperties.weaponCooldown
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491329748976412175, guid: 0256131adc9baa74989ae19b18e45b9c,
+        type: 3}
+      propertyPath: lineRendererRoot
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0256131adc9baa74989ae19b18e45b9c, type: 3}
