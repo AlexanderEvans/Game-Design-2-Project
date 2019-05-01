@@ -163,6 +163,7 @@ public class ItemStack : PrefabPooler, ISaveable
         {
             gameObject.SetActive(false);
             //push to pool or destroy?  Best to pool, but this gets called multiple times...
+            objectPool.PushObject(this);
         }
     }
 
