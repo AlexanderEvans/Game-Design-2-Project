@@ -5,9 +5,7 @@ using UnityEngine;
 public class Movement_Controller : MonoBehaviour
 {
     [SerializeField]
-    float speedX = 10.0f;
-    [SerializeField]
-    float speedY = 10.0f;
+    float speed = 10.0f;
 
     [SerializeField]
     Rigidbody2D myRigidody2D;
@@ -61,25 +59,19 @@ public class Movement_Controller : MonoBehaviour
         run();   
     }
 
-    Vector2 runVelocity = Vector2.zero;
     void run()
     {
-        float directionX = Input.GetAxisRaw("Horizontal");
-        float directionY = Input.GetAxisRaw("Vertical");
-        runVelocity.x = directionX * speedX;
-        float RunX = runVelocity.x;
-        runVelocity.y = directionY * speedY;
-        float RunY = runVelocity.y;
+
+        Vector2 runVelocity = Vector2.zero;
+        runVelocity.x = Input.GetAxisRaw("Horizontal");
+        runVelocity.y = Input.GetAxisRaw("Vertical");
+        runVelocity = runVelocity.normalized * speed;
         myRigidody2D.velocity = runVelocity;
         
-
-        
-       
         bool movingRight  =myRigidody2D.velocity.x > Mathf.Epsilon;
         bool movingLeft = myRigidody2D.velocity.x < -Mathf.Epsilon;
         bool movingUp = myRigidody2D.velocity.y > Mathf.Epsilon;
         bool movingDown = myRigidody2D.velocity.y < -Mathf.Epsilon;
-
 
         myAnimator.SetBool("PlayerRunLeft", movingLeft);
         myAnimator.SetBool("PlayerRunRight", movingRight);
