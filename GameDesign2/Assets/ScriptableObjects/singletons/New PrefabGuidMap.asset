@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196cf769a75fe494f92f3085ff906f55, type: 3}
+  m_Name: New PrefabGuidMap
+  m_EditorClassIdentifier: 
+  objectPool: {fileID: 11400000, guid: 7d8c431a700c91040a4a48f4d74a4c10, type: 2}
+  guidPrefabPairs:
+  - GUID_p: Circuit + 2/27/2019 11:40:11 AM
+    item_p: {fileID: 3915060717703397949, guid: c426ee44080f51941a4a1f3d57bbccef,
+      type: 3}
+  - GUID_p: Wires + 2/27/2019 11:40:23 AM
+    item_p: {fileID: 2132440069837664833, guid: e095f608d09f3ea4aa10876add212f1c,
+      type: 3}
+  - GUID_p: Copper + 2/27/2019 11:40:41 AM
+    item_p: {fileID: 6555747648955863672, guid: 3b5ffff9d39ad5249abcaa1c8c31aa9a,
+      type: 3}
+  - GUID_p: Copper Ore + 2/27/2019 11:40:49 AM
+    item_p: {fileID: 5629762452859035087, guid: 6a12e8d618f62084a9ac02d36d89c607,
+      type: 3}
+  - GUID_p: Iron + 2/27/2019 11:40:53 AM
+    item_p: {fileID: 3270287837423579500, guid: 6bfe72675904bd24cac2c2d893abf446,
+      type: 3}
+  - GUID_p: Iron Ore + 2/27/2019 11:40:57 AM
+    item_p: {fileID: 3041999802690593616, guid: 065708febe7f7a74eb71463658b448a3,
+      type: 3}
+  - GUID_p: Logs + 2/27/2019 11:40:59 AM
+    item_p: {fileID: 391484060578505539, guid: 23bc80cc6c2e7a842aa216cc1b86bac1, type: 3}
+  - GUID_p: Power + 2/27/2019 11:41:03 AM
+    item_p: {fileID: 3333439198449833202, guid: 0716361f7fed7be44bb6cc973219ddc8,
+      type: 3}
+  - GUID_p: Volts + 2/27/2019 11:41:08 AM
+    item_p: {fileID: 5007011399320139692, guid: 306ce74db545f4b43bece97d5ef1f18b,
+      type: 3}
+  - GUID_p: Wood + 2/27/2019 11:41:30 AM
+    item_p: {fileID: 2144922355954505627, guid: fe6b5004c62968046aa7e69a78848297,
+      type: 3}
+  - GUID_p: Melee Weapon + 2/27/2019 11:41:43 AM
+    item_p: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+      type: 3}

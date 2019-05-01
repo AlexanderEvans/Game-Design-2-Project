@@ -6,14 +6,16 @@ using System;
 [InitializeOnLoad]
 public class Autorun
 {
+    
     static Autorun()
     {
+        //Debug.Log("test");
         EditorApplication.update += RunOnce;
     }
 
     static void RunOnce()
     {
-        Item.GetLargestGUIDAndRebuildPrefabsDictionary();
+        Item.SyncGUIDS();
         PrefabUtility.prefabInstanceUpdated = new PrefabUtility.PrefabInstanceUpdated(PrefabInstanceUpdated);
         EditorApplication.update -= RunOnce;
     }
@@ -23,12 +25,21 @@ public class Autorun
         Item item = gameObject.GetComponent<Item>();
         if(item!=null)
         {
-            if(PrefabStageUtility.GetPrefabStage(gameObject)==null)
+            item.CheckIfIsPrefab();
+            if (item.IsPrefab==false)
             {
-                //Debug.Log("instance callback");
+                Debug.Log("instance callback: " + item);
                 SerializedObject serializedObject = new SerializedObject(item);
                 SerializedProperty serializedPropertyGUID = serializedObject.FindProperty("guid");
                 PrefabUtility.RevertPropertyOverride(serializedPropertyGUID, InteractionMode.AutomatedAction);
+            }
+            else
+            {
+                Debug.Log("prefab callback: " + item);
+                //item.RegeneratePrefabGuid();
+                Item iRef = Item.GetPrefabComponent(item);
+                if (item.GUID == "")
+                    item.RegeneratePrefabGuid();
             }
         }
     }
