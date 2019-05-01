@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9133230404255646960}
   - component: {fileID: 9133230404255646961}
-  - component: {fileID: 6987260848289870530}
+  - component: {fileID: 368596326384002832}
   m_Layer: 0
   m_Name: Line Renderer Object
   m_TagString: Untagged
@@ -127,7 +127,7 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &6987260848289870530
+--- !u!114 &368596326384002832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,7 +136,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9133230404255646962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39c078e7864fa55458ebab7464ce3ee7, type: 3}
+  m_Script: {fileID: 11500000, guid: 05ba3863f8666c14d8a33e2100681237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPrefabbedPooler: 0

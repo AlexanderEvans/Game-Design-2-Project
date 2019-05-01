@@ -1,19 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-[System.Serializable]
 public class DebugTesting : MonoBehaviour
 {
-    [SerializeField]
-    public PrefabGuidMap prefabGuidMap;
-    //[MenuItem("Custom Actions/Debugging... /Test Function Driver")]
-    //public static void testFunctionDriver()
-    //{
-    //    Debug.Log(System.DateTime.UtcNow.Ticks);
-    //}
-
     //[SerializeField]
     //MeleeWeapon meleeWeapon;
     //// Start is called before the first frame update
@@ -38,33 +28,6 @@ public class DebugTesting : MonoBehaviour
     //// Update is called once per frame
     //void Update()
     //{
-
-    //}
-
-    //private void Awake()
-    //{
-    //    TestClasser testClasser = new TestClasser();
-    //    TestClasser testClasser2 = new TestClasser();
-
-    //    testClasser2.makeNull(testClasser);
-
-    //    Debug.Log(testClasser);
-    //    Debug.Log(testClasser2);
-
-    //    if (testClasser != null)
-    //        Debug.Log(testClasser.myInt);
-    //    if (testClasser2 != null)
-    //        Debug.Log(testClasser2.myInt);
+        
     //}
 }
-
-
-//class TestClasser
-//{
-//    public void makeNull(TestClasser other)
-//    {
-//        other = null;
-//    }
-
-//    public int myInt = 10;
-//}
