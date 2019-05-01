@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 8626237590613734825, guid: 6733d12f74f8bb14d84a46b973c5fabc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8626237590613734825, guid: 6733d12f74f8bb14d84a46b973c5fabc,
         type: 3}
@@ -231,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 6006947452141710513, guid: f99304cb0bffb034eb53d47e9b3c2581,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6006947452141710513, guid: f99304cb0bffb034eb53d47e9b3c2581,
         type: 3}
@@ -443,22 +443,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: properties.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: itemstackPrefab
-      value: 
-      objectReference: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: GUIDBack
-      value: Copper + 2/27/2019 11:40:41 AM
-      objectReference: {fileID: 0}
     - target: {fileID: 8888924387898552577, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
       propertyPath: m_Name
@@ -518,6 +502,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: properties.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: itemstackPrefab
+      value: 
+      objectReference: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: GUIDBack
+      value: Copper + 2/27/2019 11:40:41 AM
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a959627b6e27a8488cc0c3bb8ab36f9, type: 3}
@@ -934,7 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f69bd87d771cd47850bcda9d750fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryData: {fileID: 11400000, guid: f42a8989ef85d0e45999cb1335807d29, type: 2}
+  inventoryData: {fileID: 0}
 --- !u!1001 &572725412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -985,7 +985,7 @@ PrefabInstance:
     - target: {fileID: 3540081043769712553, guid: 867c36ca144a7124388a65019212a43f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3540081043769712553, guid: 867c36ca144a7124388a65019212a43f,
         type: 3}
@@ -1041,7 +1041,7 @@ Transform:
   - {fileID: 1898329533}
   - {fileID: 596003983}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596003980
 GameObject:
@@ -1536,22 +1536,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: properties.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: itemstackPrefab
-      value: 
-      objectReference: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: GUIDBack
-      value: Copper + 2/27/2019 11:40:41 AM
-      objectReference: {fileID: 0}
     - target: {fileID: 8888924387898552577, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
       propertyPath: m_Name
@@ -1595,7 +1579,7 @@ PrefabInstance:
     - target: {fileID: 6201553056787437139, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6201553056787437139, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
@@ -1611,6 +1595,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: properties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: itemstackPrefab
+      value: 
+      objectReference: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: GUIDBack
+      value: Copper + 2/27/2019 11:40:41 AM
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a959627b6e27a8488cc0c3bb8ab36f9, type: 3}
@@ -4132,7 +4132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7ad51cef7b15e4ebcbff94538fe1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToToggle: {fileID: 560874121}
+  gameObjectToToggle: {fileID: 0}
 --- !u!114 &1260307447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4501,22 +4501,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: properties.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: itemstackPrefab
-      value: 
-      objectReference: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
-        type: 3}
-      propertyPath: GUIDBack
-      value: Copper + 2/27/2019 11:40:41 AM
-      objectReference: {fileID: 0}
     - target: {fileID: 8888924387898552577, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
       propertyPath: m_Name
@@ -4560,7 +4544,7 @@ PrefabInstance:
     - target: {fileID: 6201553056787437139, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6201553056787437139, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
         type: 3}
@@ -4576,6 +4560,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: properties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: itemstackPrefab
+      value: 
+      objectReference: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+    - target: {fileID: 8655468358751872870, guid: 4a959627b6e27a8488cc0c3bb8ab36f9,
+        type: 3}
+      propertyPath: GUIDBack
+      value: Copper + 2/27/2019 11:40:41 AM
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a959627b6e27a8488cc0c3bb8ab36f9, type: 3}
@@ -5239,18 +5239,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1959819912}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1988834243 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7090436362570899721, guid: 0256131adc9baa74989ae19b18e45b9c,
-    type: 3}
-  m_PrefabInstance: {fileID: 7523275056791731328}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f15f370e74523c946a5944388e9f724e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2001692126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5646,6 +5634,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5491329748976412175, guid: 0256131adc9baa74989ae19b18e45b9c,
+        type: 3}
+      propertyPath: lineRendererRoot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523275055676408251, guid: 0256131adc9baa74989ae19b18e45b9c,
+        type: 3}
+      propertyPath: weapon.component
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7090436362570899721, guid: 0256131adc9baa74989ae19b18e45b9c,
         type: 3}
       propertyPath: weaponProperties.hitDuration
@@ -5656,16 +5654,6 @@ PrefabInstance:
       propertyPath: weaponProperties.weaponCooldown
       value: 0.05
       objectReference: {fileID: 0}
-    - target: {fileID: 5491329748976412175, guid: 0256131adc9baa74989ae19b18e45b9c,
-        type: 3}
-      propertyPath: lineRendererRoot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7523275055676408251, guid: 0256131adc9baa74989ae19b18e45b9c,
-        type: 3}
-      propertyPath: weapon.component
-      value: 
-      objectReference: {fileID: 1988834243}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0256131adc9baa74989ae19b18e45b9c, type: 3}
 --- !u!1001 &8618810610418384084
@@ -5756,6 +5744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 10
+  Attack: 1
 --- !u!4 &8720634201623987764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5320539873016263219, guid: c441ee7b5ad0c35438c5643e20b39a3b,
