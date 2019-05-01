@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7523275055676408250}
   - component: {fileID: 7523275055676408251}
   - component: {fileID: 4492593844664300577}
+  - component: {fileID: 715330737752816090}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -180,6 +181,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.19}
   m_EdgeRadius: 0
+--- !u!114 &715330737752816090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7523275055676408245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 254aa8f06880b0343a563e90bfe68f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryData: {fileID: 11400000, guid: f42a8989ef85d0e45999cb1335807d29, type: 2}
+  objectPool: {fileID: 11400000, guid: 7d8c431a700c91040a4a48f4d74a4c10, type: 2}
 --- !u!1 &8322477183357119017
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,10 +233,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6746638182056122071}
     m_Modifications:
-    - target: {fileID: 1965295644571011529, guid: 3d6dade61499ec14eb3e4953a0d68316,
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}
-      propertyPath: m_Name
-      value: Melee Weapon
+      propertyPath: isPrefab
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+        type: 3}
+      propertyPath: isPrefabbedPooler
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2308179194234767437, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}
@@ -278,15 +298,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
+    - target: {fileID: 1965295644571011529, guid: 3d6dade61499ec14eb3e4953a0d68316,
         type: 3}
-      propertyPath: isPrefab
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6677754764605289865, guid: 3d6dade61499ec14eb3e4953a0d68316,
-        type: 3}
-      propertyPath: isPrefabbedPooler
-      value: 1
+      propertyPath: m_Name
+      value: Melee Weapon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d6dade61499ec14eb3e4953a0d68316, type: 3}

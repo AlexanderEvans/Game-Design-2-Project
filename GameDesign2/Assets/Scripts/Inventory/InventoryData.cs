@@ -103,11 +103,13 @@ public class InventoryData : ScriptableObject//, ISaveable
             validOperation = true;
             if(itemStackToSwap!=null)
             {
-                itemStackToSwap.Swap(itemStacks[index]);
+                ItemStack temp = itemStacks[index];
+                itemStackToSwap.Swap(ref temp);
+                itemStacks[index] = temp;
             }
             else if(itemStacks[index]!=null)
             {
-                itemStacks[index].Swap(itemStackToSwap);
+                itemStacks[index].Swap(ref itemStackToSwap);
             }
         }
         return validOperation;
@@ -166,6 +168,25 @@ public class InventoryData : ScriptableObject//, ISaveable
         while (itemStacks.Count < inventorySize)
         {
             itemStacks.Add(null);
+        }
+    }
+
+    public void insert(ItemStack itemStack) 
+    {
+        bool notYetInserted = true;
+        for (int i = 0; i<itemStacks.Count && notYetInserted; i++)
+        {
+            if(inputItemSlotsInGUI.Contains(i))
+            {
+                if (itemStacks[i]==null || itemStacks[i].IsEmpty())
+                {
+                    notYetInserted = false;
+                    ItemStack temp = itemStacks[i];
+                    itemStack.Swap(ref temp);
+                    itemStacks[i] = temp;
+                    itemStacks[i].GetComponent<SpriteRenderer>().enabled = false;
+                }
+            }
         }
     }
 }

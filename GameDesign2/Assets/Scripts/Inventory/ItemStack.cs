@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class ItemStack : PrefabPooler, ISaveable
 {
+    [SerializeField]
+    ObjectPool objectPool;
 
     [System.Serializable]
     struct TempStack
@@ -144,6 +146,7 @@ public class ItemStack : PrefabPooler, ISaveable
         //Item.dumpAll();
         //Debug.Log("guid: "+GUID);
         //Debug.Log("prefab: "+Item.GetPrefabComponent(GUID));
+        gameObject.name = GUID;
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
         if (GUID!="" && spriteRenderer != null)
@@ -220,11 +223,16 @@ public class ItemStack : PrefabPooler, ISaveable
         UpdateIcon();
     }
 
-    public void Swap(ItemStack other)
+    public void Swap(ref ItemStack other)
     {
         TempStack temp = new TempStack();
         temp.SetStack(this);
         SetStack(other);
+
+        if(other==null)
+        {
+            other = objectPool.PopObject(itemstackPrefab);
+        }
         other.SetStack(temp);
         other.UpdateIcon();
         UpdateIcon();
@@ -391,4 +399,19 @@ public class ItemStack : PrefabPooler, ISaveable
         }
         UpdateIcon();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ICollectorEntity collectorEntity = collision.GetComponent<ICollectorEntity>();
+        if(collectorEntity!=null)
+        {
+            collectorEntity.collect(this);
+        }
+    }
+}
+
+
+interface ICollectorEntity
+{
+    void collect(ItemStack itemStack);
 }
