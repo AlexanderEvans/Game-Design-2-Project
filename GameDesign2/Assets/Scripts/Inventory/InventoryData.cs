@@ -180,11 +180,12 @@ public class InventoryData : ScriptableObject//, ISaveable
             {
                 if (itemStacks[i]==null || itemStacks[i].IsEmpty())
                 {
+                    Debug.Log("Inserting @ " + i);
                     notYetInserted = false;
                     ItemStack temp = itemStacks[i];
                     itemStack.Swap(ref temp);
                     itemStacks[i] = temp;
-                    itemStacks[i].GetComponent<SpriteRenderer>().enabled = false;
+                    temp.gameObject.SetActive(false);
                 }
             }
         }

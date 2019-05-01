@@ -57,7 +57,8 @@ public class ObjectPool : ScriptableObject
         List<object> poolableObjects;
         if (pools.TryGetValue(type, out poolableObjects))
         {
-            poolableObjects.Add(objectToPool);
+            if(poolableObjects.Contains(objectToPool)!=true)
+                poolableObjects.Add(objectToPool);
         }
         else
         {

@@ -101,9 +101,11 @@ public class ItemStack : PrefabPooler, ISaveable
             GUIDBack = value;
         }
     }
-    
-    public List<string> properties { get; private set; }
-    public List<Item> items { get; private set; }
+
+    [SerializeField]
+    public List<string> properties;//{ get; private set; }
+    [SerializeField]
+    public List<Item> items;// { get; private set; }
 
     [SerializeField]
     public ItemStack itemstackPrefab=null;
@@ -125,6 +127,11 @@ public class ItemStack : PrefabPooler, ISaveable
     {
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
+        //if (properties == null)
+        //    properties = new List<string>();
+        //if (items == null)
+        //    items = new List<Item>();
+        
     }
 
     new private void OnValidate()
@@ -140,7 +147,7 @@ public class ItemStack : PrefabPooler, ISaveable
             spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateIcon();
     }
-
+    
     public void UpdateIcon()
     {
         //Item.dumpAll();
@@ -151,6 +158,12 @@ public class ItemStack : PrefabPooler, ISaveable
             spriteRenderer = GetComponent<SpriteRenderer>();
         if (GUID!="" && spriteRenderer != null)
             spriteRenderer.sprite = Item.GetPrefabComponent(GUID).icon;
+
+        if (IsEmpty())
+        {
+            gameObject.SetActive(false);
+            //push to pool or destroy?  Best to pool, but this gets called multiple times...
+        }
     }
 
     private void SetStack(ItemStack other)
@@ -231,6 +244,7 @@ public class ItemStack : PrefabPooler, ISaveable
 
         if(other==null)
         {
+            gameObject.SetActive(false);
             other = objectPool.PopObject(itemstackPrefab);
         }
         other.SetStack(temp);
@@ -241,10 +255,13 @@ public class ItemStack : PrefabPooler, ISaveable
     public bool IsEmpty()
     {
         bool isEmpty;
-        if ((isDynamic == true && items.Count == 0) || (isDynamic != true && properties.Count == 0))
+        if ((isDynamic == true && (items == null || items.Count == 0)) || (isDynamic != true && (properties == null || properties.Count == 0)))
             isEmpty = true;
         else
             isEmpty = false;
+
+        //Debug.Log(isDynamic + " : " + items + " : " + properties);
+        //Debug.Log(gameObject.name + isEmpty);
         return isEmpty;
     }
 
