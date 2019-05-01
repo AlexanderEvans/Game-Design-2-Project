@@ -986,7 +986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7ad51cef7b15e4ebcbff94538fe1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToToggle: {fileID: 0}
+  gameObjectToToggle: {fileID: 1070381104}
 --- !u!114 &192520119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3189,7 +3189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f69bd87d771cd47850bcda9d750fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryData: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: f42a8989ef85d0e45999cb1335807d29, type: 2}
 --- !u!114 &1070381107
 MonoBehaviour:
   m_ObjectHideFlags: 0
