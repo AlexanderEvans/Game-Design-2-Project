@@ -9,7 +9,7 @@ public class Autorun
     
     static Autorun()
     {
-        Debug.Log("test");
+        //Debug.Log("test");
         EditorApplication.update += RunOnce;
     }
 
